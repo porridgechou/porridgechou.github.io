@@ -188,6 +188,419 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/23/computer-networks-interview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/clx.jpg">
+      <meta itemprop="name" content="porridgechou">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mynote">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/23/computer-networks-interview/" class="post-title-link" itemprop="url">计算机网络</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-23 08:43:00 / 修改时间：20:32:25" itemprop="dateCreated datePublished" datetime="2021-03-23T08:43:00+08:00">2021-03-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1-Http和Https的区别"><a href="#1-Http和Https的区别" class="headerlink" title="1.Http和Https的区别"></a>1.Http和Https的区别</h1><p>Http协议运行在TCP之上，明文传输，客户端与服务器端都无法验证对方的身份；Https是身披SSL(Secure Socket Layer)外壳的Http，运行于SSL上，SSL运行于TCP之上，是添加了加密和认证机制的HTTP。二者之间存在如下不同：</p>
+<ul>
+<li><p>端口不同：Http与Http使用不同的连接方式，用的端口也不一样，前者是80，后者是443；</p>
+</li>
+<li><p>资源消耗：和HTTP通信相比，Https通信会由于加减密处理消耗更多的CPU和内存资源；</p>
+</li>
+<li><p>开销：Https通信需要证书，而证书一般需要向认证机构购买；
+　</p>
+</li>
+</ul>
+<p>Https的加密机制是一种共享密钥加密和公开密钥加密并用的混合加密机制。</p>
+<h1 id="2-HTTP-是哪一层的协议？http常见的状态码"><a href="#2-HTTP-是哪一层的协议？http常见的状态码" class="headerlink" title="2.HTTP 是哪一层的协议？http常见的状态码"></a>2.HTTP 是哪一层的协议？http常见的状态码</h1><p>HTTP 协议 属于应用层的协议。</p>
+<p><strong>HTTP 协议是基于 TCP 协议的</strong>，发送 HTTP 请求之前首先要建立 TCP 连接也就是要经历 3 次握手。目前使用的 HTTP 协议大部分都是 1.1。在 1.1 的协议里面，默认是开启了 Keep-Alive 的，这样的话建立的连接就可以在多次请求中被复用了。</p>
+<p>另外， HTTP协议是无状态的协议，它<strong>无法记录客户端用户的状态</strong> 一般我们都是通过Session 来记录客户端用户的状态。</p>
+<table>
+<thead>
+<tr>
+<th align="center">状态码</th>
+<th align="center">类别</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1XX</td>
+<td align="center">Informational（信息性状态码）</td>
+<td align="center">接收的请求正在处理</td>
+</tr>
+<tr>
+<td align="center">2XX</td>
+<td align="center">Success（成功状态码）</td>
+<td align="center">请求正常处理完毕</td>
+</tr>
+<tr>
+<td align="center">3XX</td>
+<td align="center">Redirection（重定向状态码）</td>
+<td align="center">需要进行附加操作以完成请求</td>
+</tr>
+<tr>
+<td align="center">4XX</td>
+<td align="center">Client Error（客户端错误状态码）</td>
+<td align="center">服务器无法处理请求</td>
+</tr>
+<tr>
+<td align="center">5XX</td>
+<td align="center">Server Error（服务器错误状态码）</td>
+<td align="center">服务器处理请求出错</td>
+</tr>
+</tbody></table>
+<h2 id="1XX-信息"><a href="#1XX-信息" class="headerlink" title="1XX 信息"></a>1XX 信息</h2><ul>
+<li><u><strong>100 Continue</strong></u> ：表明到目前为止都很正常，客户端可以继续发送请求或者忽略这个响应。</li>
+</ul>
+<h2 id="2XX-成功"><a href="#2XX-成功" class="headerlink" title="2XX 成功"></a>2XX 成功</h2><ul>
+<li><u><strong>200 OK</strong></u></li>
+<li><strong>204 No Content</strong> ：请求已经成功处理，但是返回的响应报文不包含实体的主体部分。一般在只需要从客户端往服务器发送信息，而不需要返回数据时使用。</li>
+<li><strong>206 Partial Content</strong> ：表示客户端进行了范围请求，响应报文包含由 Content-Range 指定范围的实体内容。</li>
+</ul>
+<h2 id="3XX-重定向"><a href="#3XX-重定向" class="headerlink" title="3XX 重定向"></a>3XX 重定向</h2><ul>
+<li><u><strong>301 Moved Permanently</strong></u> ：永久性重定向</li>
+<li><u><strong>302 Found</strong></u> ：临时性重定向</li>
+<li><strong>303 See Other</strong> ：和 302 有着相同的功能，但是 303 明确要求客户端应该采用 GET 方法获取资源。</li>
+<li>注：虽然 HTTP 协议规定 301、302 状态下重定向时不允许把 POST 方法改成 GET 方法，但是大多数浏览器都会在 301、302 和 303 状态下的重定向把 POST 方法改成 GET 方法。</li>
+<li><strong>304 Not Modified</strong> ：如果请求报文首部包含一些条件，例如：If-Match，If-Modified-Since，If-None-Match，If-Range，If-Unmodified-Since，如果不满足条件，则服务器会返回 304 状态码。</li>
+<li><strong>307 Temporary Redirect</strong> ：临时重定向，与 302 的含义类似，但是 307 要求浏览器不会把重定向请求的 POST 方法改成 GET 方法。</li>
+</ul>
+<h2 id="4XX-客户端错误"><a href="#4XX-客户端错误" class="headerlink" title="4XX 客户端错误"></a>4XX 客户端错误</h2><ul>
+<li><strong>400 Bad Request</strong> ：请求报文中存在语法错误。</li>
+<li><strong>401 Unauthorized</strong> ：该状态码表示发送的请求需要有认证信息（BASIC 认证、DIGEST 认证）。如果之前已进行过一次请求，则表示用户认证失败。</li>
+<li><u><strong>403 Forbidden</strong></u> ：请求被拒绝。(可能没有权限)</li>
+<li><u><strong>404 Not Found</strong></u> :  没有对应资源</li>
+</ul>
+<h2 id="5XX-服务器错误"><a href="#5XX-服务器错误" class="headerlink" title="5XX 服务器错误"></a>5XX 服务器错误</h2><ul>
+<li><u><strong>500 Internal Server Error</strong></u>  ：服务器正在执行请求时发生错误。（有内部错误）</li>
+<li><u><strong>503 Service Unavailable</strong></u> ：服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。</li>
+</ul>
+<h1 id="3-对称式加密与非对称式加密"><a href="#3-对称式加密与非对称式加密" class="headerlink" title="3.对称式加密与非对称式加密"></a>3.对称式加密与非对称式加密</h1><p>对称加密：密钥只有一个，加密解密为同一个密码，且加解密速度快，典型的对称 加密算法有DES、AES等；</p>
+<p>非对称密钥加密，加密和解密使用不同的密钥。通信发送方获得接收方的公开密钥之后，就 可以使用公开密钥进行加密，接收方收到通信内容后使用私有密钥解密。可以更安全地将公 开密钥传输给通信发送方；运算速度慢。典型的非对称加密算法有RSA、DSA等</p>
+<p>HTTPS 采用的加密方式: HTTPS 采用混合的加密机制。所有传输的内容都经过加密，加密采用对称加密，但对称加密的密钥用服务器方的证书进行了非对称加密。</p>
+<h1 id="4-HTTP-2-0"><a href="#4-HTTP-2-0" class="headerlink" title="4.HTTP/2.0"></a>4.HTTP/2.0</h1><h2 id="HTTP-1-x-缺陷"><a href="#HTTP-1-x-缺陷" class="headerlink" title="HTTP/1.x 缺陷"></a>HTTP/1.x 缺陷</h2><p>HTTP/1.x 实现简单是以牺牲性能为代价的：</p>
+<ul>
+<li>客户端需要使用多个连接才能实现并发和缩短延迟；</li>
+<li>不会压缩请求和响应首部，从而导致不必要的网络流量；</li>
+<li>不支持有效的资源优先级，致使底层 TCP 连接的利用率低下。</li>
+</ul>
+<h2 id="HTTP-2-0"><a href="#HTTP-2-0" class="headerlink" title="HTTP/2.0"></a>HTTP/2.0</h2><h3 id="二进制分帧层"><a href="#二进制分帧层" class="headerlink" title="二进制分帧层"></a>二进制分帧层</h3><ul>
+<li><p>HTTP/2.0 将报文分成 HEADERS 帧和 DATA 帧，它们都是二进制格式的。</p>
+</li>
+<li><p>在通信过程中，只会有一个 TCP 连接存在，它承载了任意数量的双向数据流（Stream）。</p>
+</li>
+</ul>
+<h3 id="服务端推送"><a href="#服务端推送" class="headerlink" title="服务端推送"></a>服务端推送</h3><p>HTTP/2.0 在客户端请求一个资源时，会把相关的资源一起发送给客户端，客户端就不需要再次发起请求了。</p>
+<h3 id="首部压缩"><a href="#首部压缩" class="headerlink" title="首部压缩"></a>首部压缩</h3><p>HTTP/1.1 的首部带有大量信息，而且每次都要重复发送。</p>
+<p>HTTP/2.0 要求客户端和服务器同时维护和更新一个包含之前见过的首部字段表，从而避免了重复传输。</p>
+<p>不仅如此，HTTP/2.0 也使用 Huffman 编码对首部字段进行压缩。</p>
+<h1 id="5-HTTP报文详解"><a href="#5-HTTP报文详解" class="headerlink" title="5.HTTP报文详解"></a>5.HTTP报文详解</h1><h2 id="请求和响应报文"><a href="#请求和响应报文" class="headerlink" title="请求和响应报文"></a>请求和响应报文</h2><p>客户端发送一个请求报文给服务器，服务器根据请求报文中的信息进行处理，并将处理结果放入响应报文中返回给客户端。</p>
+<p>请求报文结构：</p>
+<ul>
+<li>第一行是包含了请求方法、URL、协议版本；</li>
+<li>接下来的多行都是请求首部 Header，每个首部都有一个首部名称，以及对应的值。</li>
+<li>一个空行用来分隔首部和内容主体 Body</li>
+<li>最后是请求的内容主体</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">GET http://www.example.com/ HTTP/1.1</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9,en;q=0.8</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Host: www.example.com</span><br><span class="line">If-Modified-Since: Thu, 17 Oct 2019 07:18:26 GMT</span><br><span class="line">If-None-Match: &quot;3147526947+gzip&quot;</span><br><span class="line">Proxy-Connection: keep-alive</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: Mozilla/5.0 xxx</span><br><span class="line"></span><br><span class="line">param1=1&amp;param2=2</span><br></pre></td></tr></table></figure>
+
+<p>响应报文结构：</p>
+<ul>
+<li>第一行包含协议版本、状态码以及描述，最常见的是 200 OK 表示请求成功了</li>
+<li>接下来多行也是首部内容</li>
+<li>一个空行分隔首部和内容主体</li>
+<li>最后是响应的内容主体</li>
+</ul>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Age: 529651</span><br><span class="line">Cache-Control: max-age=604800</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Content-Encoding: gzip</span><br><span class="line">Content-Length: 648</span><br><span class="line">Content-Type: text/html; charset=UTF-8</span><br><span class="line">Date: Mon, 02 Nov 2020 17:53:39 GMT</span><br><span class="line">Etag: &quot;3147526947+ident+gzip&quot;</span><br><span class="line">Expires: Mon, 09 Nov 2020 17:53:39 GMT</span><br><span class="line">Keep-Alive: timeout=4</span><br><span class="line">Last-Modified: Thu, 17 Oct 2019 07:18:26 GMT</span><br><span class="line">Proxy-Connection: keep-alive</span><br><span class="line">Server: ECS (sjc/16DF)</span><br><span class="line">Vary: Accept-Encoding</span><br><span class="line">X-Cache: HIT</span><br><span class="line"></span><br><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;Example Domain&lt;/title&gt;</span><br><span class="line">	// 省略... </span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="6-HTTP-1-1-新特点"><a href="#6-HTTP-1-1-新特点" class="headerlink" title="6.HTTP/1.1 新特点"></a>6.HTTP/1.1 新特点</h1><ul>
+<li>默认是长连接</li>
+<li>支持流水线</li>
+<li>支持同时打开多个 TCP 连接</li>
+<li>支持虚拟主机</li>
+<li>新增状态码 100</li>
+<li>支持分块传输编码</li>
+<li>新增缓存处理指令 max-age</li>
+</ul>
+<h1 id="7-GET和POST的区别"><a href="#7-GET和POST的区别" class="headerlink" title="7.GET和POST的区别"></a>7.GET和POST的区别</h1><h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>GET 用于获取资源，而 POST 用于传输实体主体。</p>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>GET请求的数据会附在URL之后，即将请求数据放置在HTTP报文的 <strong>请求头</strong> 中。而POST请求会把提交的数据则放置在是HTTP请求报文的 **请求体 **中。</p>
+<h2 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h2><p>安全的 HTTP 方法不会改变服务器状态，也就是说它只是可读的。</p>
+<p>GET 方法是安全的，而 POST 却不是，因为 POST 的目的是传送实体主体内容，这个内容可能是用户上传的表单数据，上传成功之后，服务器可能把这个数据存储到数据库中，因此状态也就发生了改变。</p>
+<p>安全的方法除了 GET 之外还有：HEAD、OPTIONS。</p>
+<p>不安全的方法除了 POST 之外还有 PUT、DELETE。</p>
+<h2 id="幂等性"><a href="#幂等性" class="headerlink" title="幂等性"></a>幂等性</h2><p>幂等的 HTTP 方法，同样的请求被执行一次与连续执行多次的效果是一样的，服务器的状态也是一样的。换句话说就是，幂等方法不应该具有副作用（统计用途除外）。</p>
+<p>所有的安全方法也都是幂等的。</p>
+<p>在正确实现的条件下，GET，HEAD，PUT 和 DELETE 等方法都是幂等的，而 POST 方法不是。</p>
+<h2 id="请求的大小"><a href="#请求的大小" class="headerlink" title="请求的大小"></a>请求的大小</h2><p>GET请求的长度受限于浏览器或服务器对URL长度的限制，允许发送的数据量比较小，而POST请求则是没有大小限制的。</p>
+<h1 id="8-TCP-IP-4-层模型了解么"><a href="#8-TCP-IP-4-层模型了解么" class="headerlink" title="8.TCP/IP 4 层模型了解么"></a>8.TCP/IP 4 层模型了解么</h1><p>TCP/IP 4 层模型:</p>
+<ol>
+<li>应用层</li>
+<li>传输层</li>
+<li>网络层</li>
+<li>网络接口层</li>
+</ol>
+<h1 id="9-OSI网络体系结构与TCP-IP协议模型"><a href="#9-OSI网络体系结构与TCP-IP协议模型" class="headerlink" title="9.OSI网络体系结构与TCP/IP协议模型"></a>9.OSI网络体系结构与TCP/IP协议模型</h1><p>​    我们知道TCP/IP与OSI最大的不同在于：OSI是一个理论上的网络通信模型，而TCP/IP则是实际上的网络通信标准。但是，它们的初衷是一样的，都是为了使得两台计算机能够像两个知心朋友那样能够互相准确理解对方的意思并做出优雅的回应。现在，我们对OSI七层模型的各层进行简要的介绍：</p>
+<p>　　　　　　　　　<img src="http://static.zybuluo.com/Rico123/0qwq331jj8bzgmqst282f6lp/OSI%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E4%B8%8ETCPIP%E5%8D%8F%E8%AE%AE%E6%A8%A1%E5%9E%8B.png" alt="OSI网络体系结构与TCPIP协议模型.png-51.3kB">　</p>
+<p>1). 物理层</p>
+<p>　　参考模型的最低层，也是OSI模型的第一层，实现了相邻计算机节点之间比特流的透明传送，并尽可能地屏蔽掉具体传输介质和物理设备的差异，使其上层(数据链路层)不必关心网络的具体传输介质。</p>
+<p>2). 数据链路层（data link layer）</p>
+<p>　　接收来自物理层的位流形式的数据，并封装成帧，传送到上一层；同样，也将来自上层的数据帧，拆装为位流形式的数据转发到物理层。这一层在物理层提供的比特流的基础上，通过差错控制、流量控制方法，使有差错的物理线路变为无差错的数据链路，即提供可靠的通过物理介质传输数据的方法。</p>
+<p>3). 网络层</p>
+<p>　　将网络地址翻译成对应的物理地址，并通过路由选择算法为分组通过通信子网选择最适当的路径。</p>
+<p>　　　　　　<img src="http://static.zybuluo.com/Rico123/ed9145bf4nus32fr7umxxnk7/%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E4%B8%8E%E7%BD%91%E8%B7%AF%E5%B1%82.png" alt="数据链路层与网路层.png-58.4kB">　　　　</p>
+<p>4). 传输层（transport layer）</p>
+<p>　　在源端与目的端之间提供可靠的透明数据传输，使上层服务用户不必关系通信子网的实现细节。在协议栈中，传输层位于网络层之上，传输层协议为不同主机上运行的进程提供逻辑通信，而网络层协议为不同主机提供逻辑通信，如下图所示。</p>
+<p>　　　　　<img src="http://static.zybuluo.com/Rico123/5td1y45fm09cbhgw07o6fgfc/%E7%BD%91%E8%B7%AF%E5%B1%82%E4%B8%8E%E4%BC%A0%E8%BE%93%E5%B1%82.png" alt="网路层与传输层.png-52.8kB">　　　　　</p>
+<p>　　实际上，网络层可以看作是传输层的一部分，其为传输层提供服务。但对于终端系统而言，网络层对它们而言是透明的，它们知道传输层的存在，也就是说，在逻辑上它们认为是传输层为它们提供了端对端的通信，这也是分层思想的妙处。</p>
+<p>5). 会话层（Session Layer）</p>
+<p>　　会话层是OSI模型的第五层，是用户应用程序和网络之间的接口，负责在网络中的两节点之间建立、维持和终止通信。</p>
+<p>6). 表示层（Presentation Layer）：数据的编码，压缩和解压缩，数据的加密和解密</p>
+<p>　　表示层是OSI模型的第六层，它对来自应用层的命令和数据进行解释，以确保一个系统的应用层所发送的信息可以被另一个系统的应用层读取。</p>
+<p>7). 应用层（Application layer）：为用户的应用进程提供网络通信服务</p>
+<h1 id="10-三次握手"><a href="#10-三次握手" class="headerlink" title="10.三次握手"></a>10.三次握手</h1><p><img src="/images/pasted-210323threehandshake.jpg"></p>
+<p><img src="/images/pasted-210323fourhandshake.jpg"></p>
+<p><img src="/images/pasted-210323statechange.jpg"></p>
+<h2 id="文字说明"><a href="#文字说明" class="headerlink" title="文字说明"></a>文字说明</h2><p>三次握手(我要和你建立链接，你真的要和我建立链接么，我真的要和你建立链接，成功)：</p>
+<ul>
+<li><p>第一次握手：Client将标志位SYN置为1，随机产生一个值seq=J，并将该数据包发送给Server，Client进入SYN_SENT状态，等待Server确认。</p>
+</li>
+<li><p>第二次握手：Server收到数据包后由标志位SYN=1知道Client请求建立连接，Server将标志位SYN和ACK都置为1，ack=J+1，随机产生一个值seq=K，并将该数据包发送给Client以确认连接请求，Server进入SYN_RCVD状态。</p>
+</li>
+<li><p>第三次握手：Client收到确认后，检查ack是否为J+1，ACK是否为1，如果正确则将标志位ACK置为1，ack=K+1，并将该数据包发送给Server，Server检查ack是否为K+1，ACK是否为1，如果正确则连接建立成功，Client和Server进入ESTABLISHED状态，完成三次握手，随后Client与Server之间可以开始传输数据了。</p>
+</li>
+</ul>
+<p><img src="http://static.zybuluo.com/Rico123/c7m5fo6qdua0q7me88jm9w10/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.png" alt="三次握手.png-12.4kB"></p>
+<h2 id="三次握手的原因"><a href="#三次握手的原因" class="headerlink" title="三次握手的原因"></a>三次握手的原因</h2><p>三次握手的目的是建立可靠的通信信道，三次握手最主要的目的就是双方确认自己与对方的 发送与接收是正常的。</p>
+<p>第三次握手是为了防止失效的连接请求到达服务器，让服务器错误打开连接。</p>
+<h2 id="为什么两次不行"><a href="#为什么两次不行" class="headerlink" title="为什么两次不行"></a>为什么两次不行</h2><p>​        为了防止 已失效的链接请求报文突然又传送到了服务端，因而产生错误。</p>
+<p>　　客户端发出的连接请求报文并未丢失，而是在某个网络节点长时间滞留了，以致延误到链接释放以后的某个时间才到达Server。这是，Server误以为这是Client发出的一个新的链接请求，于是就向客户端发送确认数据包，同意建立链接。若不采用“三次握手”，那么只要Server发出确认数据包，新的链接就建立了。由于client此时并未发出建立链接的请求，所以其不会理睬Server的确认，也不与Server通信；而这时Server一直在等待Client的请求，这样Server就白白浪费了一定的资源。若采用“三次握手”，在这种情况下，由于Server端没有收到来自客户端的确认，则就会知道Client并没有要求建立请求，就不会建立链接。</p>
+<h1 id="11-四次挥手"><a href="#11-四次挥手" class="headerlink" title="11.四次挥手"></a>11.四次挥手</h1><p><img src="/images/pasted-210323groupchange.jpg"></p>
+<h2 id="文字说明-1"><a href="#文字说明-1" class="headerlink" title="文字说明"></a>文字说明</h2><ul>
+<li><p>第一次挥手：Client发送一个FIN，用来关闭Client到Server的数据传送，Client进入FIN_WAIT_1状态。</p>
+</li>
+<li><p>第二次挥手：Server收到FIN后，发送一个ACK给Client，确认序号为收到序号+1（与SYN相同，一个FIN占用一个序号），Server进入CLOSE_WAIT状态。此时TCP链接处于半关闭状态，即客户端已经没有要发送的数据了，但服务端若发送数据，则客户端仍要接收。</p>
+</li>
+<li><p>第三次挥手：Server发送一个FIN，用来关闭Server到Client的数据传送，Server进入LAST_ACK状态。</p>
+</li>
+<li><p>第四次挥手：Client收到FIN后，Client进入TIME_WAIT状态，接着发送一个ACK给Server，确认序号为收到序号+1，Server进入CLOSED状态，完成四次挥手。<br><img src="http://static.zybuluo.com/Rico123/ardiuu1otopo9f1jd4df18iz/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B.png" alt="四次挥手.png-12.6kB"></p>
+</li>
+</ul>
+<h2 id="CLOSE-WAIT-状态问题："><a href="#CLOSE-WAIT-状态问题：" class="headerlink" title="CLOSE-WAIT 状态问题："></a>CLOSE-WAIT 状态问题：</h2><p>客户端发送了 FIN 连接释放报文之后，服务器收到了这个报文，就进入了 CLOSE-WAIT 状态。这个状态是为了让服务器端发送还未传送完毕的数据，传送完毕之后，服务器会发送FIN 连接释放报文。</p>
+<h2 id="TIME-WAIT-状态问题-这个问题问过很多次但总是答得不甚满意-："><a href="#TIME-WAIT-状态问题-这个问题问过很多次但总是答得不甚满意-：" class="headerlink" title="TIME-WAIT 状态问题(这个问题问过很多次但总是答得不甚满意)："></a>TIME-WAIT 状态问题(这个问题问过很多次但总是答得不甚满意)：</h2><p>客户端接收到服务器端的 FIN 报文后进入此状态，此时并不是直接进入 CLOSED 状态，还需要等待一个时间计时器设置的时间 2MSL。这么做有两个理由：</p>
+<p>确保最后一个确认报文能够到达。如果 B 没收到 A 发送来的确认报文，那么就会重新发送连接释放请求报文，A 等待一段时间就是为了处理这种情况的发生。</p>
+<p>等待一段时间是为了让本连接持续时间内所产生的所有报文都从网络中消失，使得下一 个新的连接不会出现旧的连接请求报文。</p>
+<p>通信双方建立TCP连接后，主动关闭连接的一方就会进入TIME_WAIT状态。</p>
+<h1 id="12-TCP滑动窗口是干什么的"><a href="#12-TCP滑动窗口是干什么的" class="headerlink" title="12.TCP滑动窗口是干什么的"></a>12.TCP滑动窗口是干什么的</h1><p>滑动窗口：窗口是缓存的一部分，用来暂时存放字节流。发送方和接收方各有一个窗口，接 收方通过 TCP 报文段中的窗口字段告诉发送方自己的窗口大小，发送方根据这个值和其它信息设置自己的窗口大小。</p>
+<p>发送窗口内的字节都允许被发送，接收窗口内的字节都允许被接收。接收窗口只会对窗口内 最后一个按序到达的字节进行确认。如果发送窗口内的字节已经发送并且收到了确认，那么 就将发送窗口向右滑动一定距离，直到第一个字节不是已发送并且已确认的状态；接收窗口 的滑动类似，接收窗口左部字节已经发送确认并交付主机，就向滑动接收窗口。</p>
+<h1 id="13-TCP的可靠性体现在哪里"><a href="#13-TCP的可靠性体现在哪里" class="headerlink" title="13.TCP的可靠性体现在哪里"></a>13.TCP的可靠性体现在哪里</h1><p>对于可靠性，TCP通过以下方式进行保证：</p>
+<ul>
+<li><p>数据包校验（校验和）：目的是检测数据在传输过程中的任何变化，若校验出包有错，则丢弃报文段并且不给出响应，这时TCP发送数据端超时后会重发数据；</p>
+</li>
+<li><p>对失序数据包重排序：既然TCP报文段作为IP数据报来传输，而IP数据报的到达可能会失序，因此TCP报文段的到达也可能会失序。TCP将对失序数据进行重新排序，然后才交给应用层；</p>
+</li>
+<li><p>丢弃重复数据：对于重复数据，能够丢弃重复数据；</p>
+</li>
+<li><p>应答机制：当TCP收到发自TCP连接另一端的数据，它将发送一个确认。这个确认不是立即发送，通常将推迟几分之一秒；</p>
+</li>
+<li><p>超时重发：当TCP发出一个段后，它启动一个定时器，等待目的端确认收到这个报文段。如果不能及时收到一个确认，将重发这个报文段；</p>
+</li>
+<li><p>流量控制：TCP连接的每一方都有固定大小的缓冲空间。TCP的接收端只允许另一端发送接收端缓冲区所能接纳的数据，这可以防止较快主机致使较慢主机的缓冲区溢出，这就是流量控制。TCP使用的流量控制协议是可变大小的滑动窗口协议。</p>
+</li>
+<li><p>拥塞控制：当网络拥塞时，减少数据的发送。</p>
+</li>
+</ul>
+<h1 id="14-TCP流量控制"><a href="#14-TCP流量控制" class="headerlink" title="14.TCP流量控制"></a>14.TCP流量控制</h1><p><strong>流量控制如何实现</strong>：流量控制是为了控制发送方发送速率，保证接收方来得及接收。</p>
+<p>接收方发送的确认报文中的窗口字段可以用来控制发送方窗口大小，从而影响发送方的发送 速率。将窗口字段设置为 0，则发送方不能发送数据。</p>
+<h1 id="15-拥塞控制如何实现"><a href="#15-拥塞控制如何实现" class="headerlink" title="15.拥塞控制如何实现"></a>15.拥塞控制如何实现</h1><p>如果网络出现拥塞，分组将会丢失，此时发送方会继续重传，从而导致网络拥塞 程度更高。因此当出现拥塞时，应当控制发送方的速率。TCP 主要通过四个算法来进行拥塞控制：慢开始、拥塞避免、快重传、快恢复。</p>
+<p>发送方需要维护一个叫做拥塞窗口（cwnd）的状态变量。</p>
+<p>1）<strong>慢启动：</strong>不要一开始就发送大量的数据，先探测一下网络的拥塞程度，也就是说由小到大逐渐增加拥塞窗口的大小;</p>
+<p>2） <strong>拥塞避免：</strong>拥塞避免算法让拥塞窗口缓慢增长，即每经过一个往返时间RTT就把发送方的拥塞窗口cwnd加1，而不是加倍，这样拥塞窗口按线性规律缓慢增长。如果出现了超时，则令慢开始门限 = 拥塞窗口大小 / 2，然后重新执行慢开始。</p>
+<p><img src="http://static.zybuluo.com/Rico123/whi0y5sbc3tx9qcdp0s532gw/%E6%85%A2%E5%BC%80%E5%A7%8B%E4%B8%8E%E6%8B%A5%E5%A1%9E%E9%81%BF%E5%85%8D.png" alt="慢开始与拥塞避免.png-90.3kB"></p>
+<p>3）<strong>快重传：</strong>快重传要求接收方在收到一个 <strong>失序的报文段</strong> 后就立即发出 <strong>重复确认</strong>（为的是使发送方及早知道有报文段没有到达对方）而不要等到自己发送数据时捎带确认。快重传算法规定，发送方只要一连收到三个重复确认就应当立即重传对方尚未收到的报文段，而不必继续等待设置的重传计时器时间到期。</p>
+<p><img src="http://static.zybuluo.com/Rico123/wuktdms9jtg4s9m4pe5kcbiq/%E5%BF%AB%E9%87%8D%E4%BC%A0.jpg" alt="快重传.jpg-42.3kB"></p>
+<p>4）<strong>快恢复</strong>：快重传配合使用的还有快恢复算法，当发送方连续收到三个重复确认时，就执行“乘法减小”算法，把ssthresh门限减半，但是接下去并不执行慢开始算法：因为如果网络出现拥塞的话就不会收到好几个重复的确认，所以发送方现在认为网络可能没有出现拥塞。所以此时不执行慢开始算法，而是将cwnd设置为ssthresh的大小，然后执行拥塞避免算法。</p>
+<h1 id="16-TCP和UDP有什么区别？及其适用的场景"><a href="#16-TCP和UDP有什么区别？及其适用的场景" class="headerlink" title="16.TCP和UDP有什么区别？及其适用的场景"></a>16.TCP和UDP有什么区别？及其适用的场景</h1><p>TCP (Transmission Control Protocol)和UDP(User Datagram Protocol)协议属于传输层协议，它们之间的区别包括：</p>
+<ul>
+<li><p>TCP是面向连接的，UDP是无连接的；</p>
+</li>
+<li><p>TCP是可靠的，UDP是不可靠的；</p>
+</li>
+<li><p>TCP只支持点对点通信，UDP支持一对一、一对多、多对一、多对多的通信模式；</p>
+</li>
+<li><p>TCP是面向字节流的，UDP是面向报文的；</p>
+</li>
+<li><p>TCP有拥塞控制机制;UDP没有拥塞控制，适合媒体通信；</p>
+</li>
+<li><p>TCP首部开销(20个字节)比UDP的首部开销(8个字节)要大；</p>
+</li>
+</ul>
+<p><strong>TCP应用场景</strong>：</p>
+<p>效率要求相对低，但对准确性要求相对高的场景。因为传输中需要对数据确认、重发、 排序等操作，相比之下效率没有UDP高。举几个例子：文件传输、接受邮件、远程登录。</p>
+<p><strong>UDP应用场景</strong>：</p>
+<p>效率要求相对高，对准确性要求相对低的场景。举几个例子：QQ聊天、在线视频、网络语音电话、广播通信（广播、多播）。</p>
+<p>1). TCP对应的应用层协议</p>
+<ul>
+<li><p>FTP：定义了文件传输协议，使用21端口。常说某某计算机开了FTP服务便是启动了文件传输服务。下载文件，上传主页，都要用到FTP服务。</p>
+</li>
+<li><p>Telnet：它是一种用于远程登陆的端口，用户可以以自己的身份远程连接到计算机上，通过这种端口可以提供一种基于DOS模式下的通信服务。如以前的BBS是-纯字符界面的，支持BBS的服务器将23端口打开，对外提供服务。</p>
+</li>
+<li><p>SMTP：定义了简单邮件传送协议，现在很多邮件服务器都用的是这个协议，用于发送邮件。如常见的免费邮件服务中用的就是这个邮件服务端口，所以在电子邮件设置-中常看到有这么SMTP端口设置这个栏，服务器开放的是25号端口。</p>
+</li>
+<li><p>POP3：它是和SMTP对应，POP3用于接收邮件。通常情况下，POP3协议所用的是110端口。也是说，只要你有相应的使用POP3协议的程序（例如Fo-xmail或Outlook），就可以不以Web方式登陆进邮箱界面，直接用邮件程序就可以收到邮件（如是163邮箱就没有必要先进入网易网站，再进入自己的邮-箱来收信）。</p>
+</li>
+<li><p>HTTP：从Web服务器传输超文本到本地浏览器的传送协议。</p>
+</li>
+</ul>
+<p>2). UDP对应的应用层协议</p>
+<ul>
+<li><p>DNS：用于域名解析服务，将域名地址转换为IP地址。DNS用的是53号端口。</p>
+</li>
+<li><p>SNMP：简单网络管理协议，使用161号端口，是用来管理网络设备的。由于网络设备很多，无连接的服务就体现出其优势。</p>
+</li>
+<li><p>TFTP(Trival File Transfer Protocal)：简单文件传输协议，该协议在熟知端口69上使用UDP服务。</p>
+</li>
+</ul>
+<p><img src="http://static.zybuluo.com/Rico123/r3gm4e6y9hlgqllw8ba10676/TCP%E5%92%8CUDP%E5%88%86%E5%88%AB%E5%AF%B9%E5%BA%94%E7%9A%84%E5%B8%B8%E8%A7%81%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AE.png" alt="TCP和UDP分别对应的常见应用层协议.png-41.5kB"></p>
+<h1 id="17-UDP为何快"><a href="#17-UDP为何快" class="headerlink" title="17.UDP为何快"></a>17.UDP为何快</h1><p><strong>UDP为何快？</strong></p>
+<ol>
+<li>不需要建立连接</li>
+<li>对于收到的数据，不用给出确认</li>
+<li>没有超时重发机制</li>
+<li>没有流量控制和拥塞控制</li>
+</ol>
+<h1 id="18-Mac-地址和-ip-地址的区别？既然有了-Mac-地址，为什么还要-ip-地址呢？"><a href="#18-Mac-地址和-ip-地址的区别？既然有了-Mac-地址，为什么还要-ip-地址呢？" class="headerlink" title="18.Mac 地址和 ip 地址的区别？既然有了 Mac 地址，为什么还要 ip 地址呢？"></a>18.Mac 地址和 ip 地址的区别？既然有了 Mac 地址，为什么还要 ip 地址呢？</h1><p>MAC地址是烧录在网卡或者接口上的<strong>物理地址</strong>，具有<strong>全球唯一性</strong>，一般不能被改变。IP地址是网络中的主机或接口在网络中的<strong>逻辑地址</strong>，在<strong>同一个网络内具有唯一性</strong>。</p>
+<h1 id="19-当你打开一个电商网站，都需要经历哪些过程？分别用到了什么协议。"><a href="#19-当你打开一个电商网站，都需要经历哪些过程？分别用到了什么协议。" class="headerlink" title="19.当你打开一个电商网站，都需要经历哪些过程？分别用到了什么协议。"></a>19.当你打开一个电商网站，都需要经历哪些过程？分别用到了什么协议。</h1><ol>
+<li>浏览器查找域名的IP地址 （DNS：获取域名对应的IP）</li>
+<li> 浏览器获得域名对应的IP地址以后，浏览器向服务器请求建立链接，发起三次握手；</li>
+<li>TCP/IP链接建立起来后，浏览器向web服务器发送HTTP请求（cookies会随着请求发送给服务器）</li>
+<li>服务器处理请求 （请求 处理请求 参数、cookies、生成一个HTML响应）</li>
+<li>服务器返回HTTP报文，发回一个HTML响应。</li>
+<li>浏览器解析渲染页面，浏览器开始显示HTML。</li>
+<li>连接结束</li>
+</ol>
+<p>使用的协议:</p>
+<p><strong>DNS</strong>: 获取域名对应的IP TCP: 与服务器建立TCP连接</p>
+<p><strong>IP</strong>: 建立TCP协议时，需要发送数据，发送数据在网络层上使用IP协议</p>
+<p><strong>OSPF</strong>：IP数据包在路由器之间，路由选择使用OSPF协议</p>
+<p><strong>ARP</strong>：路由器在与服务器进行通信的过程中，将IP地址装换成MAC地址</p>
+<p><strong>HTTP</strong>：客户端浏览器与Web服务器之间的应用层通信协议，在TCP建立完成后，使用HTTP协议访问网页</p>
+<h1 id="20-网络层的ARP协议工作原理"><a href="#20-网络层的ARP协议工作原理" class="headerlink" title="20.网络层的ARP协议工作原理"></a>20.<strong>网络层的ARP协议工作原理</strong></h1><p>​    <strong>网络层的ARP协议完成了IP地址与物理地址的映射</strong>。首先，每台主机都会在自己的ARP缓冲区中建立一个ARP列表，以表示IP地址和MAC地址的对应关系。当源主机需要将一个数据包要发送到目的主机时，会首先检查自己ARP列表中是否存在该IP地址对应的MAC地址：如果有，就直接将数据包发送到这个MAC地址；如果没有，就向本地网段发起一个ARP请求的广播包，查询此目的主机对应的MAC地址。此ARP请求数据包里包括源主机的IP地址、硬件地址、以及目的主机的IP地址。网络中所有的主机收到这个ARP请求后，会检查数据包中的目的IP是否和自己的IP地址一致。如果不相同就忽略此数据包；如果相同，该主机首先将发送端的MAC地址和IP地址添加到自己的ARP列表中，如果ARP表中已经存在该IP的信息，则将其覆盖，然后给源主机发送一个ARP响应数据包，告诉对方自己是它需要查找的MAC地址；源主机收到这个ARP响应数据包后，将得到的目的主机的IP地址和MAC地址添加到自己的ARP列表中，并利用此信息开始数据的传输。如果源主机一直没有收到ARP响应数据包，表示ARP查询失败。</p>
+<h1 id="21-电子邮件的发送过程"><a href="#21-电子邮件的发送过程" class="headerlink" title="21.电子邮件的发送过程?"></a>21.电子邮件的发送过程?</h1><p>一个电子邮件系统由三部分组成：用户代理、邮件服务器以及邮件协议。</p>
+<p>邮件协议包含发送协议和读取协议，发送协议常用 SMTP，读取协议常用 POP3 和 IMAP。</p>
+<ol>
+<li>用户A的邮箱是QQ邮箱，他要发往的邮箱是163邮箱，用户A写好一封邮件点击发送， 即提交到了QQ邮箱服务器，使用的是SMTP协议。</li>
+<li>QQ邮箱会对A发送邮件的收件地址进行解析，判断是否为内部邮箱的账号，如果也是QQ邮箱，会直接存储到自己的存储空间，如果不是则会发送到指定邮箱服务器，使用 的也是SMTP协议。</li>
+<li>163的邮箱服务器收到邮件后会再次判断该邮件是否为自己的邮件，如果是则存到自己的存储空间，等待POP3服务去读取邮件。</li>
+<li>用户B收到消息后，打开客户端访问163服务器，调用POP3服务。</li>
+<li>Pop3服务接到指令后，读取存储空间中发送给B的未读邮件服务。</li>
+<li>将读取到的邮件返回给客户端软件。</li>
+</ol>
+<h1 id="22-DNS解析过程，DNS劫持了解吗？"><a href="#22-DNS解析过程，DNS劫持了解吗？" class="headerlink" title="22.DNS解析过程，DNS劫持了解吗？"></a>22.DNS解析过程，DNS劫持了解吗？</h1><p>DNS完成的工作是：域名到IP地址的解析。将域名和IP地址相互映射的一个分布式数据库。</p>
+<ul>
+<li><p>第一步：客户机提出域名解析请求，并将该请求发送给本地域名服务器。</p>
+</li>
+<li><p>第二步：当本地域名服务器收到请求后，就先查询本地缓存，如果有该纪录项，则本地域名服务器就直接把查询结果返回。</p>
+</li>
+<li><p>第三步：如果本地缓存中没该纪录，则本地域名服务器就直接把请求发给根域名服务器，然 后根域名服务器再返回给本地域名服务器一个所查询域(根子域)主域名服务器地址。</p>
+</li>
+<li><p>第四步：本地服务器再向上一步返回的域名服务器发送请求，然后接受请求的服务器查询自 己的缓存，如果没该纪录，则返回相关下级域名服务器地址。</p>
+</li>
+<li><p>第五步：重复第四步，直到找到正确纪录。</p>
+</li>
+<li><p>第六步：本地域名服务器把返回结果保存到缓存，以备下一次使用，同时还将结果返回给客 户机。</p>
+</li>
+</ul>
+<p>DNS劫持：在DNS服务器中，将www..com的域名对应的IP地址进行了变化。你解析出来的 域名对应的IP，在劫持前后不一样。</p>
+<p>HTTP劫持：你DNS解析的域名的IP地址不变。在和网站交互过程中的劫持了你的请求。在网站发给你信息前就给你返回了请求。</p>
+<p>DNS在区域传输的时候使用TCP协议,其他时候使用UDP协议。</p>
+<h1 id="23-session和cookie的问题？"><a href="#23-session和cookie的问题？" class="headerlink" title="23.session和cookie的问题？"></a>23.session和cookie的问题？</h1><p>Cookie 和 Session都是用来跟踪浏览器用户身份的会话方式</p>
+<p>Cookie 一般用来保存用户信息，Session 的主要作用就是通过服务端记录用户的状态</p>
+<p>Cookie 数据保存在客户端(浏览器端)，Session 数据保存在服务器端。相对来说 Session 安全性更高。如果要在 Cookie 中存储一些敏感信息，不要直接写入 Cookie 中，最好能将Cookie 信息加密然后使用到的时候再去服务器端解密。</p>
+<h1 id="24-HTTP是不保存状态的协议-如何保存用户状态"><a href="#24-HTTP是不保存状态的协议-如何保存用户状态" class="headerlink" title="24.HTTP是不保存状态的协议,如何保存用户状态?"></a>24.HTTP是不保存状态的协议,如何保存用户状态?</h1><p>HTTP 是一种无状态协议。HTTP 协议自身不对请求和响应之间的通信状态进行保存。主要通过session机制来进行解决，Session 的主要作用就是通过服务端记录用户的状态。</p>
+<p>在服务端保存 Session 的方法很多，最常用的就是内存和数据库(比如是使用内存数据库redis 保存)。既然 Session 存放在服务器端，那么我们如何实现 Session 跟踪呢？大部分情况下， 我们都是通过在 Cookie 中附加一个 Session ID 来方式来跟踪。</p>
+<p>ps:<strong>Cookie</strong> 被禁用怎么办： 最常用的就是利用 URL 把 Session ID 直接附加在URL路径的后面。</p>
+<h1 id="25-Session-与-Cookie-的对比"><a href="#25-Session-与-Cookie-的对比" class="headerlink" title="25.Session 与 Cookie 的对比"></a>25.Session 与 Cookie 的对比</h1><ul>
+<li><p>实现机制：Session的实现常常依赖于Cookie机制，通过Cookie机制回传SessionID；</p>
+</li>
+<li><p>大小限制：Cookie有大小限制并且浏览器对每个站点也有cookie的个数限制，Session没有大小限制，理论上只与服务器的内存大小有关；</p>
+</li>
+<li><p>安全性：Cookie存在安全隐患，通过拦截或本地文件找得到cookie后可以进行攻击，而Session由于保存在服务器端，相对更加安全；</p>
+</li>
+<li><p>服务器资源消耗：Session是保存在服务器端上会存在一段时间才会消失，如果session过多会增加服务器的压力。</p>
+</li>
+</ul>
+<h1 id="26-IP地址的划分"><a href="#26-IP地址的划分" class="headerlink" title="26.IP地址的划分"></a>26.IP地址的划分</h1><p>IP 地址的编址方式经历了三个历史阶段：</p>
+<ul>
+<li>分类</li>
+<li>子网划分</li>
+<li>无分类</li>
+</ul>
+<h2 id="1-分类"><a href="#1-分类" class="headerlink" title="1. 分类"></a>1. 分类</h2><p>由两部分组成，网络号和主机号，其中不同分类具有不同的网络号长度，并且是固定的。</p>
+<p>IP 地址 ::= {&lt; 网络号 &gt;, &lt; 主机号 &gt;}</p>
+<p><img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/cbf50eb8-22b4-4528-a2e7-d187143d57f7.png" alt="img"></p>
+<ul>
+<li>A类地址：以0开头，第一个字节范围：0~127；（地址范围1.0.0.0到127.255.255.255）</li>
+<li>B类地址：以10开头，第一个字节范围：128~191；（地址范围128.0.0.0-191.255.255.255）</li>
+<li>C类地址：以110开头，第一个字节范围：192~223；（地址范围192.0.0.0-223.255.255.255）</li>
+<li>D类地址：以1110开头，第一个字节范围为224~239；（地址范围224.0.0.0到239.255.255.255。）</li>
+<li>E类地址：以1111开头，保留地址</li>
+</ul>
+<h2 id="2-子网划分"><a href="#2-子网划分" class="headerlink" title="2. 子网划分"></a>2. 子网划分</h2><p>通过在主机号字段中拿一部分作为子网号，把两级 IP 地址划分为三级 IP 地址。</p>
+<p>IP 地址 ::= {&lt; 网络号 &gt;, &lt; 子网号 &gt;, &lt; 主机号 &gt;}</p>
+<p>要使用子网，必须配置子网掩码。一个 B 类地址的默认子网掩码为 255.255.0.0，如果 B 类地址的子网占两个比特，那么子网掩码为 11111111 11111111 11000000 00000000，也就是 255.255.192.0。</p>
+<p>注意，外部网络看不到子网的存在。</p>
+<h2 id="3-无分类"><a href="#3-无分类" class="headerlink" title="3. 无分类"></a>3. 无分类</h2><p>无分类编址 CIDR 消除了传统 A 类、B 类和 C 类地址以及划分子网的概念，使用网络前缀和主机号来对 IP 地址进行编码，网络前缀的长度可以根据需要变化。</p>
+<p>IP 地址 ::= {&lt; 网络前缀号 &gt;, &lt; 主机号 &gt;}</p>
+<p>CIDR 的记法上采用在 IP 地址后面加上网络前缀长度的方法，例如 128.14.35.7/20 表示前 20 位为网络前缀。</p>
+<p>CIDR 的地址掩码可以继续称为子网掩码，子网掩码首 1 长度为网络前缀的长度。</p>
+<p>一个 CIDR 地址块中有很多地址，一个 CIDR 表示的网络就可以表示原来的很多个网络，并且在路由表中只需要一个路由就可以代替原来的多个路由，减少了路由表项的数量。把这种通过使用网络前缀来减少路由表项的方式称为路由聚合，也称为 <strong>构成超网</strong> 。</p>
+<p>在路由表中的项目由“网络前缀”和“下一跳地址”组成，在查找时可能会得到不止一个匹配结果，应当采用最长前缀匹配来确定应该匹配哪一个。</p>
+<h1 id="27-DDos攻击了解吗？"><a href="#27-DDos攻击了解吗？" class="headerlink" title="27.DDos攻击了解吗？"></a>27.DDos攻击了解吗？</h1><p>分布式拒绝服务，一般来说是指攻击者利用一些被控制的设备对目标网站在较短的时间内发 起大量请求，大规模消耗目标网站的主机资源，让它无法正常服务。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/21/operating-system-interview/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -219,7 +632,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-22 15:10:20" itemprop="dateModified" datetime="2021-03-22T15:10:20+08:00">2021-03-22</time>
+                <time title="修改时间：2021-03-23 08:43:06" itemprop="dateModified" datetime="2021-03-23T08:43:06+08:00">2021-03-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -242,14 +655,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="1-进程和线程的区别"><a href="#1-进程和线程的区别" class="headerlink" title="1. 进程和线程的区别"></a>1. 进程和线程的区别</h1><p>1）进程是资源分配的最小单位，线程是任务执行的最小单位。</p>
+          <h1 id="1-进程和线程的区别"><a href="#1-进程和线程的区别" class="headerlink" title="1.进程和线程的区别"></a>1.进程和线程的区别</h1><p>1）进程是资源分配的最小单位，线程是任务执行的最小单位。</p>
 <p>2）一个程序至少有一个进程，一个进程至少有一个线程，线程依赖于进程而存在。</p>
 <p>3）进程在执行过程中拥有独立的内存单元，而多个线程共享进程的内存。</p>
 <p>4）线程是进程的子任务，是CPU调度和分派的基本单位，用于保证程序的实时性，实现进程内部的并发。</p>
 <p>5）线程之间的通信更方便，同一进程下的线程共享全局变量、静态变量等数据，而进程之间的通信需要以通信的方式（IPC)进行。不过如何处理好同步与互斥是编写多线程程序的难点。</p>
 <p>6）但是多进程程序更健壮，多线程程序只要有一个线程死掉，整个进程也死掉了，而一个进程死掉并不会对另外一个进程造成影响，因为进程有自己独立的地址空间。</p>
 <p>速记：单位，依赖，内存，通信</p>
-<h1 id="2-进程的调度算法"><a href="#2-进程的调度算法" class="headerlink" title="2. 进程的调度算法"></a>2. 进程的调度算法</h1><p>不同环境的调度算法目标不同，因此需要针对不同环境来讨论调度算法。</p>
+<h1 id="2-进程的调度算法"><a href="#2-进程的调度算法" class="headerlink" title="2.进程的调度算法"></a>2.进程的调度算法</h1><p>不同环境的调度算法目标不同，因此需要针对不同环境来讨论调度算法。</p>
 <h2 id="1-批处理系统"><a href="#1-批处理系统" class="headerlink" title="1. 批处理系统"></a>1. 批处理系统</h2><p>批处理系统没有太多的用户操作，在该系统中，调度算法目标是保证吞吐量和周转时间（从提交到终止的时间）。</p>
 <p><strong>1.1 先来先服务 first-come first-serverd（FCFS）</strong></p>
 <p>非抢占式的调度算法，按照请求的顺序进行调度。</p>
@@ -280,7 +693,7 @@
 <h2 id="3-实时系统"><a href="#3-实时系统" class="headerlink" title="3. 实时系统"></a>3. 实时系统</h2><p>实时系统要求一个请求在一个确定时间内得到响应。</p>
 <p>分为硬实时和软实时，前者必须满足绝对的截止时间，后者可以容忍一定的超时。</p>
 <p>速记：先进先出，短作业优先，最短剩余时间优先，时间片轮转，优先级调度，多级反馈队列</p>
-<h1 id="3-进程间通信的几种方式"><a href="#3-进程间通信的几种方式" class="headerlink" title="3. 进程间通信的几种方式"></a>3. 进程间通信的几种方式</h1><ul>
+<h1 id="3-进程间通信的几种方式"><a href="#3-进程间通信的几种方式" class="headerlink" title="3.进程间通信的几种方式"></a>3.进程间通信的几种方式</h1><ul>
 <li><p>管道（pipe）及命名管道（named pipe）：管道可用于具有亲缘关系的父子进程间的通信，有名管道除了具有管道所具有的功能外，它还允许无亲缘关系进程间的通信；</p>
 </li>
 <li><p>信号（signal）：信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生；</p>
@@ -294,17 +707,17 @@
 <li><p>套接字：此方法主要用于在客户端和服务器之间通过网络进行通信。套接字是支持 TCP/IP 的网络通信的基本操作单元，可以看做是不同主机之间的进程进行双向通信的端点，简单的说就是通信的两方的一种约定，用套接字中的相关函数来完成通信过程。</p>
 </li>
 </ul>
-<h1 id="4-线程通信的方式"><a href="#4-线程通信的方式" class="headerlink" title="4. 线程通信的方式"></a>4. 线程通信的方式</h1><p>  a) 互斥量(Mutex)：采用互斥对象机制，只有拥有互斥对象的线程才有访问公共资源的权限。比如 Java 中的 synchronized 关键词和各种 Lock 都是这种机制。</p>
+<h1 id="4-线程通信的方式"><a href="#4-线程通信的方式" class="headerlink" title="4.线程通信的方式"></a>4.线程通信的方式</h1><p>  a) 互斥量(Mutex)：采用互斥对象机制，只有拥有互斥对象的线程才有访问公共资源的权限。比如 Java 中的 synchronized 关键词和各种 Lock 都是这种机制。</p>
 <p>  b) 信号量(Semphares)：它允许同一时刻多个线程访问同一资源，但是需要控制同一时刻访问此资源的最大线程数量。</p>
 <p>  c) 事件(Event):Wait/Notify：通过通知操作的方式来保持多线程同步，还可以方便的实现多线程优先级的比较操作</p>
-<h1 id="5-什么是死锁？死锁产生的条件？"><a href="#5-什么是死锁？死锁产生的条件？" class="headerlink" title="5. 什么是死锁？死锁产生的条件？"></a>5. 什么是死锁？死锁产生的条件？</h1><p>  1)死锁的概念</p>
+<h1 id="5-什么是死锁？死锁产生的条件？"><a href="#5-什么是死锁？死锁产生的条件？" class="headerlink" title="5.什么是死锁？死锁产生的条件？"></a>5.什么是死锁？死锁产生的条件？</h1><p>  1)死锁的概念</p>
 <p>　　在两个或者多个并发进程中，如果每个进程持有某种资源而又等待其它进程释放它或它们现在保持着的资源，在未改变这种状态之前都不能向前推进，称这一组进程产生了死锁。通俗的讲，就是两个或多个进程无限期的阻塞、相互等待的一种状态。</p>
 <p>2). 死锁产生的四个必要条件</p>
 <p>互斥：至少有一个资源必须属于非共享模式，即一次只能被一个进程使用；若其他申请使用该资源，那么申请进程必须等到该资源被释放为止；</p>
 <p>占有并等待：一个进程必须占有至少一个资源，并等待另一个资源，而该资源为其他进程所占有；</p>
 <p>非抢占：进程不能被抢占，即资源只能被进程在完成任务后自愿释放</p>
 <p>循环等待：若干进程之间形成一种头尾相接的环形等待资源关系</p>
-<h1 id="6-死锁处理策略"><a href="#6-死锁处理策略" class="headerlink" title="6. 死锁处理策略"></a>6. 死锁处理策略</h1><p>1）死锁检测与死锁恢复</p>
+<h1 id="6-死锁处理策略"><a href="#6-死锁处理策略" class="headerlink" title="6.死锁处理策略"></a>6.死锁处理策略</h1><p>1）死锁检测与死锁恢复</p>
 <ol>
 <li>每种类型一个资源的死锁检测（找环）</li>
 <li>每种类型多个资源的死锁检测（矩阵）</li>
@@ -327,7 +740,7 @@
 </li>
 </ol>
 <p>给资源统一编号，进程只能按编号顺序来请求资源。</p>
-<h1 id="7-进程有哪几种状态"><a href="#7-进程有哪几种状态" class="headerlink" title="7. 进程有哪几种状态"></a>7. 进程有哪几种状态</h1><ul>
+<h1 id="7-进程有哪几种状态"><a href="#7-进程有哪几种状态" class="headerlink" title="7.进程有哪几种状态"></a>7.进程有哪几种状态</h1><ul>
 <li>就绪状态（ready）：等待被调度</li>
 <li>运行状态（running）</li>
 <li>阻塞状态（waiting）：等待资源</li>
@@ -337,9 +750,9 @@
 <li>只有就绪态和运行态可以相互转换，其它的都是单向转换。就绪状态的进程通过调度算法从而获得 CPU 时间，转为运行状态；而运行状态的进程，在分配给它的 CPU 时间片用完之后就会转为就绪状态，等待下一次调度。</li>
 <li>阻塞状态是缺少需要的资源从而由运行状态转换而来，但是该资源不包括 CPU 时间，缺少 CPU 时间会从运行态转换为就绪态。</li>
 </ol>
-<h1 id="8-线程有几种状态"><a href="#8-线程有几种状态" class="headerlink" title="8. 线程有几种状态"></a>8. 线程有几种状态</h1><p>在 Java虚拟机 中，线程从最初的创建到最终的消亡，要经历若干个状态：创建(new)、就绪(runnable/start)、运行(running)、阻塞(blocked)、等待(waiting)、时间等待(time waiting) 和 消亡(dead/terminated)。在给定的时间点上，一个线程只能处于一种状态，各状态的含义如下图所示：</p>
+<h1 id="8-线程有几种状态"><a href="#8-线程有几种状态" class="headerlink" title="8.线程有几种状态"></a>8.线程有几种状态</h1><p>在 Java虚拟机 中，线程从最初的创建到最终的消亡，要经历若干个状态：创建(new)、就绪(runnable/start)、运行(running)、阻塞(blocked)、等待(waiting)、时间等待(time waiting) 和 消亡(dead/terminated)。在给定的时间点上，一个线程只能处于一种状态，各状态的含义如下图所示：</p>
 <p><img src="http://static.zybuluo.com/Rico123/ot7o6218591iwj9py999hs1u/%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81.jpg" alt="线程的状态.jpg-59.9kB"></p>
-<h1 id="9-虚拟内存"><a href="#9-虚拟内存" class="headerlink" title="9. 虚拟内存"></a>9. 虚拟内存</h1><p>虚拟内存的<strong>目的</strong>是为了让物理内存扩充成更大的逻辑内存，从而让程序获得更多的可用内存。</p>
+<h1 id="9-虚拟内存"><a href="#9-虚拟内存" class="headerlink" title="9.虚拟内存"></a>9.虚拟内存</h1><p>虚拟内存的<strong>目的</strong>是为了让物理内存扩充成更大的逻辑内存，从而让程序获得更多的可用内存。</p>
 <p>虚拟内存的<strong>基本思想</strong>是：每个进程拥有独立的地址空间，这个空间被分为大小相等的多个块，称为页(Page)，每个页都是一段连续的地址。这些页被映射到物理内存，但并不是所有的页都必须在内存中才能运行程序。当程序引用到一部分在物理内存中的地址空间时，由硬件立刻进行必要的映射；当程序引用到一部分不在物理内存中的地址空间时，由操作系统负责将缺失的部分装入物理内存并重新执行失败的命令。这样，对于进程而言，逻辑上似乎有很大的内存空间，实际上其中一部分对应物理内存上的一块(称为帧，通常页和帧大小相等)，还有一些没加载在内存中的对应在硬盘上。</p>
 <p>虚拟内存<strong>优点</strong>：</p>
 <ul>
@@ -348,7 +761,7 @@
 <li><p>解除了用户与内存之间的紧密约束，进程可以比内存的全部空间还大</p>
 </li>
 </ul>
-<h1 id="10-页面置换算法"><a href="#10-页面置换算法" class="headerlink" title="10. 页面置换算法"></a>10. 页面置换算法</h1><ul>
+<h1 id="10-页面置换算法"><a href="#10-页面置换算法" class="headerlink" title="10.页面置换算法"></a>10.页面置换算法</h1><ul>
 <li><p>FIFO先进先出算法：在操作系统中经常被用到，比如作业调度（主要实现简单，很容易想到）；</p>
 </li>
 <li><p>LRU（Least recently use）最近最少使用算法：根据使用时间到现在的长短来判断；</p>
@@ -358,7 +771,7 @@
 <li><p>OPT（Optimal replacement）最优置换算法：理论的最优，理论；就是要保证置换出去的是不再被使用的页，或者是在实际内存中最晚使用的算法。</p>
 </li>
 </ul>
-<h1 id="11-颠簸"><a href="#11-颠簸" class="headerlink" title="11. 颠簸"></a>11. 颠簸</h1><p>​        颠簸本质上是指频繁的页调度行为，具体来讲，进程发生缺页中断，这时，必须置换某一页。然而，其他所有的页都在使用，它置换一个页，但又立刻再次需要这个页。因此，会不断产生缺页中断，导致整个系统的效率急剧下降，这种现象称为颠簸（抖动）。</p>
+<h1 id="11-颠簸"><a href="#11-颠簸" class="headerlink" title="11.颠簸"></a>11.颠簸</h1><p>​        颠簸本质上是指频繁的页调度行为，具体来讲，进程发生缺页中断，这时，必须置换某一页。然而，其他所有的页都在使用，它置换一个页，但又立刻再次需要这个页。因此，会不断产生缺页中断，导致整个系统的效率急剧下降，这种现象称为颠簸（抖动）。</p>
 <p>　　内存颠簸的解决策略包括：</p>
 <ul>
 <li><p>如果是因为页面替换策略失误，可以修改替换算法来解决这个问题；</p>
@@ -368,7 +781,7 @@
 <li><p>否则，还剩下两个办法：终止该进程或增加物理内存容量</p>
 </li>
 </ul>
-<h1 id="12-分页和分段有什么区别（内存管理）"><a href="#12-分页和分段有什么区别（内存管理）" class="headerlink" title="12. 分页和分段有什么区别（内存管理）"></a>12. 分页和分段有什么区别（内存管理）</h1><p>​        段式存储管理是一种符合用户视角的内存分配管理方案。在段式存储管理中，将程序的地址空间划分为若干段（segment），如代码段，数据段，堆栈段；这样每个进程有一个二维地址空间，相互独立，互不干扰。段式管理的优点是：没有内碎片（因为段大小可变，改变段大小来消除内碎片）。但段换入换出时，会产生外碎片（比如4k的段换5k的段，会产生1k的外碎片）</p>
+<h1 id="12-分页和分段有什么区别（内存管理）"><a href="#12-分页和分段有什么区别（内存管理）" class="headerlink" title="12.分页和分段有什么区别（内存管理）"></a>12.分页和分段有什么区别（内存管理）</h1><p>​        段式存储管理是一种符合用户视角的内存分配管理方案。在段式存储管理中，将程序的地址空间划分为若干段（segment），如代码段，数据段，堆栈段；这样每个进程有一个二维地址空间，相互独立，互不干扰。段式管理的优点是：没有内碎片（因为段大小可变，改变段大小来消除内碎片）。但段换入换出时，会产生外碎片（比如4k的段换5k的段，会产生1k的外碎片）</p>
 <p>　　页式存储管理方案是一种用户视角内存与物理内存相分离的内存分配管理方案。在页式存储管理中，将程序的逻辑地址划分为固定大小的页（page），而物理内存划分为同样大小的帧，程序加载时，可以将任意一页放入内存中任意一个帧，这些帧不必连续，从而实现了离散分离。页式存储管理的优点是：没有外碎片（因为页的大小固定），但会产生内碎片（一个页可能填充不满）。</p>
 <p>​        段页式：程序的地址空间划分成多个拥有独立地址空间的段，每个段上的地址空间划分成大小相同的页。这样既拥有分段系统的共享和保护，又拥有分页系统的虚拟内存功能。</p>
 <p><strong>两者的不同点：</strong></p>
@@ -520,7 +933,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-22 19:06:28" itemprop="dateModified" datetime="2021-03-22T19:06:28+08:00">2021-03-22</time>
+                <time title="修改时间：2021-03-22 19:19:39" itemprop="dateModified" datetime="2021-03-22T19:19:39+08:00">2021-03-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -528,7 +941,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Java编程</span></a>
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
                 </span>
             </span>
 
@@ -965,14 +1378,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
