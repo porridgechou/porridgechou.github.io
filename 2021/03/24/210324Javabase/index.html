@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="StringBuilder 和 StringBufferStringBuffer 是线程安全的 StringBuilder 是不安全的 Java实现连续空间的内存分配?基本数据类型的数组，存放在栈内存里，连续分配对象数组,在栈内存里的引用是连续分配的，实际数据分配在堆内存，不是连续分配的。 创建对象的方式有哪几种？接口和抽象类有什么区别接口和抽象类的概念不一样。接口是对动作的抽象，抽象类是对根源的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础">
+<meta property="og:url" content="http://example.com/2021/03/24/210324Javabase/index.html">
+<meta property="og:site_name" content="Mynote">
+<meta property="og:description" content="StringBuilder 和 StringBufferStringBuffer 是线程安全的 StringBuilder 是不安全的 Java实现连续空间的内存分配?基本数据类型的数组，存放在栈内存里，连续分配对象数组,在栈内存里的引用是连续分配的，实际数据分配在堆内存，不是连续分配的。 创建对象的方式有哪几种？接口和抽象类有什么区别接口和抽象类的概念不一样。接口是对动作的抽象，抽象类是对根源的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-24T12:22:00.000Z">
+<meta property="article:modified_time" content="2021-03-24T13:35:39.951Z">
+<meta property="article:author" content="porridgechou">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/03/24/210324Javabase/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java基础 | Mynote</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Mynote</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/24/210324Javabase/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/clx.jpg">
+      <meta itemprop="name" content="porridgechou">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mynote">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-24 20:22:00 / 修改时间：21:35:39" itemprop="dateCreated datePublished" datetime="2021-03-24T20:22:00+08:00">2021-03-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="StringBuilder-和-StringBuffer"><a href="#StringBuilder-和-StringBuffer" class="headerlink" title="StringBuilder 和 StringBuffer"></a><strong>StringBuilder</strong> <strong>和</strong> <strong>StringBuffer</strong></h1><p><strong>StringBuffer</strong> 是线程安全的 <strong>StringBuilder</strong> 是不安全的</p>
+<h1 id="Java实现连续空间的内存分配"><a href="#Java实现连续空间的内存分配" class="headerlink" title="Java实现连续空间的内存分配?"></a>Java实现连续空间的内存分配?</h1><p>基本数据类型的数组，存放在栈内存里，连续分配对象数组,在栈内存里的引用是连续分配的，实际数据分配在堆内存，不是连续分配的。</p>
+<h1 id="创建对象的方式有哪几种？"><a href="#创建对象的方式有哪几种？" class="headerlink" title="创建对象的方式有哪几种？"></a>创建对象的方式有哪几种？</h1><h1 id="接口和抽象类有什么区别"><a href="#接口和抽象类有什么区别" class="headerlink" title="接口和抽象类有什么区别"></a>接口和抽象类有什么区别</h1><p>接口和抽象类的概念不一样。接口是对动作的抽象，抽象类是对根源的抽象。</p>
+<p>抽象类表示的是，这个对象是什么。接口表示的是，这个对象能做什么。比如，男人，女人，这两个类（如果是类的话……），他们的抽象类是人。说明，他们都是人。</p>
+<p>人可以吃东西，狗也可以吃东西，你可以把“吃东西”定义成一个接口，然后让这些类去实现它.</p>
+<p>所以，在高级语言上，一个类只能继承一个类（抽象类）(正如人不可能同时是生物和非生物)，但是可以实现多个接口(吃饭接口、走路接口)。</p>
+<p>第一点． 接口是抽象类的变体，接口中所有的方法都是抽象的。而抽象类是声明方法的存在而不去实现它的类。<br>第二点． 接口可以多继承，抽象类不行<br>第三点． 接口定义方法，不能实现，而抽象类可以实现部分方法。<br>第四点． 接口中基本数据类型为static 而抽类象不是的。</p>
+<p>当你关注一个事物的本质的时候，用抽象类；当你关注一个操作的时候，用接口。</p>
+<h1 id="浅拷贝与深拷贝的区别"><a href="#浅拷贝与深拷贝的区别" class="headerlink" title="浅拷贝与深拷贝的区别"></a>浅拷贝与深拷贝的区别</h1><p><strong>浅拷贝：对基本数据类型进行值传递，对引用数据类型进行引用传递般的拷贝，此为浅拷贝。</strong></p>
+<p><strong>深拷贝：对基本数据类型进行值传递，对引用数据类型，创建一个新的对象，并复制其内容，此为深拷贝。</strong></p>
+<p>ps:Java中的拷贝需要实现java.lang.Cloneable接口，然后重写clone()方法，这个无论深、浅拷贝都需要这样做</p>
+<h1 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h1><p><strong>编译时多态</strong><br>方法重载 都是编译时多态。根据实际参数的数据类型、个数和次序，Java 在编译时能够确定执行重载方法中的哪一个。</p>
+<p>方法覆盖 表现出两种多态性，当对象引用本类实例时，为编译时多态，否则为运行时多态。</p>
+<p><strong>运行时多态</strong><br>通过父类对象引用变量引用子类对象来实现。当父类对象引用子类实例时。通过接口类型变量引用实现接口的类的对象来实现 。运行时多态主要是通过继承和接口实现的。</p>
+<h1 id="Java注解的理解"><a href="#Java注解的理解" class="headerlink" title="Java注解的理解"></a>Java注解的理解</h1><p>Java 语言中的类、方法、变量、参数和包等都可以注解标记，程序运行期间我们可以获取到相应的注解以及注解中定义的内容，这样可以帮助我们做一些事情。</p>
+<h1 id="Java反射？反射有什么缺点？你是怎么理解反射的（为什么框架需要反射）？"><a href="#Java反射？反射有什么缺点？你是怎么理解反射的（为什么框架需要反射）？" class="headerlink" title="Java反射？反射有什么缺点？你是怎么理解反射的（为什么框架需要反射）？"></a>Java反射？反射有什么缺点？你是怎么理解反射的（为什么框架需要反射）？</h1><p>反射介绍：</p>
+<p>Java 反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及 动态调用对象的方法的功能称为 Java 语言的反射机制。</p>
+<p>反射的优缺点如下：</p>
+<ul>
+<li><p>优点：运行期类型的判断，动态加载类，提高代码灵活度。</p>
+</li>
+<li><p>缺点：</p>
+</li>
+</ul>
+<ol>
+<li><p>性能瓶颈：反射相当于一系列解释操作，通知 JVM 要做的事情，性能比直接的 Java 代码要慢很多。</p>
+</li>
+<li><p>安全问题，让我们可以动态操作改变类的属性同时也增加了类的安全隐患。</p>
+</li>
+</ol>
+<h1 id="为什么框架需要反射技术"><a href="#为什么框架需要反射技术" class="headerlink" title="为什么框架需要反射技术"></a>为什么框架需要反射技术</h1><p>在我们平时的项目开发过程中，基本上很少会直接使用到反射机制，但这不能说明反射机 制没有用，实际上有很多设计、开发都与反射机制有关。动态代理设计模式也采用了反射机制，还有我们日常使用的 Spring／Hibernate 等框架也大量使用到了反射机制。</p>
+<p>我们在使用 JDBC 连接数据库时使用 Class.forName() 通过反射加载数据库的驱动程序；<br>Spring 框架的 IOC（动态加载管理 Bean）创建对象以及 AOP（动态代理）功能都和反射有联系；<br>动态配置实例的属性；</p>
+<h1 id="获取Class对象的两种方式"><a href="#获取Class对象的两种方式" class="headerlink" title="获取Class对象的两种方式"></a>获取Class对象的两种方式</h1><p>如果我们动态获取到这些信息，我们需要依靠 Class 对象。Class 类对象将一个类的方法、变量等信息告诉运行的程序。Java 提供了两种方式获取 Class 对象:</p>
+<p>知道具体类的情况下可以使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class alunbarClass = TargetObject.class;      </span><br></pre></td></tr></table></figure>
+
+
+<p>但是我们一般是不知道具体类的，基本都是通过遍历包下面的类来获取 Class 对象</p>
+<p>通过 Class.forName() 传入类的路径获取：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class alunbarClass1 = Class.forName(<span class="string">&quot;cn.javaguide.TargetObject&quot;</span>); </span><br></pre></td></tr></table></figure>
+
+<h1 id="内存泄露和内存溢出的场景"><a href="#内存泄露和内存溢出的场景" class="headerlink" title="内存泄露和内存溢出的场景"></a>内存泄露和内存溢出的场景</h1><p>内存泄漏：内存泄漏是指无用对象（不再使用的对象）持续占有内存或无用对象的内存得不 到及时释放，从而造成内存空间的浪费称为内存泄漏。</p>
+<p>Java 内存泄漏的根本原因是长生命周期的对象持有短生命周期对象的引用就很可能发生内存泄漏，尽管短生命周期对象已经不再需要，但是因为长生命周期持有它的引用而导致不能被回收，这就是 Java 中内存泄漏的发生场景。</p>
+<p>内存溢出：指程序运行过程中无法申请到足够的内存而导致的一种错误。内存溢出通常发生 于 OLD 段或 Perm 段垃圾回收后，仍然无内存空间容纳新的 Java 对象的情况。</p>
+<p>内存溢出场景：</p>
+<ul>
+<li>JVM Heap（堆）溢出：OutOfMemoryError: Java heap space： 发生这种问题的原因是 java 虚拟机创建的对象太多，在进行垃圾回收之间，虚拟机分配的到堆内存空间已 经用满了。JVM 在启动的时候会自动设置 JVM Heap 的值， 可以利用 JVM 提供的-Xmn -Xms -Xmx 等选项可进行设置。Heap的大小是新生代和老年代之和。</li>
+</ul>
+<p>解决方法：</p>
+<ol>
+<li><p>手动设置 JVM Heap（堆）的大小。</p>
+</li>
+<li><p>检查程序，看是否有死循环或不必要地重复创建大量对象。</p>
+</li>
+</ol>
+<ul>
+<li>Metaspace溢出：java.lang.OutOfMemoryError: Metaspace 程序中使用了大量的 jar 或 class，使 java 虚拟机装载类的空间不够，与 metaspace 大小有关。方法区用于存放 Java 类型的相关信息。在类装载器加载 class 文件到内存的过程中，虚拟机会提取其中的类型信息，并将这些信息存储到方法区。当需要存储类信息而方法区的 内存占用又已经达到 -XX:MaxMetaspaceSize 设置的最大值，将会抛出 OutOfMemoryError 异常。对于这种情况的测试，基本的思路是运行时产生大量的类去填满方法区，直到溢出。</li>
+</ul>
+<p>解决方法:</p>
+<ol>
+<li>通过 -XX:MetaspaceSize 和 -XX:MaxMetaspaceSize 设置永久代大小即可。</li>
+</ol>
+<ul>
+<li>栈溢出： java.lang.StackOverflowError : Thread Stack space：线程的方法嵌套调用层次太多(如递归调用)，以致于把栈区溢出了。</li>
+</ul>
+<p>解决方法：</p>
+<ol>
+<li>修改程序。</li>
+<li>通过 -Xss: 来设置每个线程的 Stack 大小即可。</li>
+</ol>
+<h1 id="强引用，弱引用，软引用，虚引用"><a href="#强引用，弱引用，软引用，虚引用" class="headerlink" title="强引用，弱引用，软引用，虚引用"></a>强引用，弱引用，软引用，虚引用</h1><h2 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h2><p>大部分引用实际上都是，最普遍。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Object object = <span class="keyword">new</span> Object();</span><br><span class="line">String str = <span class="string">&quot;StrongReference&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>如果一个对象具有强引用，那就类似于<strong>必不可少的</strong>物品，不会被垃圾回收器回收。<strong>当内存空间不足，Java虚拟机宁愿抛出OutOfMemoryError错误，使程序异常终止，也不回收这种对象。</strong></p>
+<h2 id="软引用"><a href="#软引用" class="headerlink" title="软引用"></a>软引用</h2><p>软引用是用来描述一些<strong>有用但并不是必需</strong>的对象，在Java中用java.lang.ref.SoftReference类来表示。对于软引用关联着的对象，只有在内存不足的时候JVM才会回收该对象。因此，这一点可以很好地用来解决OOM的问题，并且这个特性很适合用来实现缓存：比如网页缓存、图片缓存等。<br>软引用在实际中有重要的应用，例如浏览器的后退按钮，这个后退时显示的网页内容可以重新进行请求或者从缓存中取出：</p>
+<p>（1）如果一个网页在浏览结束时就进行内容的回收，则按后退查看前面浏览过的页面时，需要重新构建</p>
+<p>（2）如果将浏览过的网页存储到内存中会造成内存的大量浪费，甚至会造成内存溢出这时候就可以使用软引用</p>
+<h2 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h2><p>弱引用也是用来描述<strong>非必需对象</strong>的，当JVM进行垃圾回收时，无论内存是否充足，都会回收被弱引用关联的对象。在java中，用java.lang.ref.WeakReference类来表示。</p>
+<p>弱引用与软引用的区别在于：只具有弱引用的对象拥有更短暂的生命周期。在垃圾回收器线程扫描它所管辖的内存区域的过程中，一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。不过，由于垃圾回收器是一个优先级很低的线程， 因此不一定会很快发现那些只具有弱引用的对象。<u>所以被软引用关联的对象只有在内存不足时才会被回收，而被弱引用关联的对象在JVM进行垃圾回收时总会被回收。</u></p>
+<h2 id="虚引用"><a href="#虚引用" class="headerlink" title="虚引用"></a>虚引用</h2><p>虚引用和前面的软引用、弱引用不同，它并<strong>不影响对象的生命周期</strong>。在java中用java.lang.ref.PhantomReference类表示。如果一个对象与虚引用关联，则跟没有引用与之关联一样，<strong>在任何时候都可能被垃圾回收器回收</strong>。虚引用主要用来跟踪对象被垃圾回收的活动。</p>
+<p><strong>虚引用必须和引用队列关联使用</strong>，当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，就会把这个虚引用加入到与之 关联的引用队列中。程序可以通过判断引用队列中是否已经加入了虚引用，来了解被引用的对象是否将要被垃圾回收。如果程序发现某个虚引用已经被加入到引用队列，那么就可以在所引用的对象的内存被回收之前采取必要的行动。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><table>
+<thead>
+<tr>
+<th>引用类型</th>
+<th>被回收时间</th>
+<th>用途</th>
+<th>生存时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>强引用</td>
+<td>从来不会</td>
+<td>对象的一般状态</td>
+<td>JVM停止运行时</td>
+</tr>
+<tr>
+<td>软引用</td>
+<td>内存不足时</td>
+<td>对象缓存</td>
+<td>内存不足时</td>
+</tr>
+<tr>
+<td>弱引用</td>
+<td>jvm垃圾回收时</td>
+<td>对象缓存</td>
+<td>gc运行后</td>
+</tr>
+<tr>
+<td>虚引用</td>
+<td>未知</td>
+<td>未知</td>
+<td>未知</td>
+</tr>
+</tbody></table>
+<h1 id="讲一下-Java-的-BIO-NIO-AIO"><a href="#讲一下-Java-的-BIO-NIO-AIO" class="headerlink" title="讲一下 Java 的 BIO,NIO,AIO?"></a>讲一下 Java 的 BIO,NIO,AIO?</h1><h2 id="BIO-Blocking-I-O-："><a href="#BIO-Blocking-I-O-：" class="headerlink" title="BIO (Blocking I/O)："></a>BIO (Blocking I/O)：</h2><p>同步阻塞 I/O 模式，数据的读取写入必须阻塞在一个线程内等待其完成。</p>
+<h2 id="NIO-Non-blocking-New-I-O"><a href="#NIO-Non-blocking-New-I-O" class="headerlink" title="NIO (Non-blocking/New I/O):"></a>NIO (Non-blocking/New I/O):</h2><p>NIO 是一种同步非阻塞的 I/O 模型，对应 java.nio 包，提供了 Channel , Selector，Buffer 等抽象。Java NIO使我们可以进行非阻塞IO操作。比如说， 单线程中从通道读取数据到buffer，同时可以继续做别的事情，当数据读取到buffer中后， 线程再继续处理数据。写数据也是一样的。另外，非阻塞写也是如此。一个线程请求写入一 些数据到某通道，但不需要等待它完全写入，这个线程同时可以去做别的事情。JDK 的 NIO 底层由 epoll 实现。</p>
+<p>通常来说 NIO 中的所有 IO 都是从 Channel（通道） 开始的。</p>
+<p>从通道进行数据读取 ：创建一个缓冲区，然后请求通道读取数据。</p>
+<p>从通道进行数据写入 ：创建一个缓冲区，填充数据，并要求通道写入数据。</p>
+<h2 id="AIO-Asynchronous-I-O-："><a href="#AIO-Asynchronous-I-O-：" class="headerlink" title="AIO (Asynchronous I/O)："></a>AIO (Asynchronous I/O)：</h2><p>异步非阻塞IO模型，异步 IO 是基于事件和回调机制实现的，也就是应用操作之后会直接返回，不会堵塞在那里，当后台处理完成，操作系统会通知相应的 线程进行后续的操作。AIO 的应用还不是很广泛。</p>
+<h1 id="Java中finalize-方法的使用"><a href="#Java中finalize-方法的使用" class="headerlink" title="Java中finalize()方法的使用"></a>Java中finalize()方法的使用</h1><p>finalize()是 Object的protected 方法，子类可以覆盖该方法以实现资源清理工作，GC 在回收对象之前调用该方法。</p>
+<p><strong>finalize()方法中一般用于释放非 Java 资源（如打开的文件资源、数据库连接等），或是调用非Java方法（native方法）时分配的内存（比如 C 语言的 malloc()系列函数）。</strong></p>
+<p>避免使用的原因：</p>
+<p>首先，由于 finalize()方法的调用时机具有不确定性，从一个对象变得不可到达开始，到 finalize()方法被执行，所花费的时间这段时间是任意长的。我们并不能依赖 finalize()方法能 及时的回收占用的资源，可能出现的情况是在我们耗尽资源之前，gc 却仍未触发，因而通常的做法是提供显示的 close()方法供客户端手动调用。另外，重写 finalize()方法意味着延长了回收对象时需要进行更多的操作，从而延长了对象回收的时间。</p>
+<h1 id="什么是GC-Root"><a href="#什么是GC-Root" class="headerlink" title="什么是GC Root"></a>什么是GC Root</h1><p>首先我们知道标记算法，JVM的标记算法我们可以了解为一个可达性算法，所以所有的可达性算法都会有起点，那么这个起点就是GC Root。也就是需要通过GC Root 找出所有活的对象，那么剩下所有的没有标记的对象就是需要回收的对象。</p>
+<h2 id="GC-Root的对象"><a href="#GC-Root的对象" class="headerlink" title="GC Root的对象"></a>GC Root的对象</h2><ul>
+<li>方法区中的静态变量和常量引用的对象</li>
+<li>虚拟机栈中引用对象</li>
+<li>本地方法栈中引用对象</li>
+</ul>
+<h1 id="单例模型"><a href="#单例模型" class="headerlink" title="单例模型"></a>单例模型</h1><p>下述内容来源于<a target="_blank" rel="noopener" href="https://www.runoob.com/design-pattern/singleton-pattern.html">菜鸟教程</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">1、懒汉式，线程不安全</span></span><br><span class="line"><span class="comment">是否 Lazy 初始化：是</span></span><br><span class="line"><span class="comment">是否多线程安全：否</span></span><br><span class="line"><span class="comment">实现难度：易</span></span><br><span class="line"><span class="comment">描述：这种方式是最基本的实现方式，这种实现最大的问题就是不支持多线程。因为没有加锁 synchronized，所以严格意义上它并不算单例模式。</span></span><br><span class="line"><span class="comment">这种方式 lazy loading 很明显，不要求线程安全，在多线程不能正常工作。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </span><br><span class="line">        instance = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> instance;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//接下来介绍的几种实现方式都支持多线程，但是在性能上有所差异。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">2、懒汉式，线程安全</span></span><br><span class="line"><span class="comment">是否 Lazy 初始化：是</span></span><br><span class="line"><span class="comment">是否多线程安全：是</span></span><br><span class="line"><span class="comment">实现难度：易</span></span><br><span class="line"><span class="comment">描述：这种方式具备很好的 lazy loading，能够在多线程中很好的工作，但是，效率很低，99% 情况下不需要同步。</span></span><br><span class="line"><span class="comment">优点：第一次调用才初始化，避免内存浪费。</span></span><br><span class="line"><span class="comment">缺点：必须加锁 synchronized 才能保证单例，但加锁会影响效率。</span></span><br><span class="line"><span class="comment">getInstance() 的性能对应用程序不是很关键（该方法使用不太频繁）。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </span><br><span class="line">        instance = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> instance;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">3、饿汉式</span></span><br><span class="line"><span class="comment">是否 Lazy 初始化：否</span></span><br><span class="line"><span class="comment">是否多线程安全：是</span></span><br><span class="line"><span class="comment">实现难度：易</span></span><br><span class="line"><span class="comment">描述：这种方式比较常用，但容易产生垃圾对象。</span></span><br><span class="line"><span class="comment">优点：没有加锁，执行效率会提高。</span></span><br><span class="line"><span class="comment">缺点：类加载时就初始化，浪费内存。</span></span><br><span class="line"><span class="comment">它基于 classloader 机制避免了多线程的同步问题，不过，instance 在类装载时就实例化，虽然导致类装载的原因有很多种，在单例模式中大多数都是调用 getInstance 方法， 但是也不能确定有其他的方式（或者其他的静态方法）导致类装载，这时候初始化 instance 显然没有达到 lazy loading 的效果。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> instance;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">4、双检锁/双重校验锁（DCL，即 double-checked locking）</span></span><br><span class="line"><span class="comment">JDK 版本：JDK1.5 起</span></span><br><span class="line"><span class="comment">是否 Lazy 初始化：是</span></span><br><span class="line"><span class="comment">是否多线程安全：是</span></span><br><span class="line"><span class="comment">实现难度：较复杂</span></span><br><span class="line"><span class="comment">描述：这种方式采用双锁机制，安全且在多线程情况下能保持高性能。</span></span><br><span class="line"><span class="comment">getInstance() 的性能对应用程序很关键。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton singleton;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getSingleton</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;  </span><br><span class="line">        <span class="keyword">synchronized</span> (Singleton.class) &#123;  </span><br><span class="line">        <span class="keyword">if</span> (singleton == <span class="keyword">null</span>) &#123;  </span><br><span class="line">            singleton = <span class="keyword">new</span> Singleton();  </span><br><span class="line">        &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> singleton;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">5、登记式/静态内部类</span></span><br><span class="line"><span class="comment">是否 Lazy 初始化：是</span></span><br><span class="line"><span class="comment">是否多线程安全：是</span></span><br><span class="line"><span class="comment">实现难度：一般</span></span><br><span class="line"><span class="comment">描述：这种方式能达到双检锁方式一样的功效，但实现更简单。对静态域使用延迟初始化，应使用这种方式而不是双检锁方式。这种方式只适用于静态域的情况，双检锁方式可在实例域需要延迟初始化时使用。</span></span><br><span class="line"><span class="comment">这种方式同样利用了 classloader 机制来保证初始化 instance 时只有一个线程，它跟第 3 种方式不同的是：第 3 种方式只要 Singleton 类被装载了，那么 instance 就会被实例化（没有达到 lazy loading 效果），而这种方式是 Singleton 类被装载了，instance 不一定被初始化。因为 SingletonHolder 类没有被主动使用，只有通过显式调用 getInstance 方法时，才会显式装载 SingletonHolder 类，从而实例化 instance。想象一下，如果实例化 instance 很消耗资源，所以想让它延迟加载，另外一方面，又不希望在 Singleton 类加载时就实例化，因为不能确保 Singleton 类还可能在其他的地方被主动使用从而被加载，那么这个时候实例化 instance 显然是不合适的。这个时候，这种方式相比第 3 种方式就显得很合理。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton INSTANCE = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> SingletonHolder.INSTANCE;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">6、枚举</span></span><br><span class="line"><span class="comment">JDK 版本：JDK1.5 起</span></span><br><span class="line"><span class="comment">是否 Lazy 初始化：否</span></span><br><span class="line"><span class="comment">是否多线程安全：是</span></span><br><span class="line"><span class="comment">实现难度：易</span></span><br><span class="line"><span class="comment">描述：这种实现方式还没有被广泛采用，但这是实现单例模式的最佳方法。它更简洁，自动支持序列化机制，绝对防止多次实例化。</span></span><br><span class="line"><span class="comment">这种方式是 Effective Java 作者 Josh Bloch 提倡的方式，它不仅能避免多线程同步问题，而且还自动支持序列化机制，防止反序列化重新创建新的对象，绝对防止多次实例化。不过，由于 JDK1.5 之后才加入 enum 特性，用这种方式写不免让人感觉生疏，在实际工作中，也很少用。</span></span><br><span class="line"><span class="comment">不能通过 reflection attack 来调用私有构造方法。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    INSTANCE;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">whateverMethod</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;       </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="Java中-gt-gt-和-gt-gt-gt-的区别"><a href="#Java中-gt-gt-和-gt-gt-gt-的区别" class="headerlink" title="Java中&gt;&gt;和&gt;&gt;&gt;的区别"></a>Java中&gt;&gt;和&gt;&gt;&gt;的区别</h1><p>Java 中的位运算符：</p>
+<p>‘&gt;&gt;’表示带符号右移，如：int i=15; i&gt;&gt;2 的结果是 3，移出的部分将被抛弃。<br>转为二进制的形式可能更好理解，0000 1111(15)右移 2 位的结果是 0000 0011(3)，0001 1010(18)右移 3 位的结果是 0000 0011(3)。</p>
+<p>‘&gt;&gt;&gt;’无符号右移：<br>按二进制形式把所有的数字向右移动对应巍峨位数，低位移出（舍弃），高位的空位补零。对于正数来说和带符号右移相同，对于负数来说不同。<br>其他结构和&gt;&gt;相似。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>[1]<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39192827/article/details/85611873">https://blog.csdn.net/qq_39192827/article/details/85611873</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"># 面试</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/24/210324weiyunsuan/" rel="prev" title="位运算">
+      <i class="fa fa-chevron-left"></i> 位运算
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#StringBuilder-%E5%92%8C-StringBuffer"><span class="nav-number">1.</span> <span class="nav-text">StringBuilder 和 StringBuffer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E5%AE%9E%E7%8E%B0%E8%BF%9E%E7%BB%AD%E7%A9%BA%E9%97%B4%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">2.</span> <span class="nav-text">Java实现连续空间的内存分配?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E5%BC%8F%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">创建对象的方式有哪几种？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E5%92%8C%E6%8A%BD%E8%B1%A1%E7%B1%BB%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">接口和抽象类有什么区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">5.</span> <span class="nav-text">浅拷贝与深拷贝的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E6%80%81"><span class="nav-number">6.</span> <span class="nav-text">多态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E6%B3%A8%E8%A7%A3%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">7.</span> <span class="nav-text">Java注解的理解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E5%8F%8D%E5%B0%84%EF%BC%9F%E5%8F%8D%E5%B0%84%E6%9C%89%E4%BB%80%E4%B9%88%E7%BC%BA%E7%82%B9%EF%BC%9F%E4%BD%A0%E6%98%AF%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3%E5%8F%8D%E5%B0%84%E7%9A%84%EF%BC%88%E4%B8%BA%E4%BB%80%E4%B9%88%E6%A1%86%E6%9E%B6%E9%9C%80%E8%A6%81%E5%8F%8D%E5%B0%84%EF%BC%89%EF%BC%9F"><span class="nav-number">8.</span> <span class="nav-text">Java反射？反射有什么缺点？你是怎么理解反射的（为什么框架需要反射）？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%A1%86%E6%9E%B6%E9%9C%80%E8%A6%81%E5%8F%8D%E5%B0%84%E6%8A%80%E6%9C%AF"><span class="nav-number">9.</span> <span class="nav-text">为什么框架需要反射技术</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96Class%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">10.</span> <span class="nav-text">获取Class对象的两种方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E5%92%8C%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E7%9A%84%E5%9C%BA%E6%99%AF"><span class="nav-number">11.</span> <span class="nav-text">内存泄露和内存溢出的场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%BA%E5%BC%95%E7%94%A8%EF%BC%8C%E5%BC%B1%E5%BC%95%E7%94%A8%EF%BC%8C%E8%BD%AF%E5%BC%95%E7%94%A8%EF%BC%8C%E8%99%9A%E5%BC%95%E7%94%A8"><span class="nav-number">12.</span> <span class="nav-text">强引用，弱引用，软引用，虚引用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%BA%E5%BC%95%E7%94%A8"><span class="nav-number">12.1.</span> <span class="nav-text">强引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E5%BC%95%E7%94%A8"><span class="nav-number">12.2.</span> <span class="nav-text">软引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%B1%E5%BC%95%E7%94%A8"><span class="nav-number">12.3.</span> <span class="nav-text">弱引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E5%BC%95%E7%94%A8"><span class="nav-number">12.4.</span> <span class="nav-text">虚引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">12.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%B2%E4%B8%80%E4%B8%8B-Java-%E7%9A%84-BIO-NIO-AIO"><span class="nav-number">13.</span> <span class="nav-text">讲一下 Java 的 BIO,NIO,AIO?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BIO-Blocking-I-O-%EF%BC%9A"><span class="nav-number">13.1.</span> <span class="nav-text">BIO (Blocking I&#x2F;O)：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NIO-Non-blocking-New-I-O"><span class="nav-number">13.2.</span> <span class="nav-text">NIO (Non-blocking&#x2F;New I&#x2F;O):</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AIO-Asynchronous-I-O-%EF%BC%9A"><span class="nav-number">13.3.</span> <span class="nav-text">AIO (Asynchronous I&#x2F;O)：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E4%B8%ADfinalize-%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">14.</span> <span class="nav-text">Java中finalize()方法的使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFGC-Root"><span class="nav-number">15.</span> <span class="nav-text">什么是GC Root</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GC-Root%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">15.1.</span> <span class="nav-text">GC Root的对象</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%9E%8B"><span class="nav-number">16.</span> <span class="nav-text">单例模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E4%B8%AD-gt-gt-%E5%92%8C-gt-gt-gt-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">17.</span> <span class="nav-text">Java中&gt;&gt;和&gt;&gt;&gt;的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">18.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="porridgechou"
+      src="/images/clx.jpg">
+  <p class="site-author-name" itemprop="name">porridgechou</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">porridgechou</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
