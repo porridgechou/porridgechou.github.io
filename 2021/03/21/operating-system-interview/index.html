@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/042cf928-3c8e-4815-ae9c-f2780202c68f.png">
 <meta property="og:image" content="http://static.zybuluo.com/Rico123/ot7o6218591iwj9py999hs1u/%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81.jpg">
 <meta property="article:published_time" content="2021-03-21T01:57:00.000Z">
-<meta property="article:modified_time" content="2021-03-23T00:43:06.897Z">
+<meta property="article:modified_time" content="2021-03-24T02:21:27.257Z">
 <meta property="article:author" content="porridgechou">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/8c662999-c16c-481c-9f40-1fdba5bc9167.png">
@@ -227,7 +227,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-23 08:43:06" itemprop="dateModified" datetime="2021-03-23T08:43:06+08:00">2021-03-23</time>
+                <time title="修改时间：2021-03-24 10:21:27" itemprop="dateModified" datetime="2021-03-24T10:21:27+08:00">2021-03-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -354,7 +354,8 @@
 </ol>
 <h1 id="8-线程有几种状态"><a href="#8-线程有几种状态" class="headerlink" title="8.线程有几种状态"></a>8.线程有几种状态</h1><p>在 Java虚拟机 中，线程从最初的创建到最终的消亡，要经历若干个状态：创建(new)、就绪(runnable/start)、运行(running)、阻塞(blocked)、等待(waiting)、时间等待(time waiting) 和 消亡(dead/terminated)。在给定的时间点上，一个线程只能处于一种状态，各状态的含义如下图所示：</p>
 <p><img src="http://static.zybuluo.com/Rico123/ot7o6218591iwj9py999hs1u/%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81.jpg" alt="线程的状态.jpg-59.9kB"></p>
-<h1 id="9-虚拟内存"><a href="#9-虚拟内存" class="headerlink" title="9.虚拟内存"></a>9.虚拟内存</h1><p>虚拟内存的<strong>目的</strong>是为了让物理内存扩充成更大的逻辑内存，从而让程序获得更多的可用内存。</p>
+<h1 id="9-虚拟内存"><a href="#9-虚拟内存" class="headerlink" title="9.虚拟内存"></a>9.虚拟内存</h1><p><strong>虚拟内存使得应用程序认为它拥有一个连续的地址空间，而实际上，它通常是被分隔成多个物理内存碎片，还有一部分存储在外部磁盘存储器上，在需要时进行数据交换。</strong></p>
+<p>虚拟内存的<strong>目的</strong>是为了让物理内存扩充成更大的逻辑内存，从而让程序获得更多的可用内存。</p>
 <p>虚拟内存的<strong>基本思想</strong>是：每个进程拥有独立的地址空间，这个空间被分为大小相等的多个块，称为页(Page)，每个页都是一段连续的地址。这些页被映射到物理内存，但并不是所有的页都必须在内存中才能运行程序。当程序引用到一部分在物理内存中的地址空间时，由硬件立刻进行必要的映射；当程序引用到一部分不在物理内存中的地址空间时，由操作系统负责将缺失的部分装入物理内存并重新执行失败的命令。这样，对于进程而言，逻辑上似乎有很大的内存空间，实际上其中一部分对应物理内存上的一块(称为帧，通常页和帧大小相等)，还有一些没加载在内存中的对应在硬盘上。</p>
 <p>虚拟内存<strong>优点</strong>：</p>
 <ul>
@@ -386,23 +387,94 @@
 <h1 id="12-分页和分段有什么区别（内存管理）"><a href="#12-分页和分段有什么区别（内存管理）" class="headerlink" title="12.分页和分段有什么区别（内存管理）"></a>12.分页和分段有什么区别（内存管理）</h1><p>​        段式存储管理是一种符合用户视角的内存分配管理方案。在段式存储管理中，将程序的地址空间划分为若干段（segment），如代码段，数据段，堆栈段；这样每个进程有一个二维地址空间，相互独立，互不干扰。段式管理的优点是：没有内碎片（因为段大小可变，改变段大小来消除内碎片）。但段换入换出时，会产生外碎片（比如4k的段换5k的段，会产生1k的外碎片）</p>
 <p>　　页式存储管理方案是一种用户视角内存与物理内存相分离的内存分配管理方案。在页式存储管理中，将程序的逻辑地址划分为固定大小的页（page），而物理内存划分为同样大小的帧，程序加载时，可以将任意一页放入内存中任意一个帧，这些帧不必连续，从而实现了离散分离。页式存储管理的优点是：没有外碎片（因为页的大小固定），但会产生内碎片（一个页可能填充不满）。</p>
 <p>​        段页式：程序的地址空间划分成多个拥有独立地址空间的段，每个段上的地址空间划分成大小相同的页。这样既拥有分段系统的共享和保护，又拥有分页系统的虚拟内存功能。</p>
+<p><strong>两者的相同点：</strong></p>
+<p>分页机制和分段机制都是为了提高内存利用率，较少内存碎片。<br>页和段都是离散存储的，所以两者都是离散分配内存的方式。但是，每个页和段中 的内存是连续的。</p>
 <p><strong>两者的不同点：</strong></p>
 <ul>
-<li><p>目的不同：分页是由于系统管理的需要而不是用户的需要，它是信息的物理单位；分段的目的是为了能更好地满足用户的需要，它是信息的逻辑单位，它含有一组其意义相对完整的信息；</p>
+<li>目的不同：分页是由于系统管理的需要而不是用户的需要，它是信息的物理单位；分段的目的是为了能更好地满足用户的需要，它是信息的逻辑单位，它含有一组其意义相对完整的信息；</li>
+<li>大小不同：页的大小固定且由系统决定，而段的长度却不固定，由其所完成的功能决定；</li>
+<li>地址空间不同： 段向用户提供二维地址空间；页向用户提供的是一维地址空间；</li>
+<li>信息共享：段是信息的逻辑单位，便于存储保护和信息的共享，页的保护和共享受到限制；</li>
+<li>内存碎片：页式存储管理的优点是没有外碎片（因为页的大小固定），但会产生内碎片（一个页可能填充不满）；而段式管理的优点是没有内碎片（因为段大小可变，改变段大小来消除内碎片）。但段换入换出时，会产生外碎片（比如4k的段换5k的段，会产生1k的外碎片）。</li>
+<li>出现的原因：分页主要用于实现虚拟内存，从而获得更大的地址空间；分段主要是为了使程序和数据可以被划分为逻辑上独立的地址空间并且有助于共享和保护。</li>
+</ul>
+<h1 id="13-常用的IO模型"><a href="#13-常用的IO模型" class="headerlink" title="13.常用的IO模型"></a>13.常用的IO模型</h1><ul>
+<li>阻塞式I/O：应用进程被阻塞，直到数据从内核缓冲区复制到应用进程缓冲区中才返回。</li>
+<li>非阻塞式I/O：进程发起 IO 系统调用后，内核返回一个错误码而不会被阻塞；应用进程可以继续执行，但是需要不断的执行系统调用来获知 I/O 是否完成。如果内核缓冲区有数据，内核就会把数据返回进程。</li>
+<li>I/O复用（select和poll)：使用 select 或者 poll 等待数据，可以等待多个套接字中的任何一个变为可读。这一过程会被阻塞，当某一个套接字可读时返回，之后把数据从内核复制到进程中。</li>
+<li>信号驱动式I/O（SIGIO)：当进程发起一个 IO 操作，会向内核注册一个信号处理函数，然后进程返回不阻塞；当内核数据就绪时会发送一个信号给进程，进程便在信号处理函数中调用 IO 读取数据。</li>
+<li>异步I/O（aio_系列函数）：当进程发起一个 IO 操作，进程返回不阻塞，但也不能返回结果；内核把整个 IO 处理完后，会通知进程结果。如果IO操作成功则进程直接获取到数据。</li>
+</ul>
+<h1 id="14-select"><a href="#14-select" class="headerlink" title="14.select"></a>14.select</h1><p>select 的描述符类型使用数组实现，FD_SETSIZE 大小默认为 1024，因此默认只能监听少于 1024 个描述符。如果要监听更多描述符的话，需要修改 FD_SETSIZE 之后重新编译；而 poll 没有描述符数量的限制，poll 中的描述符是 pollfd 类型的数组；</p>
+<h1 id="15-fork函数的作用"><a href="#15-fork函数的作用" class="headerlink" title="15.fork函数的作用"></a>15.fork函数的作用</h1><p>在 Linux 中 fork 函数是非常重要的函数，它的作用是从已经存在的进程中创建一个子进程，而原进程称为父进程。</p>
+<p><strong>调用 fork(),当控制转移到内核中的 fork 代码后，内核开始做：</strong></p>
+<ol>
+<li>分配新的内存块和内核数据结构给子进程。</li>
+<li>将父进程部分数据结构内容拷贝至子进程。</li>
+<li>将子进程添加到系统进程列表。</li>
+<li>fork返回开始调度器，调度。</li>
+</ol>
+<p><strong>特点：</strong></p>
+<p>1)调用一次，返回两次并发执行</p>
+<p>2)相同但是独立的地址空间</p>
+<p>3)fork 的返回值：fock 函数调用一次却返回两次；向父进程返回子进程的 ID，向子进程中返回 0，</p>
+<p>4)fork 的子进程返回为 0；</p>
+<p>5)父进程返回的是子进程的 pid。</p>
+<p><strong>fork 调用失败的原因</strong></p>
+<p>1)系统中有太多进程。</p>
+<p>2)实际用户的进程数超过限制。</p>
+<h1 id="16-协程的概念"><a href="#16-协程的概念" class="headerlink" title="16.协程的概念"></a>16.协程的概念</h1><p><strong>协程是一种用户态的轻量级线程，协程的调度完全由用户控制。</strong>协程拥有自己的寄存器上下文和栈。协程调度切换时，将寄存器上下文和栈保存到其他地方，在切回来的时候，恢复先前保存的寄存器上下文和栈，直接操作栈则基本没有内核切换的开销，可以不加锁的访问全局变量，所以上下文的切换非常快。</p>
+<p>对操作系统而言，线程是最小的执行单元，进程是最小的资源管理单元。无论是进程还是线程，都是由操作系统所管理的。</p>
+<p><strong>协程不是被操作系统内核所管理的，而是完全由程序所控制，也就是在用户态执行</strong>。这样带来的好处是性能大幅度的提升，因为不会像线程切换那样消耗资源。</p>
+<p><strong>协程既不是进程也不是线程，协程仅仅是一个特殊的函数</strong>，协程它进程和进程不是一个维度的。</p>
+<p>一个进程可以包含多个线程，一个线程可以包含多个协程。</p>
+<p>一个线程内的多个协程虽然可以切换，但是<strong>多个协程是串行执行的，只能在一个线程内运行，没法利用 CPU 多核能力。</strong></p>
+<p>协程与进程一样，切换是存在上下文切换问题的。</p>
+<h1 id="17-linux-进程和线程？"><a href="#17-linux-进程和线程？" class="headerlink" title="17.linux 进程和线程？"></a>17.linux 进程和线程？</h1><p>进程通过 fork()创建</p>
+<p>线程通过 pthread_create() 函数创建</p>
+<h1 id="18-通过进程id查看占用的端口，通过端口号查看占用的进程-id"><a href="#18-通过进程id查看占用的端口，通过端口号查看占用的进程-id" class="headerlink" title="18. 通过进程id查看占用的端口，通过端口号查看占用的进程 id"></a>18. 通过进程id查看占用的端口，通过端口号查看占用的进程 id</h1><p>通过进程id查看占用的端口:<br>netstat -nap | grep 进程id<br>通过端口号查看占用的进程id :<br>netstat -nap | grep 端口号</p>
+<h1 id="19-僵尸进程产生的原因"><a href="#19-僵尸进程产生的原因" class="headerlink" title="19.僵尸进程产生的原因"></a>19.僵尸进程产生的原因</h1><p>**僵尸进程是指它的父进程没有等待(调用 wait/waitpid)**。如果子进程先结束而父进程后结束，即子进程结束后，父进程还在继续运行但是并未调用 wait/waitpid 那子进程就会成为僵尸进程。但如果子进程后结束，即父进程先结束了，但没有调用 wait/waitpid 来等待子进程的结束， 此时子进程还在运行，父进程已经结束。那么并不会产生僵尸进程。应为每个进程结束时， 系统都会扫描当前系统中运行的所有进程，看看有没有哪个进程时刚刚结束的这个进程的子 进程，如果有就有 init 来接管它，成为它的父进程。</p>
+<p><strong>进程设置僵尸状态的目的是维护子进程的信息，以便父进程在以后某个时间获取</strong>。要在当前 进程中生成一个子进程，一般需要调用 fork 这个系统调用，fork 这个函数的特别之处在于一次调用，两次返回，一次返回到父进程中，一次返回到子进程中，可以通过返回值来判断其 返回点。如果子进程先于父进程退出， 同时父进程又没有调用 wait/waitpid，则该子进程将成为僵尸进程。</p>
+<p>在每个进程退出的时候，内核释放该进程所有的资源，包括打开的文件，占用的内存。但是 仍然保留了一些信息（如进程号 pid 退出状态 运行时间等）。这些保留的信息直到进程通过调用 wait/waitpid 时才会释放。这样就导致了一个问题，如果没有调用 wait/waitpid 的话，那 么保留的信息就不会释放。比如进程号就会被一直占用了。但系统所能使用的进程号的有限 的，如果产生大量的僵尸进程，将导致系统没有可用的进程号而导致系统不能创建进程。所 以我们应该避免僵尸进程。</p>
+<p><strong>如果进程不调用 wait / waitpid 的话， 那么保留的那段信息就不会释放，其进程号就会一直被占用，但是系统所能使用的进程号是有限的，如果大量的产生僵死进程，将因为没有可用 的进程号而导致系统不能产生新的进程. 此即为僵尸进程的危害，应当避免。</strong></p>
+<h1 id="20-孤儿进程产生的原因？"><a href="#20-孤儿进程产生的原因？" class="headerlink" title="20.孤儿进程产生的原因？"></a>20.孤儿进程产生的原因？</h1><p>孤儿进程：一个父进程退出，而它的一个或多个子进程还在运行，那么那些子进程将成为孤 儿进程。孤儿进程将被 init 进程(进程号为1)所收养，并由init进程对它们完成状态收集工作。孤儿进程是没有父进程的进程，管理孤儿进程这个重任就落到了 init 进程身上，因此孤儿进程并 不会有什么危害。</p>
+<h1 id="21-讲一下用户态和内核态？所有的系统调用都会进入到内核态吗？"><a href="#21-讲一下用户态和内核态？所有的系统调用都会进入到内核态吗？" class="headerlink" title="21.讲一下用户态和内核态？所有的系统调用都会进入到内核态吗？"></a>21.讲一下用户态和内核态？所有的系统调用都会进入到内核态吗？</h1><p>操作系统（Operating System，简称 OS）是管理计算机硬件与软件资源的程序。根据进程访问资源的特点，我们可以把进程在系统上的运行分为两个级别：</p>
+<ol>
+<li>用户态(user mode) : 用户态运行的进程或可以直接读取用户程序的数据。</li>
+<li>内核态(kernel mode):可以简单的理解系统态运行的进程或程序几乎可以访问计算机的任何资源，不受限制。<br>运行的程序基本都是运行在用户态。如果我们调用操作系统提供的内核态级别的子功能那就需要系统调用了。</li>
+</ol>
+<p>系统调用：<strong>与系统态级别的资源有关的操作（如文件管理、进程控制、内存管理等)，都 必须通过系统调用方式向操作系统提出服务请求，并由操作系统代为完成。</strong></p>
+<p>系统调用是操作系统为应用程序提供能够访问到内核态的资源的接口。补充：</p>
+<p>用户态切换到内核态的几种方式</p>
+<p><strong>系统调用</strong>: 系统调用是用户态主动要求切换到内核态的一种方式， 用户应用程序通过操作系统调用内核为上层应用程序开放的接口来执行程序。</p>
+<p><strong>异常</strong>：当 cpu 在执行用户态的应用程序时，发生了某些不可知的异常。 于是当前用户态的应用进程切换到处理此异常的内核的程序中去。</p>
+<p><strong>硬件设备的中断</strong>: 当硬件设备完成用户请求后，会向 cpu 发出相应的中断信号，这时 cpu 会暂停执行下一条即将要执行的指令，转而去执行与中断信号对应的应用程序， 如果先前执行的指令是用户态下程序的指令，那么这个转换过程也是用户态到内核态的转换。</p>
+<h1 id="22-平常用什么-linux-命令比较多"><a href="#22-平常用什么-linux-命令比较多" class="headerlink" title="22.平常用什么 linux 命令比较多"></a>22.平常用什么 linux 命令比较多</h1><p>pwd:显示当前所在位置</p>
+<p>sudo + 其他命令：管理员身份运行</p>
+<p>grep:需要搜索的字符串，要搜索的文件 –color： 搜索命令 –color表示高亮显示</p>
+<p>ps -A：列出所有进程</p>
+<p>ps -ef | grep 进程关键字</p>
+<p>kill 进程pid：杀死进程</p>
+<p>find 目录 参数 ： 寻找目录（查）。在/home目录下查找以 .txt 结尾的文件名:find /home -name “*.txt” </p>
+<p>ls ：查看目录信息</p>
+<p>free：显示系统内存的使用情况</p>
+<h1 id="23-中断的分类"><a href="#23-中断的分类" class="headerlink" title="23.中断的分类"></a>23.中断的分类</h1><ul>
+<li><p>中断可以分为同步中断（synchronous）和异步中断(asynchronous)。</p>
 </li>
-<li><p>大小不同：页的大小固定且由系统决定，而段的长度却不固定，由其所完成的功能决定；</p>
+<li><p>中断可分为硬中断和软中断。</p>
 </li>
-<li><p>地址空间不同： 段向用户提供二维地址空间；页向用户提供的是一维地址空间；</p>
-</li>
-<li><p>信息共享：段是信息的逻辑单位，便于存储保护和信息的共享，页的保护和共享受到限制；</p>
-</li>
-<li><p>内存碎片：页式存储管理的优点是没有外碎片（因为页的大小固定），但会产生内碎片（一个页可能填充不满）；而段式管理的优点是没有内碎片（因为段大小可变，改变段大小来消除内碎片）。但段换入换出时，会产生外碎片（比如4k的段换5k的段，会产生1k的外碎片）。</p>
-</li>
-<li><p>出现的原因：分页主要用于实现虚拟内存，从而获得更大的地址空间；分段主要是为了使程序和数据可以被划分为逻辑上独立的地址空间并且有助于共享和保护。</p>
+<li><p>中断可分为可屏蔽中断（Maskable interrupt）和非屏蔽中断（Nomaskable interrupt）。</p>
 </li>
 </ul>
+<p>同步中断是在指令执行时由 CPU 主动产生的，受到 CPU 控制，其执行点是可控的。异步中断是 CPU 被动接收到的，由外设发出的电信号引起，其发生时间不可预测。</p>
+<h1 id="24-软中断和硬中断"><a href="#24-软中断和硬中断" class="headerlink" title="24.软中断和硬中断"></a>24.软中断和硬中断</h1><p>从本质上讲，中断(硬)是一种电信号，当设备有某种事情发生的时候，他就会产生中断，通过 总线把电信号发送给中断控制器。如果中断的线是激活的，中断控制器就把电信号发送给处理器的某个特定引脚。处理器于是立即停止自己正在做的事，跳到中断处理程序的入口点， 进行中断处理。</p>
+<p>硬中断是由硬件产生的，比如，像磁盘，网卡，键盘，时钟等。每个设备或设备集都有它自己的 IRQ（中断请求）。</p>
+<p>软中断是由当前正在运行的进程所产生的。</p>
+<p>软中断比硬中断少了一个硬件发送信号的步骤。产生软中断的进程一定是当前正在运行的进 程，因此它们不会中断 CPU。但是它们会中断调用代码的流程。如果硬件需要 CPU 去做一些事情，那么这个硬件会使 CPU 中断当前正在运行的代码。</p>
+<p>作者：啦啦啦<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/circle/discuss/XXGdoF/">https://leetcode-cn.com/circle/discuss/XXGdoF/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>[1]<a target="_blank" rel="noopener" href="https://blog.csdn.net/justloveyou_/article/details/78304294">https://blog.csdn.net/justloveyou_/article/details/78304294</a></p>
 <p>[2]<a target="_blank" rel="noopener" href="http://www.cyc2018.xyz/">http://www.cyc2018.xyz/</a></p>
+<p>[3]<a target="_blank" rel="noopener" href="https://leetcode-cn.com/circle/discuss/XXGdoF">https://leetcode-cn.com/circle/discuss/XXGdoF</a></p>
 
     </div>
 
@@ -483,7 +555,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">1.进程和线程的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">2.进程的调度算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%89%B9%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.1.</span> <span class="nav-text">1. 批处理系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.2.</span> <span class="nav-text">2. 交互式系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%AE%9E%E6%97%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.3.</span> <span class="nav-text">3. 实时系统</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">3.进程间通信的几种方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">4.线程通信的方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E4%BB%80%E4%B9%88%E6%98%AF%E6%AD%BB%E9%94%81%EF%BC%9F%E6%AD%BB%E9%94%81%E4%BA%A7%E7%94%9F%E7%9A%84%E6%9D%A1%E4%BB%B6%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">5.什么是死锁？死锁产生的条件？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E6%AD%BB%E9%94%81%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5"><span class="nav-number">6.</span> <span class="nav-text">6.死锁处理策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-%E8%BF%9B%E7%A8%8B%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E7%8A%B6%E6%80%81"><span class="nav-number">7.</span> <span class="nav-text">7.进程有哪几种状态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-%E7%BA%BF%E7%A8%8B%E6%9C%89%E5%87%A0%E7%A7%8D%E7%8A%B6%E6%80%81"><span class="nav-number">8.</span> <span class="nav-text">8.线程有几种状态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98"><span class="nav-number">9.</span> <span class="nav-text">9.虚拟内存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="nav-number">10.</span> <span class="nav-text">10.页面置换算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-%E9%A2%A0%E7%B0%B8"><span class="nav-number">11.</span> <span class="nav-text">11.颠簸</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-%E5%88%86%E9%A1%B5%E5%92%8C%E5%88%86%E6%AE%B5%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%88%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%EF%BC%89"><span class="nav-number">12.</span> <span class="nav-text">12.分页和分段有什么区别（内存管理）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">13.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">1.进程和线程的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">2.进程的调度算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%89%B9%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.1.</span> <span class="nav-text">1. 批处理系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BA%A4%E4%BA%92%E5%BC%8F%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.2.</span> <span class="nav-text">2. 交互式系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%AE%9E%E6%97%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.3.</span> <span class="nav-text">3. 实时系统</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">3.进程间通信的几种方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">4.线程通信的方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E4%BB%80%E4%B9%88%E6%98%AF%E6%AD%BB%E9%94%81%EF%BC%9F%E6%AD%BB%E9%94%81%E4%BA%A7%E7%94%9F%E7%9A%84%E6%9D%A1%E4%BB%B6%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">5.什么是死锁？死锁产生的条件？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E6%AD%BB%E9%94%81%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5"><span class="nav-number">6.</span> <span class="nav-text">6.死锁处理策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-%E8%BF%9B%E7%A8%8B%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E7%8A%B6%E6%80%81"><span class="nav-number">7.</span> <span class="nav-text">7.进程有哪几种状态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-%E7%BA%BF%E7%A8%8B%E6%9C%89%E5%87%A0%E7%A7%8D%E7%8A%B6%E6%80%81"><span class="nav-number">8.</span> <span class="nav-text">8.线程有几种状态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98"><span class="nav-number">9.</span> <span class="nav-text">9.虚拟内存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="nav-number">10.</span> <span class="nav-text">10.页面置换算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11-%E9%A2%A0%E7%B0%B8"><span class="nav-number">11.</span> <span class="nav-text">11.颠簸</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12-%E5%88%86%E9%A1%B5%E5%92%8C%E5%88%86%E6%AE%B5%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%88%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%EF%BC%89"><span class="nav-number">12.</span> <span class="nav-text">12.分页和分段有什么区别（内存管理）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13-%E5%B8%B8%E7%94%A8%E7%9A%84IO%E6%A8%A1%E5%9E%8B"><span class="nav-number">13.</span> <span class="nav-text">13.常用的IO模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#14-select"><span class="nav-number">14.</span> <span class="nav-text">14.select</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#15-fork%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">15.</span> <span class="nav-text">15.fork函数的作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#16-%E5%8D%8F%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">16.</span> <span class="nav-text">16.协程的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#17-linux-%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%EF%BC%9F"><span class="nav-number">17.</span> <span class="nav-text">17.linux 进程和线程？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#18-%E9%80%9A%E8%BF%87%E8%BF%9B%E7%A8%8Bid%E6%9F%A5%E7%9C%8B%E5%8D%A0%E7%94%A8%E7%9A%84%E7%AB%AF%E5%8F%A3%EF%BC%8C%E9%80%9A%E8%BF%87%E7%AB%AF%E5%8F%A3%E5%8F%B7%E6%9F%A5%E7%9C%8B%E5%8D%A0%E7%94%A8%E7%9A%84%E8%BF%9B%E7%A8%8B-id"><span class="nav-number">18.</span> <span class="nav-text">18. 通过进程id查看占用的端口，通过端口号查看占用的进程 id</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#19-%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E4%BA%A7%E7%94%9F%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">19.</span> <span class="nav-text">19.僵尸进程产生的原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#20-%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B%E4%BA%A7%E7%94%9F%E7%9A%84%E5%8E%9F%E5%9B%A0%EF%BC%9F"><span class="nav-number">20.</span> <span class="nav-text">20.孤儿进程产生的原因？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#21-%E8%AE%B2%E4%B8%80%E4%B8%8B%E7%94%A8%E6%88%B7%E6%80%81%E5%92%8C%E5%86%85%E6%A0%B8%E6%80%81%EF%BC%9F%E6%89%80%E6%9C%89%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E9%83%BD%E4%BC%9A%E8%BF%9B%E5%85%A5%E5%88%B0%E5%86%85%E6%A0%B8%E6%80%81%E5%90%97%EF%BC%9F"><span class="nav-number">21.</span> <span class="nav-text">21.讲一下用户态和内核态？所有的系统调用都会进入到内核态吗？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#22-%E5%B9%B3%E5%B8%B8%E7%94%A8%E4%BB%80%E4%B9%88-linux-%E5%91%BD%E4%BB%A4%E6%AF%94%E8%BE%83%E5%A4%9A"><span class="nav-number">22.</span> <span class="nav-text">22.平常用什么 linux 命令比较多</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#23-%E4%B8%AD%E6%96%AD%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">23.</span> <span class="nav-text">23.中断的分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#24-%E8%BD%AF%E4%B8%AD%E6%96%AD%E5%92%8C%E7%A1%AC%E4%B8%AD%E6%96%AD"><span class="nav-number">24.</span> <span class="nav-text">24.软中断和硬中断</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">25.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -499,15 +571,21 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
