@@ -211,10 +211,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-03-24 20:22:00 / 修改时间：21:35:39" itemprop="dateCreated datePublished" datetime="2021-03-24T20:22:00+08:00">2021-03-24</time>
+              <time title="创建时间：2021-03-24 20:22:00" itemprop="dateCreated datePublished" datetime="2021-03-24T20:22:00+08:00">2021-03-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-25 09:16:59" itemprop="dateModified" datetime="2021-03-25T09:16:59+08:00">2021-03-25</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -373,7 +379,24 @@
 <h1 id="Java中-gt-gt-和-gt-gt-gt-的区别"><a href="#Java中-gt-gt-和-gt-gt-gt-的区别" class="headerlink" title="Java中&gt;&gt;和&gt;&gt;&gt;的区别"></a>Java中&gt;&gt;和&gt;&gt;&gt;的区别</h1><p>Java 中的位运算符：</p>
 <p>‘&gt;&gt;’表示带符号右移，如：int i=15; i&gt;&gt;2 的结果是 3，移出的部分将被抛弃。<br>转为二进制的形式可能更好理解，0000 1111(15)右移 2 位的结果是 0000 0011(3)，0001 1010(18)右移 3 位的结果是 0000 0011(3)。</p>
 <p>‘&gt;&gt;&gt;’无符号右移：<br>按二进制形式把所有的数字向右移动对应巍峨位数，低位移出（舍弃），高位的空位补零。对于正数来说和带符号右移相同，对于负数来说不同。<br>其他结构和&gt;&gt;相似。</p>
+<h1 id="讲一下volatile关键字的作用"><a href="#讲一下volatile关键字的作用" class="headerlink" title="讲一下volatile关键字的作用"></a>讲一下volatile关键字的作用</h1><p>volatile可以保证可见性，有序性，但不能保证原子性.</p>
+<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a><strong>可见性</strong></h2><p><strong>可见性是指当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值</strong></p>
+<h2 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a><strong>有序性</strong></h2><p>有序性即程序执行的顺序按照代码的先后顺序执行</p>
+<h1 id="synchronized-作用，讲一讲底层实现"><a href="#synchronized-作用，讲一讲底层实现" class="headerlink" title="synchronized 作用，讲一讲底层实现"></a>synchronized 作用，讲一讲底层实现</h1><h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a><strong>原子性</strong></h2><p><strong>所谓原子性就是指一个操作或者多个操作，要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行。</strong></p>
+<p>在Java中，对基本数据类型的变量的读取和赋值操作是原子性操作，即这些操作是不可被中断的，要么执行，要么不执行。但是像i++、i+=1等操作字符就不是原子性的，它们是分成<strong>读取、计算、赋值</strong>几步操作，原值在这些步骤还没完成时就可能已经被赋值了，那么最后赋值写入的数据就是脏数据，无法保证原子性。</p>
+<p>被synchronized修饰的类或对象的所有操作都是原子的，因为在执行操作之前必须先获得类或对象的锁，直到执行完才能释放，这中间的过程无法被中断（除了已经废弃的stop()方法），即保证了原子性。</p>
+<p><strong>注意！面试时经常会问比较synchronized和volatile，它们俩特性上最大的区别就在于原子性，volatile不具备原子性。</strong></p>
+<h2 id="可见性-1"><a href="#可见性-1" class="headerlink" title="可见性"></a>可见性</h2><p><strong>可见性是指多个线程访问一个资源时，该资源的状态、值信息等对于其他线程都是可见的。</strong></p>
+<p>synchronized和volatile都具有可见性，其中synchronized对一个类或对象加锁时，一个线程如果要访问该类或对象必须先获得它的锁，而这个锁的状态对于其他任何线程都是可见的，并且在释放锁之前会将对变量的修改刷新到主存当中，保证资源变量的可见性，如果某个线程占用了该锁，其他线程就必须在锁池中等待锁的释放。</p>
+<p>而volatile的实现类似，被volatile修饰的变量，每当值需要修改时都会立即更新主存，主存是共享的，所有线程可见，所以确保了其他线程读取到的变量永远是最新值，保证可见性。</p>
+<h2 id="有序性-1"><a href="#有序性-1" class="headerlink" title="有序性"></a>有序性</h2><p><strong>有序性值程序执行的顺序按照代码先后执行。</strong></p>
+<p>synchronized和volatile都具有有序性，Java允许编译器和处理器对指令进行重排，但是指令重排并不会影响单线程的顺序，它影响的是多线程并发执行的顺序性。synchronized保证了每个时刻都只有一个线程访问同步代码块，也就确定了线程执行同步代码块是分先后顺序的，保证了有序性。</p>
+<h2 id="可重入性"><a href="#可重入性" class="headerlink" title="可重入性"></a>可重入性</h2><p>synchronized和ReentrantLock都是可重入锁。当一个线程试图操作一个由其他线程持有的对象锁的临界资源时，将会处于阻塞状态，但当一个线程再次请求自己持有对象锁的临界资源时，这种情况属于重入锁。通俗一点讲就是说一个线程拥有了锁仍然还可以重复申请锁。</p>
+<h1 id="说说-synchronized关键字和-volatile关键字的区别"><a href="#说说-synchronized关键字和-volatile关键字的区别" class="headerlink" title="说说 synchronized关键字和 volatile关键字的区别"></a>说说 synchronized关键字和 volatile关键字的区别</h1><p>volatile关键字是线程同步的轻量级实现，所以volatile性能肯定比synchronized关键 字要好。但是volatile关键字只能用于变量而synchronized关键字可以修饰方法以及代 码块。synchronized关键字在JavaSE1.6之后进行了主要包括为了减少获得锁和释放锁 带来的性能消耗而引入的偏向锁和轻量级锁以及其它各种优化之后执行效率有了显著提 升，实际开发中使用 synchronized 关键字的场景还是更多一些。</p>
+<p>多线程访问volatile关键字不会发生阻塞，而synchronized关键字可能会发生阻塞volatile关键字能保证数据的可见性，但不能保证数据的原子性。synchronized关键字 两者都能保证。</p>
+<p>volatile关键字主要用于解决变量在多个线程之间的可见性，而 synchronized关键字解决的是多个线程之间访问资源的同步性。</p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>[1]<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39192827/article/details/85611873">https://blog.csdn.net/qq_39192827/article/details/85611873</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9d573539022c">深入理解synchronized底层原理，一篇文章就够了！</a></p>
 
       
     </div>
