@@ -188,6 +188,114 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/18/network-coding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/clx.jpg">
+      <meta itemprop="name" content="porridgechou">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mynote">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/18/network-coding/" class="post-title-link" itemprop="url">网络编程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-18 15:49:00" itemprop="dateCreated datePublished" datetime="2021-03-18T15:49:00+08:00">2021-03-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-28 14:08:30" itemprop="dateModified" datetime="2021-03-28T14:08:30+08:00">2021-03-28</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h1><p>ip地址：InetAddress</p>
+<ul>
+<li><p>127.0.0.1 ：本机localhost</p>
+</li>
+<li><p>ip地址的分类</p>
+</li>
+<li><ul>
+<li>ipv4/ipv6</li>
+<li><ul>
+<li>IPV4 4个字节组成</li>
+<li>IPV6 128位，8个无符号整数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>java.net的包就是用于Internet用的</p>
+<h1 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h1><ul>
+<li><p>不同的进程拥有不同的端口号，用来区分软件。</p>
+</li>
+<li><p>被规定0~65535</p>
+</li>
+<li><p>端口分类</p>
+</li>
+<li><ul>
+<li>公有端口</li>
+<li><ul>
+<li>HTTP：80</li>
+<li>HTTPS：443</li>
+<li>FTP：21</li>
+<li>Telent：23</li>
+</ul>
+</li>
+<li>程序注册端口</li>
+<li><ul>
+<li>Tomcat：8080</li>
+<li>MySQL：3306</li>
+<li>Oracle：1521</li>
+</ul>
+</li>
+<li>动态、私有：49152~65535</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -ano <span class="comment">#查看所有的端口</span></span><br><span class="line">netstat -ano |findstr <span class="string">&quot;5900&quot;</span></span><br><span class="line">tasklist | finder <span class="string">&quot;8696&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/17/try-to-upload/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -385,7 +493,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -398,7 +506,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
