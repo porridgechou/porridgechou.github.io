@@ -188,6 +188,330 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/08/HuaweiMainjing210408/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/clx.jpg">
+      <meta itemprop="name" content="porridgechou">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mynote">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/08/HuaweiMainjing210408/" class="post-title-link" itemprop="url">华为面经体验</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-08 20:13:00" itemprop="dateCreated datePublished" datetime="2021-04-08T20:13:00+08:00">2021-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-10 00:21:12" itemprop="dateModified" datetime="2021-04-10T00:21:12+08:00">2021-04-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="http-协议如何保证可靠性"><a href="#http-协议如何保证可靠性" class="headerlink" title="http 协议如何保证可靠性"></a>http 协议如何保证可靠性</h1><p><strong>重要的数据，要加密</strong>，比如用户名密码，我们需要加密，这样即使被抓包监听，他们也不知道原始数据是什么（如果简单的md5，是可以暴力破解），所以加密方法越复杂越安全，根据需要，常见的是 md5(不可逆)，aes（可逆），自由组合吧,你还可以加一些特殊字符啊，没有做不到只有想不到， 举例：username = aes(username), pwd = MD5(pwd + username);。。。。。</p>
+<p><strong>非重要数据，要签名</strong>，签名的目的是为了防止篡改，比如<a target="_blank" rel="noopener" href="http://www.xxx.com/getnews?id=1%EF%BC%8C%E8%8E%B7%E5%8F%96id%E4%B8%BA1%E7%9A%84%E6%96%B0%E9%97%BB%EF%BC%8C%E5%A6%82%E6%9E%9C%E4%B8%8D%E7%AD%BE%E5%90%8D%E9%82%A3%E4%B9%88%E9%80%9A%E8%BF%87id=2,%E5%B0%B1%E5%8F%AF%E4%BB%A5%E8%8E%B7%E5%8F%962%E7%9A%84%E5%86%85%E5%AE%B9%E7%AD%89%E7%AD%89%E3%80%82%E6%80%8E%E6%A0%B7%E7%AD%BE%E5%90%8D%E5%91%A2%EF%BC%9F%E9%80%9A%E5%B8%B8%E4%BD%BF%E7%94%A8sign%EF%BC%8C%E6%AF%94%E5%A6%82%E5%8E%9F%E9%93%BE%E6%8E%A5%E8%AF%B7%E6%B1%82%E7%9A%84%E6%97%B6%E5%80%99%E5%8A%A0%E4%B8%80%E4%B8%AAsign%E5%8F%82%E6%95%B0%EF%BC%8Csign=md5(id=1)%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8E%A5%E5%8F%97%E5%88%B0%E8%AF%B7%E6%B1%82%EF%BC%8C%E9%AA%8C%E8%AF%81sign%E6%98%AF%E5%90%A6%E7%AD%89%E4%BA%8Emd5(id=1)%EF%BC%8C%E5%A6%82%E6%9E%9C%E7%AD%89%E4%BA%8E%E8%AF%B4%E6%98%8E%E6%AD%A3%E5%B8%B8%E8%AF%B7%E6%B1%82%E3%80%82%E8%BF%99%E4%BC%9A%E6%9C%89%E4%B8%AA%E5%BC%8A%E7%AB%AF%EF%BC%8C%E5%81%87%E5%A6%82%E8%A7%84%E5%88%99%E8%A2%AB%E5%8F%91%E7%8E%B0%EF%BC%8C%E9%82%A3%E4%B9%88%E5%B0%B1%E4%BC%9A%E8%A2%AB%E4%BC%AA%E9%80%A0%EF%BC%8C%E6%89%80%E4%BB%A5%E9%80%82%E5%BD%93%E5%A4%8D%E6%9D%82%E4%B8%80%E4%BA%9B%EF%BC%8C%E8%BF%98%E6%98%AF%E8%83%BD%E5%A4%9F%E6%8F%90%E9%AB%98%E5%AE%89%E5%85%A8%E6%80%A7%E7%9A%84%E3%80%82">http://www.xxx.com/getnews?id=1，获取id为1的新闻，如果不签名那么通过id=2,就可以获取2的内容等等。怎样签名呢？通常使用sign，比如原链接请求的时候加一个sign参数，sign=md5(id=1)，服务器接受到请求，验证sign是否等于md5(id=1)，如果等于说明正常请求。这会有个弊端，假如规则被发现，那么就会被伪造，所以适当复杂一些，还是能够提高安全性的。</a></p>
+<p><strong>登录态怎么做，</strong>http是无状态的，也就是服务器没法自己判断两个请求是否有联系，那么登录之后，以后的接口怎么判定是否登录呢，简单的做法，在数据库中存一个token字段（名字随意），当用户调用登陆接口成功的时候，就将该字段设一个值，（比如aes(过期时间)），同时返回给前端，以后每次前端请求带上该值，服务器首先校验是否过期，其次校验是否正确，不通过就让其登陆。（redis 做这个很方便哦，key有过期时间）。</p>
+<p>具体可参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/l18848956739/article/details/81011194">如何保证http传输安全性</a> </p>
+<p><a href="%5Bhttps://hellogoogle.blog.csdn.net/article/details/94440881?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-5.control&dist_request_id=1329187.12416.16178842483851657&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-5.control%5D(https://hellogoogle.blog.csdn.net/article/details/94440881?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-5.control&dist_request_id=1329187.12416.16178842483851657&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-5.control)">【Java】【通信安全】怎么保证http请求的安全性</a></p>
+<h1 id="多线程相关面试题"><a href="#多线程相关面试题" class="headerlink" title="多线程相关面试题"></a>多线程相关面试题</h1><p>具体可参考：</p>
+<p> <a target="_blank" rel="noopener" href="https://www.cnblogs.com/weibanggang/p/9470462.html">多线程面试题</a></p>
+<h1 id="如何实现线程同步"><a href="#如何实现线程同步" class="headerlink" title="如何实现线程同步"></a>如何实现线程同步</h1><h2 id="Synchronized-用在普通方法和-static-上的区别"><a href="#Synchronized-用在普通方法和-static-上的区别" class="headerlink" title="Synchronized 用在普通方法和 static 上的区别"></a>Synchronized 用在普通方法和 static 上的区别</h2><p>当使用synchronized修饰静态方法时，线程此时获得的锁对象是类的Class对象（<strong>堆内存中只有唯一一个Class对象，因为Class对象是在类加载时产生的，而类加载只执行一次</strong>），因此会锁住整个类，其他线程无法访问该类的同步静态方法，但是可以访问非同步的方法</p>
+<p>回答2：</p>
+<p>synchronized修饰不加static的方法，锁是加在单个对象上，不同的对象没有竞争关系；</p>
+<p>synchronized修饰加了static的方法，锁是加载类上，这个类所有的对象竞争一把锁。</p>
+<p>具体可参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33819764/article/details/81736729">【多线程】实现线程同步的几种方法</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43658899/article/details/107230699">Synchronized关键字加在普通方法上和加在静态方法上有什么区别?</a></p>
+<h1 id="Java语言的特点和特性"><a href="#Java语言的特点和特性" class="headerlink" title="Java语言的特点和特性"></a>Java语言的特点和特性</h1><h2 id="1-Java语言的主要特点："><a href="#1-Java语言的主要特点：" class="headerlink" title="1.　　Java语言的主要特点："></a>1.　　<strong>Java</strong>语言的主要特点：</h2><p>　　　1. 跨平台性</p>
+<p>　　　所谓的跨平台性，是指软件可以不受计算机硬件和操作系统的约束而在任意计算机环境下正常运行。这是软件发展的趋势和编程人员追求的目标。之所以这样说，是因为计算机硬件的种类繁多，操作系统也各不相同，不同的用户和公司有自己不同的计算机环境偏好，而软件为了能在这些不同的环境里正常运行，就需要独立于这些平台。而在<strong>Java</strong>语言中， <strong>Java</strong>自带的虚拟机很好地实现了跨平台性。 <strong>Java</strong>源程序代码经过编译后生成二进制的字节码是与平台无关的，但是可被<strong>Java</strong>虚拟机识别的一种机器码指令。 <strong>Java</strong>虚拟机提供了一个字节码到底层硬件平台及操作系统的屏障，使得<strong>Java</strong>语言具备跨平台性。</p>
+<p>　　　2. 面向对象</p>
+<p>　　　面向对象是指以对象为基本粒度，其下包含属性和方法。对象的说明用属性表达，而通过使用方法来操作这个对象。面向对象技术使得应用程序的开发变得简单易用，节省代码。<strong>Java</strong>是一种面向对象<strong>的语言</strong>，也继承了面向对象的诸多好处，如代码扩展、代码复用等。</p>
+<p>　　　3. 安全性</p>
+<p>　　　安全性可以分为四个层面，即语言级安全性、编译时安全性、运行时安全性、可执行代码安全性。语言级安全性指<strong>Java</strong>的数据结构是完整的对象，这些封装过的数据类型具有安全性。编译时要进行<strong>Java</strong>语言和语义的检查，保证每个变量对应一个相应的值，编译后生成<strong>Java</strong>类。运行时<strong>Java</strong>类需要类加载器载入www jxzxmr net，并经由字节码校验器校验之后才可以运行。 <strong>Java</strong>类在网络上使用时，对它的权限进行了设置，保证了被访问用户的安全性。</p>
+<p>　　　4. 多线程</p>
+<p>　　　多线程在操作系统中已得到了最成功的应用。多线程是指允许一个应用程序同时存在两个或两个以上的线程，用于支持事务并发和多任务处理。 <strong>Java</strong>除了内置的多线程技术之外，还定义了一些类、方法等来建立和管理用户定义的多线程。</p>
+<p>　　　5. 简单易用</p>
+<p>　　　<strong>Java</strong>源代码的书写不拘泥于特定的环境，可以用记事本、文本编辑器等编辑软件来实现，然后将源文件进行编译，编译通过后可直接运行，通过调试则可得到想要的结果。</p>
+<h2 id="2-Java语言的几大特性："><a href="#2-Java语言的几大特性：" class="headerlink" title="2.　　Java语言的几大特性："></a>2.　　<strong>Java</strong>语言的几大<strong>特性</strong>：</h2><p>　　　1.封装： </p>
+<p>　　　封装是把过程和数据包围起来，对数据的访问只能通过已定义的接口。面向对象计算始于这个基本概念，即现实世界可以被描绘成一系列完全自治、封装的对象，这些对象通过一个受保护的接口访问其他对象。封装是一种信息隐藏技术，在<strong>java</strong>中通过关键字private，protected和public实现封装。什么是封装？封装把对象的所有组成部分组合在一起，封装定义程序如何引用对象的数据，封装实际上使用方法将类的数据隐藏起来，控制用户对类的修改和访问数据的程度。 适当的封装可以让程式码更容易理解和维护，也加强了程式码的安全性。</p>
+<p>　　　2.继承：</p>
+<p>　　　继承是面向对象最显著的一个<strong>特性</strong>。继承是从已有的类中派生出新的类，新的类能吸收已有类的数据属性和行为，并能扩展新的能力。 <strong>Java</strong>继承是使用已存在的类的定义作为基础建立新类的技术，新类的定义可以增加新的数据或新的功能，也可以用父类的功能，但不能选择性地继承父类。这种技术使得复用以前的代码非常容易，能够大大缩短开发周期，降低开发费用</p>
+<p>　　　3.多态： </p>
+<p>　　　按字面的意思就是“多种状态”。在面向对象语言中，接口的多种不同的实现方式即为多态。多态性是允许你将父对象设置成为一个或更多的他的子对象相等的技术，赋值之后，父对象就可以根据当前赋值给它的子对象的<strong>特性</strong>以不同的方式运作 多态的话，我觉得是更好的利用了继承这一<strong>特性</strong>，然后为什么能实现多态，因为可以重写父类的方法。说重写可能不清楚，具体来说就是子类父类可以存在分别存在名字相同的属性或者方法，然后可视声明的类去调用相应的方法等。</p>
+<p>　　　4.抽象：<br>　　　抽象是通过分析与综合的途径，运用概念在人脑中再现对象的质和本质的方法，我觉得理解成一种方法比较好。就是我们通过对事物的认知，将某一或者一类事物的属性变化成<strong>JAVA</strong>语言能识别的类。</p>
+<h1 id="static关键字总结"><a href="#static关键字总结" class="headerlink" title="static关键字总结"></a>static关键字总结</h1><h2 id="静态变量和静态方法"><a href="#静态变量和静态方法" class="headerlink" title="静态变量和静态方法"></a><strong>静态变量和静态方法</strong></h2><p>static关键字最基本的用法是：</p>
+<p>1、被static修饰的变量属于类变量，可以通过<strong>类名.变量名</strong>直接引用，而不需要new出一个类来</p>
+<p>2、被static修饰的方法属于类方法，可以通过<strong>类名.方法名</strong>直接引用，而不需要new出一个类来\</p>
+<h2 id="静态块"><a href="#静态块" class="headerlink" title="静态块"></a><strong>静态块</strong></h2><p>静态块也是static的重要应用之一。也是用于初始化一个类的时候做操作用的，和静态变量、静态方法一样，<strong>静态块里面的代码只执行一次，且只在初始化类的时候执行</strong>。静态块很简单，不过提三个小细节：</p>
+<ol>
+<li><p><strong>静态资源的加载顺序是严格按照静态资源的定义顺序来加载的</strong>。</p>
+</li>
+<li><p><strong>静态代码块对于定义在它之后的静态变量，可以赋值，但是不能访问</strong>。</p>
+</li>
+<li><p><strong>静态代码块是严格按照父类静态代码块-&gt;子类静态代码块的顺序加载的，且只加载一次</strong>。</p>
+<p>最后一个小例子：</p>
+</li>
+</ol>
+<p>具体可参考：</p>
+<p> <a target="_blank" rel="noopener" href="https://www.cnblogs.com/swisszhang/p/9892992.html">static关键字作用总结</a></p>
+<h1 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h1><p><strong>存储引擎</strong>说白了就是如何存储数据、如何为存储的数据建立<strong>索引</strong>和如何更新、查询数据等技术的实现方法。因为在关系数据库中数据的存储是以表的形式存储的，所以<strong>存储引擎</strong>也可以称为表类型（即存储和操作此表的类型）。</p>
+<p>在Oracle 和SQL Server等数据库中只有一种<strong>存储引擎</strong>，所有数据存储管理机制都是一样的。而MySql数据库提供了多种<strong>存储引擎</strong>。用户可以根据不同的需求为数据表选择不同的<strong>存储引擎</strong>，用户也可以根据自己的需要编写自己的<strong>存储引擎</strong>。</p>
+<p>\2.   <strong>存储引擎</strong>的类型及特点</p>
+<table>
+<thead>
+<tr>
+<th><strong>引擎名称</strong></th>
+<th><strong>优点</strong></th>
+<th><strong>缺陷</strong></th>
+<th><strong>应用场景</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>MyISAM</strong></td>
+<td>独立于操作系统，这说明可以轻松地将其从Windows服务器移植到Linux服务器</td>
+<td>不支持事务/行级锁/外键约束</td>
+<td>适合管理邮件或Web服务器日志数据</td>
+</tr>
+<tr>
+<td><strong>InnoDB</strong></td>
+<td>健壮的事务型<strong>存储引擎</strong>；支持事务/行级锁/外键约束自动灾难恢复/AUTO_INCREMENT</td>
+<td></td>
+<td>需要事务支持，并且有较高的并发读取频率</td>
+</tr>
+<tr>
+<td><strong>MEMORY</strong></td>
+<td>为得到最快的响应时间，采用的逻辑存储介质是系统内存</td>
+<td>当mysqld守护进程崩溃时，所有的Memory数据都会丢失；不能使用BLOB和TEXT这样的长度可变的数据类型</td>
+<td>临时表</td>
+</tr>
+<tr>
+<td><strong>MERGE</strong></td>
+<td>是MyISAM类型的一种变种。合并表是将几个相同的MyISAM表合并为一个虚表</td>
+<td></td>
+<td>常应用于日志和数据仓库</td>
+</tr>
+<tr>
+<td><strong>ARCHIVE</strong></td>
+<td>归档的意思，支持<strong>索引</strong>，拥有很好的压缩机制</td>
+<td>仅支持插入和查询功能</td>
+<td>经常被用来当做仓库使用</td>
+</tr>
+</tbody></table>
+<h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><h2 id="什么是索引"><a href="#什么是索引" class="headerlink" title="什么是索引"></a>什么是索引</h2><p>索引是对<a target="_blank" rel="noopener" href="https://coding.imooc.com/?c=data">数据库</a>表中一个或多个列（例如，employee 表的姓名 (name) 列）的值进行排序的结构。如果想按特定职员的姓来查找他或她，则与在表中搜索所有的行相比，索引有助于更快地获取信息。</p>
+<p>例如这样一个查询：select * from table1 where id=10000。如果没有索引，必须遍历整个表，直到ID等于10000的这一行被找到为止；有了索引之后(必须是在ID这一列上建立的索引)，即可在索引中查找。由于索引是经过某种算法优化过的，因而查找次数要少的多。可见，索引是用来定位的。</p>
+<h2 id="分类："><a href="#分类：" class="headerlink" title="分类："></a><strong>分类：</strong></h2><p><strong>唯一索引</strong></p>
+<p>唯一索引是不允许其中任何两行具有相同索引值的索引。<br>当现有数据中存在重复的键值时，大多数<a target="_blank" rel="noopener" href="https://coding.imooc.com/?c=data">数据库</a>不允许将新创建的唯一索引与表一起保存。<a target="_blank" rel="noopener" href="https://coding.imooc.com/?c=data">数据库</a>还可能防止添加将在表中创建重复键值的新数据。例如，如果在employee表中职员的姓(lname)上创建了唯一索引，则任何两个员工都不能同姓。</p>
+<p><strong>主键索引</strong></p>
+<p><a target="_blank" rel="noopener" href="https://coding.imooc.com/?c=data">数据库</a>表经常有一列或多列组合，其值唯一标识表中的每一行。该列称为表的主键。<br>在<a target="_blank" rel="noopener" href="https://coding.imooc.com/?c=data">数据库</a>关系图中为表定义主键将自动创建主键索引，主键索引是唯一索引的特定类型。该索引要求主键中的每个值都唯一。当在查询中使用主键索引时，它还允许对数据的快速访问。</p>
+<p><strong>聚集索引</strong></p>
+<p>在聚集索引中，表中行的物理顺序与键值的逻辑（索引）顺序相同。一个表只能包含一个聚集索引。<br>如果某索引不是聚集索引，则表中行的物理顺序与键值的逻辑顺序不匹配。与非聚集索引相比，聚集索引通常提供更快的数据访问速度。</p>
+<p>具体参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.imooc.com/article/11725"><strong>【程序员必读系列】-数据库索引的原理</strong></a></p>
+<h1 id="分布式、微服务和集群的初步了解"><a href="#分布式、微服务和集群的初步了解" class="headerlink" title="分布式、微服务和集群的初步了解"></a>分布式、微服务和集群的初步了解</h1><p><strong>微服务</strong></p>
+<p>简单来说微服务就是很小的服务，<strong>小到一个服务只对应一个单一的功能，只做一件事</strong>。这个服务可以单独部署运行，服务之间可以通过RPC来相互交互，每个微服务都是由独立的小团队开发，测试，部署，上线，负责它的整个生命周期。</p>
+<p><strong>微服务架构</strong></p>
+<p>在做架构设计的时候，先做逻辑架构，再做物理架构，当你拿到需求后，估算过最大用户量和并发量后，计算单个应用服务器能否满足需求，如果用户量只有几百人的小应用，单体应用就能搞定，即所有应用部署在一个应用服务器里，如果是很大用户量，且某些功能会被频繁访问，或者某些功能计算量很大，建议将应用拆解为多个子系统，各自负责各自功能，这就是微服务架构。</p>
+<p><strong>分布式</strong></p>
+<p>分布式服务顾名思义服务是<strong>分散部署在不同的机器上</strong>，一个服务可能负责几个功能，是一种面向SOA架构的，服务之间也是通过rpc来交互或者是webservice来交互的。</p>
+<p>逻辑架构设计完后就该做物理架构设计，系统应用部署在超过一台服务器或虚拟机上，且各分开部署的部分彼此通过各种通讯协议交互信息，就可算作分布式部署，生产环境下的微服务肯定是分布式部署的，分布式部署的应用不一定是微服务架构的，比如集群部署，它是把相同应用复制到不同服务器上，但是逻辑功能上还是单体应用。<br>微服务相比分布式服务来说，它的粒度更小，服务之间耦合度更低，由于每个微服务都由独立的小团队负责，因此它敏捷性更高，分布式服务最后都会向微服务架构演化，这是一种趋势， 不过服务微服务化后带来的挑战也是显而易见的，例如服务粒度小，数量大，后期运维将会很难.</p>
+<p>具体参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yaoyao-sun/p/10422019.html">分布式、微服务和集群的初步了解</a></p>
+<h1 id="Java类加载器与双亲委派模式的详解"><a href="#Java类加载器与双亲委派模式的详解" class="headerlink" title="Java类加载器与双亲委派模式的详解"></a>Java类加载器与双亲委派模式的详解</h1><p>具体参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_38055381/article/details/81382115">Java类加载器与双亲委派模式的详解</a></p>
+<h1 id="银行家算法"><a href="#银行家算法" class="headerlink" title="银行家算法"></a>银行家算法</h1><p>银行家算法（Banker’s Algorithm）是一个避免死锁（Deadlock）的著名算法，是由艾兹格·迪杰斯特拉在1965年为T.H.E系统设计的一种避免死锁产生的算法。它以银行借贷系统的分配策略为基础，判断并保证系统的安全运行。</p>
+<h1 id="B树，B-树的原理及区别"><a href="#B树，B-树的原理及区别" class="headerlink" title="B树，B+树的原理及区别"></a>B树，B+树的原理及区别</h1><h2 id="B-树"><a href="#B-树" class="headerlink" title="B-树"></a>B-树</h2><p><img src="/images/pasted-210408Btree.jpg"></p>
+<h2 id="B-树-1"><a href="#B-树-1" class="headerlink" title="B+树"></a>B+树</h2><pre><code>  1.其定义基本与B-树同，除了：
+</code></pre>
+<p>​      2.非叶子结点的子树指针与关键字个数相同；</p>
+<p>​      3.非叶子结点的子树指针P[i]，指向关键字值属于[K[i], K[i+1])的子树（B-树是开区间）；</p>
+<p>​      4.为所有叶子结点增加一个链指针；</p>
+<p>​      5.所有关键字都在叶子结点出现；</p>
+<p><img src="/images/pasted-210408B+tree.jpg"></p>
+<p> B+的特性：</p>
+<p>​      1.所有关键字都出现在叶子结点的链表中（稠密索引），且链表中的关键字恰好是有序的；</p>
+<p>​      2.不可能在非叶子结点命中；</p>
+<p>​      3.非叶子结点相当于是叶子结点的索引（稀疏索引），叶子结点相当于是存储（关键字）数据的数据层；</p>
+<p>​      4.更适合文件索引系统；</p>
+<h2 id="为什么B-树比B树更适合数据库索引？"><a href="#为什么B-树比B树更适合数据库索引？" class="headerlink" title="为什么B+树比B树更适合数据库索引？"></a>为什么B+树比B树更适合数据库索引？</h2><p>1、 B+树的磁盘读写代价更低：B+树的内部节点并没有指向关键字具体信息的指针，因此其内部节点相对B树更小，如果把所有同一内部节点的关键字存放在同一盘块中，那么盘块所能容纳的关键字数量也越多，一次性读入内存的需要查找的关键字也就越多，相对IO读写次数就降低了。</p>
+<p>2、B+树的查询效率更加稳定：由于非终结点并不是最终指向文件内容的结点，而只是叶子结点中关键字的索引。所以任何关键字的查找必须走一条从根结点到叶子结点的路。所有关键字查询的路径长度相同，导致每一个数据的查询效率相当。</p>
+<p>3、由于B+树的数据都存储在叶子结点中，分支结点均为索引，方便扫库，只需要扫一遍叶子结点即可，但是B树因为其分支结点同样存储着数据，我们要找到具体的数据，需要进行一次中序遍历按序来扫，所以B+树更加适合在区间查询的情况，所以通常B+树用于数据库索引。</p>
+<p>4、B树在提高了IO性能的同时并没有解决元素遍历的我效率低下的问题，正是为了解决这个问题，B+树应用而生。B+树只需要去遍历叶子节点就可以实现整棵树的遍历。而且在数据库中基于范围的查询是非常频繁的，而B树不支持这样的操作或者说效率太低。</p>
+<p>具体参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wuzzi/article/details/90208999">为什么说B+树比B树更适合数据库索引？</a></p>
+<h1 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h1><h2 id="红黑树规则"><a href="#红黑树规则" class="headerlink" title="红黑树规则"></a>红黑树规则</h2><p>红黑树有必须要遵守的规则，称为红-黑规则：</p>
+<p>每个节点不是红色就是黑色的；<br>根节点总是黑色的；<br>红色节点的子节点必须是黑色的（反之不一定）。也就是从每个叶子到根的路径上不能有两个连续的红色节点；<br>从根节点到叶节点或空子节点的每条路径，必须包含相同数目的黑色节点（即相同的黑色高度）。</p>
+<h2 id="红黑树性能分析"><a href="#红黑树性能分析" class="headerlink" title="红黑树性能分析"></a>红黑树性能分析</h2><p>红黑树的查找、插入和删除时间复杂度都为O(logN)，额外的开销是每个节点的存储空间都稍微增加了一点，因为一个存储红黑树节点的颜色变量。插入和删除的时间要增加一个常数因子，因为要进行旋转，平均一次插入大约需要一次旋转，因此插入的时间复杂度还是 O(logN)，(时间复杂度的计算要省略常数)，但实际上红黑树的插入和删除比普通的二叉树是要慢的。</p>
+<p>红黑树适用于查找的次数比插入和删除的次数大很多的情况，红黑树的优点是对于有序数据的操作不会慢到O(N)的时间复杂度。</p>
+<p>具体参考：<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/Mr_Wanderer/article/details/113872720">https://blog.csdn.net/Mr_Wanderer/article/details/113872720</a></p>
+<h1 id="二叉查找树"><a href="#二叉查找树" class="headerlink" title="二叉查找树"></a>二叉查找树</h1><p>二叉搜索树作为一种数据结构，其查找、插入和删除操作的时间复杂度都为O(logn)，底数为2。</p>
+<p>但是我们说这个时间复杂度是在平衡的二叉搜索树上体现的，也就是如果插入的数据是随机的，则效率很高，但是如果插入的数据是有序的，比如从小到大的顺序【10,20,30,40,50】插入到二叉搜索树中：从大到小就是全部在左边，这和链表没有任何区别了，这种情况下查找的时间复杂度为O(N)，而不是O(logN)。当然这是在最不平衡的条件下，实际情况下，<strong>二叉搜索树的效率应该在O(N)和O(logN)之间，这取决于树的不平衡程度</strong>。</p>
+<h1 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h1><p>查找、插入和删除在平均和最坏情况下都是O（log n）。</p>
+<p> 高度为 h 的 AVL 树，节点数 N 最多2^h − 1；</p>
+<h1 id="浅拷贝和深拷贝"><a href="#浅拷贝和深拷贝" class="headerlink" title="浅拷贝和深拷贝"></a>浅拷贝和深拷贝</h1><h2 id="浅拷贝（Shallow-Copy）："><a href="#浅拷贝（Shallow-Copy）：" class="headerlink" title="浅拷贝（Shallow Copy）："></a><strong>浅拷贝</strong>（Shallow Copy）：</h2><p>①对于数据类型是基本数据类型的成员变量，浅拷贝会直接进行值传递，也就是将该属性值复制一份给新的对象。因为是两份不同的数据，所以对其中一个对象的该成员变量值进行修改，不会影响另一个对象拷贝得到的数据。②对于数据类型是引用数据类型的成员变量，比如说成员变量是某个数组、某个类的对象等，那么浅拷贝会进行引用传递，也就是只是将该成员变量的引用值（内存地址）复制一份给新的对象。因为实际上两个对象的该成员变量都指向同一个实例。在这种情况下，在一个对象中修改该成员变量会影响到另一个对象的该成员变量值。</p>
+<p><img src="https://images2017.cnblogs.com/blog/1218256/201710/1218256-20171011182513121-1029542999.png" alt="img"></p>
+<p>浅拷贝的实现方式主要有三种：</p>
+<p>一、通过拷贝构造方法实现浅拷贝：</p>
+<p>拷贝构造方法指的是该类的构造方法参数为该类的对象。使用拷贝构造方法可以很好地完成浅拷贝，直接通过一个现有的对象创建出与该对象属性相同的新的对象。</p>
+<p>二、通过重写clone()方法进行浅拷贝：</p>
+<p>Object类是类结构的根类，其中有一个方法为protected Object <strong>clone</strong>() throws <a target="_blank" rel="noopener" href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/lang/CloneNotSupportedException.html">CloneNotSupportedException</a>，这个方法就是进行的浅拷贝。有了这个浅拷贝模板，我们可以通过调用clone()方法来实现对象的浅拷贝。但是需要注意：1、Object类虽然有这个方法，但是这个方法是受保护的（被protected修饰），所以我们无法直接使用。2、使用clone方法的类必须实现Cloneable接口，否则会抛出异常CloneNotSupportedException。对于这两点，我们的解决方法是，在要使用clone方法的类中重写clone()方法，通过super.clone()调用Object类中的原clone方法。</p>
+<p>基本数据类型是值传递，所以修改值后不会影响另一个对象的该属性值；</p>
+<p>引用数据类型是地址传递（引用传递），所以修改值后另一个对象的该属性值会同步被修改。</p>
+<h2 id="深拷贝："><a href="#深拷贝：" class="headerlink" title="深拷贝："></a>深拷贝：</h2><p>首先介绍对象图的概念。设想一下，一个类有一个对象，其成员变量中又有一个对象，该对象指向另一个对象，另一个对象又指向另一个对象，直到一个确定的实例。这就形成了对象图。那么，对于深拷贝来说，不仅要复制对象的所有基本数据类型的成员变量值，还要为所有引用数据类型的成员变量申请存储空间，并复制每个引用数据类型成员变量所引用的对象，直到该对象可达的所有对象。也就是说，对象进行深拷贝要对整个对象图进行拷贝！</p>
+<p>简单地说，深拷贝对引用数据类型的成员变量的对象图中所有的对象都开辟了内存空间；而浅拷贝只是传递地址指向，新的对象并没有对引用数据类型创建内存空间。</p>
+<p>深拷贝模型如图所示：可以看到所有的成员变量都进行了复制。</p>
+<p><img src="https://images2017.cnblogs.com/blog/1218256/201710/1218256-20171011190501371-68869476.png" alt="img"></p>
+<p>因为创建内存空间和拷贝整个对象图，所以深拷贝相比于浅拷贝速度较慢并且花销较大。</p>
+<p>深拷贝的实现方法主要有两种：</p>
+<p>一、通过重写clone方法来实现深拷贝</p>
+<p>与通过重写clone方法实现浅拷贝的基本思路一样，只需要为对象图的每一层的每一个对象都实现Cloneable接口并重写clone方法，最后在最顶层的类的重写的clone方法中调用所有的clone方法即可实现深拷贝。简单的说就是：每一层的每个对象都进行浅拷贝=深拷贝。</p>
+<p>分析结果可以验证：进行了深拷贝之后，无论是什么类型的属性值的修改，都不会影响另一个对象的属性值。</p>
+<p>二、通过对象序列化实现深拷贝</p>
+<p>虽然层次调用clone方法可以实现深拷贝，但是显然代码量实在太大。特别对于属性数量比较多、层次比较深的类而言，每个类都要重写clone方法太过繁琐。</p>
+<p>将对象序列化为字节序列后，默认会将该对象的整个对象图进行序列化，再通过反序列即可完美地实现深拷贝。</p>
+<h1 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h1><p>JVM在进行GC时，并不是对这三个区域统一回收。 大部分时候，回收都是新生代~<br>●新生代<br><strong>●幸存区(form，to)</strong><br>●老年区<br>GC两种类:轻GC (普通的GC)， 重GC (全局GC)<br>GC常见面试题目:<br>●JVM的内存模型和分区~详细到每个区放什么?<br><img src="https://img-blog.csdnimg.cn/20200715153153103.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L29rRm9ycmVzdDI3,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p> 图 JVM内存模型和分区</p>
+<p>●堆里面的分区有哪些?<br>Eden, form, to, 老年区,说说他们的特点!<br>●GC的算法有哪些?<br>标记清除法，标记整理,复制算法，引用计数器<br>●轻GC和重GC分别在什么时候发生?</p>
+<p>具体参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42671148/article/details/108274558">JVM-狂神学习笔记</a></p>
+<h1 id="线程池的作用"><a href="#线程池的作用" class="headerlink" title="线程池的作用"></a>线程池的作用</h1><p>在程序启动的时候就创建若干线程来响应处理，它们被称为线程池，里面的线程叫工作线程<br>　　<strong>第一</strong>：降低资源消耗。通过重复利用已创建的线程降低线程创建和销毁造成的消耗。<br>　　<strong>第二</strong>：提高响应速度。当任务到达时，任务可以不需要等到线程创建就能立即执行。<br>　　<strong>第三</strong>：提高线程的可管理性。<br>常用线程池：ExecutorService 是主要的实现类，其中常用的有 :<br>Executors.newSingleThreadPool()</p>
+<p>  　　newFixedThreadPool()</p>
+<p>  　　newcachedTheadPool()</p>
+<p>  　 newScheduledThreadPool()</p>
+<p>具体参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zeze/p/6548649.html">线程池的作用</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/superfj/p/7544971.html">由浅入深理解Java线程池及线程池的如何使用</a></p>
+<h1 id="局部性"><a href="#局部性" class="headerlink" title="局部性"></a>局部性</h1><p>局部性通常分为：<strong>时间局部性</strong>和<strong>空间局部性</strong>。</p>
+<p>1）时间局部性<br>时间局部性是指被引用过一次的内存位置很可能在不远的将来再被多次引用。</p>
+<p>2）空间局部性<br>空间局部性是指如果一个内存位置被引用了一次，那么程序很可能在不远的将来引用其附近的一个内存位置。</p>
+<p>3）局部性原理举例</p>
+<ul>
+<li>在硬件层，局部性原理允许计算机设计者通过引入小而快的高速缓存存储器来保存最近被引用的指令和数据项，从而提高对主存的访问速度。</li>
+<li>在操作系统级，局部性原理允许系统使用主存作为虚拟地址空间最近被引用块的高速缓存。</li>
+<li>类似的，操作系统用主存来缓存磁盘文件系统中最近被使用的磁盘块。</li>
+<li>在应用程序的设计，如Web浏览器将最近被请求的文档放在本地磁盘上，利用的就是时间局部性。大容量的Web服务器将最近被请求的文档放在前端磁盘高速缓存中，不需要服务器的干预就可满足对这些文档的请求。</li>
+</ul>
+<h1 id="Linux-文件与目录管理"><a href="#Linux-文件与目录管理" class="headerlink" title="Linux 文件与目录管理"></a>Linux 文件与目录管理</h1><h2 id="处理目录的常用命令"><a href="#处理目录的常用命令" class="headerlink" title="处理目录的常用命令"></a>处理目录的常用命令</h2><p>接下来我们就来看几个常见的处理目录的命令吧：</p>
+<ul>
+<li>ls（英文全拼：list files）: 列出目录及文件名</li>
+<li>cd（英文全拼：change directory）：切换目录</li>
+<li>pwd（英文全拼：print work directory）：显示目前的目录</li>
+<li>mkdir（英文全拼：make directory）：创建一个新的目录</li>
+<li>rmdir（英文全拼：remove directory）：删除一个空的目录</li>
+<li>cp（英文全拼：copy file）: 复制文件或目录</li>
+<li>rm（英文全拼：remove）: 删除文件或目录</li>
+<li>mv（英文全拼：move file）: 移动文件与目录，或修改文件与目录的名称</li>
+</ul>
+<p>你可以使用 <em>man [命令]</em> 来查看各个命令的使用文档，如 ：man cp。</p>
+<h2 id="Linux-文件内容查看"><a href="#Linux-文件内容查看" class="headerlink" title="Linux 文件内容查看"></a>Linux 文件内容查看</h2><p>Linux系统中使用以下命令来查看文件的内容：</p>
+<ul>
+<li>cat 由第一行开始显示文件内容</li>
+<li>tac 从最后一行开始显示，可以看出 tac 是 cat 的倒着写！</li>
+<li>nl  显示的时候，顺道输出行号！</li>
+<li>more 一页一页的显示文件内容</li>
+<li>less 与 more 类似，但是比 more 更好的是，他可以往前翻页！</li>
+<li>head 只看头几行</li>
+<li>tail 只看尾巴几行</li>
+</ul>
+<p>你可以使用 *man [命令]*来查看各个命令的使用文档，如 ：man cp。</p>
+<h1 id="Linux下的编译和执行"><a href="#Linux下的编译和执行" class="headerlink" title="Linux下的编译和执行"></a>Linux下的编译和执行</h1><p>具体参考：</p>
+<p> <a target="_blank" rel="noopener" href="https://blog.csdn.net/u013793399/article/details/51365311">在Linux系统下编译并执行C++程序</a></p>
+<h1 id="Spring相关面试题"><a href="#Spring相关面试题" class="headerlink" title="Spring相关面试题"></a>Spring相关面试题</h1><p>具体参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41701956/article/details/81389067">近5年来的 Spring 相关面试题整理</a></p>
+<h1 id="JVM垃圾回收机制"><a href="#JVM垃圾回收机制" class="headerlink" title="JVM垃圾回收机制"></a>JVM垃圾回收机制</h1><p>具体参考：</p>
+<p><a href="%5Bhttps://jpeony.blog.csdn.net/article/details/80950336?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-7.control&dist_request_id=&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-7.control%5D(https://jpeony.blog.csdn.net/article/details/80950336?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-7.control&dist_request_id=&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-7.control)">【JVM】垃圾回收机制(1)–如何判定对象可以回收</a></p>
+<h1 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h1><p>SQL注入是比较常见的网络攻击方式之一，它不是利用操作系统的BUG来实现攻击，而是针对程序员编写时的疏忽，通过SQL语句，实现无账号登录，甚至篡改数据库。</p>
+<h2 id="SQL注入攻击的总体思路"><a href="#SQL注入攻击的总体思路" class="headerlink" title="SQL注入攻击的总体思路"></a>SQL注入攻击的总体思路</h2><p>　　1：寻找到SQL注入的位置</p>
+<p>　　2：判断服务器类型和后台数据库类型</p>
+<p>　　3：针对不同的服务器和数据库特点进行SQL注入攻击</p>
+<h1 id="各网络层的协议"><a href="#各网络层的协议" class="headerlink" title="各网络层的协议"></a>各网络层的协议</h1><p>TCP/IP体系结构</p>
+<p><img src="https://img-blog.csdnimg.cn/20200823014026904.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDI4MjA2Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="img"></p>
+<p>TCP/IP协议各层功能</p>
+<p>各层所包含的协议</p>
+<p><img src="https://img-blog.csdnimg.cn/20200823014123331.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDI4MjA2Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p>协议栈<br>各层的所有协议被称为协 议栈(protocol stack).因特网的协议栈由5个层次组成：物理层，数据链路层，网络层，运输层，应用层。</p>
+<h2 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h2><p>(1)应用层(application layer) 应用层是体系结构中的最高层。应用层直接为用户的应用进程提供服务。这里的进程就是指正在运行的程序。在因特网中的应用层协议很多， 如支持万维网应用的HTTP协议，支持电子邮件的SMTP协议，支持文件传送的FTP协议等等。<br>应用层协议分布在多个端系统上，一个端系统中的应用程序使用协议与另一个端系统中 的应用程序交换信息分组。我们将这种位于应用层的信息分组称为报文（message）。</p>
+<h2 id="运输层"><a href="#运输层" class="headerlink" title="运输层"></a>运输层</h2><p>迈输层提供了在应用程序端点之间传送应用层报文的服务。<br>(2)运输层(transport layer) 运输层的任务就是负责向两个主机中进程之间的通信提 供服务。由于一个主机可同时运行多个进程，因此运输层有复用和分用的功能。复用就是多 个应用层进程可同时使用下面运输层的服务，分用则是运输层把收到的信息分别交付给上面 应用层中的相应的进程。运输层分组称为报文段。<br>运输层主要使用以下两种协议：<br>① 传输控制协议TCP (Transmission Control Protocol) 面向连接的，数据传输的单位<br>是报文段(segment),能够提供可靠的交付。<br>② 用户数据报协议UDP (User Datagram Protocol) 无连接的，数据传输的单位是用<br>户数据报，不保证提供可靠的交付，只能提供“尽最大努力交付(best-effortdelivery)”<br>TCP与UDP区别<br>协议，即TCP和UDP,利用其中的任何一个都能传输应用层报文。TCP向它的应用程序提供了 面向连接的服务。这种服务包括了应用层报文向目的地的确保传递和流童控制(即发送方/接 收方速率匹配)。TCP也将长报文划分为短报文，并提供拥塞控制机制，因此当网络拥塞时， 源抑制其传输速率。UDP协议向它的应用程序提供无连接服务。这是一种不提供不必要服务 的服务，不提供可靠性，没有流量控制，也没有拥塞控制。</p>
+<h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><p>(3)因特网的网络层负责将称为数据报（datagram）的网络层分组从一台主机移动到另一台主 机。源主机中的因特网运输层协议（TCP或UDP）向网络层递交运输层报文段和目的地址， 就像你向邮政信件提供目的地址一样。在 TCP/IP体系中，由于网络层使用IP协议，因此分组也叫作IP数据报，或简称为数据报。<br>因特网的网络层包括著名的IP协议，该协议定义了数据报中的各个字段以及端系统和路 由器如何作用于这些字段。仅有一个IP协议，所有具有网络层的因特网组件都必须运行IP协议。</p>
+<h2 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h2><p>(4)数据链路层(data link layer) 常简称为链路层。我们知道，两个主机之间的数据 传输，总是在一段一段的链路上传送的，也就是说，在两个相邻结点之间(主机和路由器之 间或两个路由器之间)传送数据是直接传送的(点对点)。这时就需要使用专门的链路层的 协议。在两个相邻结点之间传送数据时，数据链路层将网络层交下来的IP数据报组装成帧 (framing),在两个相邻结点间的链路上“透明”地传送帧(frame)中的数据。每一帧包括数据 和必要的控制信息(如同步信息、地址信息、差错控制等)。典型的帧长是几百字节到一千多字节。</p>
+<h2 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h2><p>链路层的任务是将整个帧从一个网络元素移动到邻近的网络元素，而物理层的任务是将 该帧中的一个一个比特从一个节点移动到下一个节点。该层中的协议仍然是链路相关的，并 且进一步与链路（例如，双绞铜线、单模光纤）的实际传输媒体相关。例如，以太网具有许 多物理层协议：关于双绞铜线的，关于同轴电缆的，关于光纤的，等等。在每种情况下，跨 越这些链路移动一个比特的方式不同。</p>
+<h1 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h1><p>一篇比较好的并查集：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42011541/article/details/83378709">https://blog.csdn.net/qq_42011541/article/details/83378709</a></p>
+<p>N个人要坐在桌子上吃饭，但是人们拒绝和陌生人坐在一张桌子上。什么样的不算陌生人呢？主要是朋友的朋友的朋友的…..只要能扯上关系就不算陌生人。能扯上关系就可以坐在一张桌子上。所以至少要准备多少张桌子？</p>
+<p>思路：其实就是对并查集进行合并操作，只要俩人认识，就组队。把队组好以后，看最后有多少个组(集合)就行了。最初每个人都自成一组，所以有多少人就有多少组。但是随着他们组队，每两个组合并成一个组，总的组数就会少1。如果组队的时候发现，他俩已经早就‘扯上关系了’，也就表名他俩早就是一组了，那就不用继续合并了，也就不用再 -1 了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UnionFind</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] parent;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span>[] weight;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> size;<span class="comment">//代表并查集中元素个数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> groups;<span class="comment">//代表并查集中有多少个集合（小组）</span></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UnionFind</span><span class="params">(<span class="keyword">int</span> size)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.parent = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">        <span class="keyword">this</span>.weight = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">        <span class="keyword">this</span>.size = size;</span><br><span class="line">        <span class="keyword">this</span>.groups = size;<span class="comment">//因为初始的时候每个人自成一组，所以有多少人就有多少组</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">            <span class="keyword">this</span>.parent[i] = i;</span><br><span class="line">            <span class="keyword">this</span>.weight[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> element)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (element != parent[element]) &#123;</span><br><span class="line">            parent[element] = parent[parent[element]];</span><br><span class="line">            element = parent[element];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> element;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isConnected</span><span class="params">(<span class="keyword">int</span> firstElement, <span class="keyword">int</span> secondElement)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> find(firstElement) == find(secondElement);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unionElements</span><span class="params">(<span class="keyword">int</span> firstElement, <span class="keyword">int</span> secondElement)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> firstRoot = find(firstElement);</span><br><span class="line">        <span class="keyword">int</span> secondRoot = find(secondElement);</span><br><span class="line"> </span><br><span class="line">        <span class="comment">//如果已经属于同一个集合了，就不用再合并了。</span></span><br><span class="line">        <span class="keyword">if</span> (firstRoot == secondRoot) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> (weight[firstRoot] &gt; weight[secondRoot]) &#123;</span><br><span class="line">            parent[secondRoot] = firstRoot;</span><br><span class="line">            weight[firstRoot] += weight[secondRoot];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;<span class="comment">//weight[firstRoot] &lt;= weight[secondRoot]</span></span><br><span class="line">            parent[firstRoot] = secondRoot;</span><br><span class="line">            weight[secondRoot] += weight[firstRoot];</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">//合并 firstElement 和 secondElement 所在的两个组后，就少了一组。</span></span><br><span class="line">        <span class="keyword">this</span>.groups--;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getGroups</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.groups;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        java.util.Scanner scanner = <span class="keyword">new</span> java.util.Scanner(System.in);</span><br><span class="line">        <span class="keyword">int</span> times = scanner.nextInt();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; times; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> size = scanner.nextInt();</span><br><span class="line">            UnionFind union = <span class="keyword">new</span> UnionFind(size);</span><br><span class="line">            <span class="keyword">int</span> input = scanner.nextInt();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; input; j++) &#123;</span><br><span class="line">                <span class="comment">//因为测试数据是从1开始，而我们的并查集是从数组的第0位开始</span></span><br><span class="line">                <span class="keyword">int</span> first = scanner.nextInt() - <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">int</span> second = scanner.nextInt() - <span class="number">1</span>;</span><br><span class="line">                union.unionElements(first, second);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(union.getGroups());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;　</span><br></pre></td></tr></table></figure>
+
+<h1 id="transient关键字"><a href="#transient关键字" class="headerlink" title="transient关键字"></a>transient关键字</h1><p>transient关键字的作用是：被transient修饰的变量不参与序列化和反序列化。当一个对象被序列化的时候，transient型变量的值不包括在序列化的表示中，然而非transient型的变量是被包括进去的。</p>
+<h1 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h1><p>简要解释：<br>　　序列化就是一种用来处理对象流的机制，所谓对象流也就是将对象的内容进行流化。可以对流化后的对象进行读写操作，也可将流化后的对象传输于网络之间。<br>　　序列化是为了解决在对对象流进行读写操作时所引发的问题。序列化的实现：将需要被序列化的类实现Serializable接口，该接口没有需要实现的方法，implements Serializable只是为了标注该对象是可被序列化的，<br>然后使用一个输出流(如：FileOutputStream)来构造一个ObjectOutputStream(对象流)对象，接着，使用ObjectOutputStream对象的writeObject(Object obj)方法就可以将参数为obj的对象写出(即保存其状态)，要恢复的话则用输入流。</p>
+<p>具体参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yangchunze/p/6728086.html">什么是Java序列化，如何实现java序列化</a></p>
+<h1 id="线程的优先级"><a href="#线程的优先级" class="headerlink" title="线程的优先级"></a>线程的优先级</h1><p>Java线程可以有优先级的设定，高优先级的线程比低优先级的线程有更高的几率得到执行（不完全正确，请参考下面的“线程优先级的问题“）。</p>
+<ol>
+<li>记住当线程的优先级没有指定时，所有线程都携带普通优先级。</li>
+<li>优先级可以用从1到10的范围指定。10表示最高优先级，1表示最低优先级，5是普通优先级。</li>
+<li>记住优先级最高的线程在执行时被给予优先。但是不能保证线程在启动时就进入运行状态。</li>
+<li>与在线程池中等待运行机会的线程相比，当前正在运行的线程可能总是拥有更高的优先级。</li>
+<li>由调度程序决定哪一个线程被执行。</li>
+<li>t.setPriority()用来设定线程的优先级。</li>
+<li>记住在线程开始方法被调用之前，线程的优先级应该被设定。</li>
+<li>你可以使用常量，如MIN_PRIORITY,MAX_PRIORITY，NORM_PRIORITY来设定优先级。</li>
+</ol>
+<h1 id="Java线程和操作系统线程的关系"><a href="#Java线程和操作系统线程的关系" class="headerlink" title="Java线程和操作系统线程的关系"></a>Java线程和操作系统线程的关系</h1><p>具体参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/CringKong/article/details/79994511">Java线程和操作系统线程的关系</a></p>
+<h1 id="final的用法"><a href="#final的用法" class="headerlink" title="final的用法"></a>final的用法</h1><h3 id="1-修饰数据"><a href="#1-修饰数据" class="headerlink" title="1.修饰数据"></a>1.修饰数据</h3><h3 id="2-修饰方法参数"><a href="#2-修饰方法参数" class="headerlink" title="2.修饰方法参数"></a>2.修饰方法参数</h3><h3 id="3-修饰方法"><a href="#3-修饰方法" class="headerlink" title="3.修饰方法"></a>3.修饰方法</h3><h3 id="4-修饰类"><a href="#4-修饰类" class="headerlink" title="4.修饰类"></a>4.修饰类</h3><p>总结<br>final关键字是我们经常使用的关键字之一，它的用法有很多，但是并不是每一种用法都值得我们去广泛使用。它的主要用法有以下四种：</p>
+<ol>
+<li><p>用来修饰数据，包括成员变量和局部变量，该变量只能被赋值一次且它的值无法被改变。对于成员变量来讲，我们必须在声明时或者构造方法中对它赋值；</p>
+</li>
+<li><p>用来修饰方法参数，表示在变量的生存期中它的值不能被改变；</p>
+</li>
+<li><p>修饰方法，表示该方法无法被重写；</p>
+</li>
+<li><p>修饰类，表示该类无法被继承。</p>
+</li>
+</ol>
+<p>上面的四种方法中，第三种和第四种方法需要谨慎使用，因为在大多数情况下，如果是仅仅为了一点设计上的考虑，我们并不需要使用final来修饰方法和类。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/04/210404Java-jihelei/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1525,198 +1849,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/24/210324Database/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/clx.jpg">
-      <meta itemprop="name" content="porridgechou">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mynote">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/24/210324Database/" class="post-title-link" itemprop="url">数据库面试知识点记录</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-03-24 10:23:00 / 修改时间：11:01:43" itemprop="dateCreated datePublished" datetime="2021-03-24T10:23:00+08:00">2021-03-24</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-数据库范式"><a href="#1-数据库范式" class="headerlink" title="1.数据库范式"></a>1.数据库范式</h1><ul>
-<li><p>第一范式：列不可分，eg:【联系人】（姓名，性别，电话），一个联系人有家庭电话和公司电话，那么这种表结构设计就没有达到 1NF；</p>
-</li>
-<li><p>第二范式：有主键，保证完全依赖。eg:订单明细表【OrderDetail】（OrderID，ProductID，UnitPrice，Discount，Quantity，ProductName），Discount（折扣），Quantity（数量）完全依赖（取决）于主键（OderID，ProductID），而 UnitPrice，ProductName 只依赖于 ProductID，不符合2NF；</p>
-</li>
-<li><p>第三范式：无传递依赖(非主键列 A 依赖于非主键列 B，非主键列 B 依赖于主键的情况)，eg:订单表【Order】（OrderID，OrderDate，CustomerID，CustomerName，CustomerAddr，CustomerCity）主键是（OrderID），CustomerName，CustomerAddr，CustomerCity 直接依赖的是 CustomerID（非主键列），而不是直接依赖于主键，它是通过传递才依赖于主键，所以不符合 3NF。</p>
-</li>
-</ul>
-<h1 id="2-数据库索引"><a href="#2-数据库索引" class="headerlink" title="2.数据库索引"></a>2.数据库索引</h1><p><strong>索引是对数据库表中一个或多个列的值进行排序的数据结构，以协助快速查询、更新数据库表中数据。</strong>索引的实现通常使用B_TREE及其变种。索引加速了数据访问，因为存储引擎不会再去扫描整张表得到需要的数据；相反，它从根节点开始，根节点保存了子节点的指针，存储引擎会根据指针快速寻找数据。</p>
-<h2 id="1-索引的底层实现原理和优化"><a href="#1-索引的底层实现原理和优化" class="headerlink" title="1). 索引的底层实现原理和优化"></a>1). 索引的底层实现原理和优化</h2><p>　　在数据结构中，我们最为常见的搜索结构就是二叉搜索树和AVL树(高度平衡的二叉搜索树，为了提高二叉搜索树的效率，减少树的平均搜索长度)了。然而，无论二叉搜索树还是AVL树，当数据量比较大时，都会由于树的深度过大而造成I/O读写过于频繁，进而导致查询效率低下，因此对于索引而言，多叉树结构成为不二选择。特别地，B-Tree的各种操作能使B树保持较低的高度，从而保证高效的查找效率。<br>(1). B-Tree(平衡多路查找树)</p>
-<p>　　B_TREE是一种平衡多路查找树，是一种动态查找效率很高的树形结构。B_TREE中所有结点的孩子结点的最大值称为B_TREE的阶，B_TREE的阶通常用m表示，简称为m叉树。一般来说，应该是m&gt;=3。一颗m阶的B_TREE或是一颗空树，或者是满足下列条件的m叉树：</p>
-<p>树中每个结点最多有m个孩子结点；</p>
-<p>若根结点不是叶子节点，则根结点至少有2个孩子结点；</p>
-<p>除根结点外，其它结点至少有(m/2的上界)个孩子结点；</p>
-<p>结点的结构如下图所示，其中，n为结点中关键字个数，(m/2的上界)-1 &lt;= n &lt;= m-1；di(1&lt;=i&lt;=n)为该结点的n个关键字值的第i个，且di&lt; d(i+1)；ci(0&lt;=i&lt;=n)为该结点孩子结点的指针，且ci所指向的节点的关键字均大于或等于di且小于d(i+1)；</p>
-<p>　　　　　　　　　　<img src="http://static.zybuluo.com/Rico123/4clzcd69i34ihxiddnsorkza/B-Tree%E7%BB%93%E7%82%B9%E7%9A%84%E7%BB%93%E6%9E%84.png" alt="B-Tree结点的结构.png-1.7kB"></p>
-<p>所有的叶结点都在同一层上，并且不带信息（可以看作是外部结点或查找失败的结点，实际上这些结点不存在，指向这些结点的指针为空）。</p>
-<p>　　下图是一棵4阶B_TREE，4叉树结点的孩子结点的个数范围[2,4]。其中，有2个结点有4个孩子结点，有1个结点有3个孩子结点，有5个结点有2个孩子结点。</p>
-<p>　　　<img src="http://static.zybuluo.com/Rico123/z66j4t1g8jknavzqweyikezd/4%E9%98%B6B_TREE.jpg" alt="4阶B_TREE.jpg-24.1kB">　　</p>
-<p>　　B_TREE的查找类似二叉排序树的查找，所不同的是B-树每个结点上是多关键码的有序表，在到达某个结点时，先在有序表中查找，若找到，则查找成功；否则，到按照对应的指针信息指向的子树中去查找，当到达叶子结点时，则说明树中没有对应的关键码。由于B_TREE的高检索效率，B-树主要应用在文件系统和数据库中，对于存储在硬盘上的大型数据库文件，可以极大程度减少访问硬盘次数，大幅度提高数据检索效率。</p>
-<p>(2). B+Tree ： <strong>InnoDB存储引擎的索引实现</strong></p>
-<p>　　B+Tree是应文件系统所需而产生的一种B_TREE树的变形树。一棵m阶的B+树和m阶的B_TREE的差异在于以下三点：</p>
-<ul>
-<li><p>n 棵子树的结点中含有n个关键码；</p>
-</li>
-<li><p>所有的叶子结点中包含了全部关键码的信息，及指向含有这些关键码记录的指针，且叶子结点本身依关键码的大小自小而大的顺序链接；</p>
-</li>
-<li><p>非终端结点可以看成是索引部分，结点中仅含有其子树根结点中最大（或最小）关键码。</p>
-</li>
-</ul>
-<p>　　下图为一棵3阶的B+树。通常在B+树上有两个头指针，一个指向根节点，另一个指向关键字最小的叶子节点。因此可以对B+树进行两种查找运算：一种是从最小关键字起顺序查找，另一种是从根节点开始，进行随机查找。<br>在B+树上进行随机查找、插入和删除的过程基本上与B-树类似。只是在查找时，若非终端结点上的关键码等于给定值，并不终止，而是继续向下直到叶子结点。因此，对于B+树，不管查找成功与否，每次查找都是走了一条从根到叶子结点的路径。</p>
-<p>　　　　　　　　　　<img src="http://static.zybuluo.com/Rico123/ynugdx0avoy5blfq6gkb0tv2/3%E9%98%B6B+%E6%A0%91.jpg" alt="一棵3阶的B+树.jpg-29.9kB"></p>
-<p>(3). 为什么说B+-tree比B 树更适合实际应用中操作系统的文件索引和数据库索引？</p>
-<ul>
-<li><p>B+tree的磁盘读写代价更低：B+tree的内部结点并没有指向关键字具体信息的指针(红色部分)，因此其内部结点相对B 树更小。如果把所有同一内部结点的关键字存放在同一盘块中，那么盘块所能容纳的关键字数量也越多。一次性读入内存中的需要查找的关键字也就越多，相对来说IO读写次数也就降低了；</p>
-</li>
-<li><p>B+tree的查询效率更加稳定：由于内部结点并不是最终指向文件内容的结点，而只是叶子结点中关键字的索引，所以，任何关键字的查找必须走一条从根结点到叶子结点的路。所有关键字查询的路径长度相同，导致每一个数据的查询效率相当；</p>
-</li>
-<li><p>数据库索引采用B+树而不是B树的主要原因：B+树只要遍历叶子节点就可以实现整棵树的遍历，而且在数据库中基于范围的查询是非常频繁的，而B树只能中序遍历所有节点，效率太低。</p>
-</li>
-</ul>
-<p>(4). 文件索引和数据库索引为什么使用B+树?</p>
-<p>　　文件与数据库都是需要较大的存储，也就是说，它们都不可能全部存储在内存中，故需要存储到磁盘上。而所谓索引，则为了数据的快速定位与查找，那么索引的结构组织要尽量减少查找过程中磁盘I/O的存取次数，因此B+树相比B树更为合适。数据库系统巧妙利用了局部性原理与磁盘预读原理，将一个节点的大小设为等于一个页，这样每个节点只需要一次I/O就可以完全载入，而红黑树这种结构，高度明显要深的多，并且由于逻辑上很近的节点(父子)物理上可能很远，无法利用局部性。最重要的是，B+树还有一个最大的好处：方便扫库。B树必须用中序遍历的方法按序扫库，而B+树直接从叶子结点挨个扫一遍就完了，B+树支持range-query非常方便，而B树不支持，这是数据库选用B+树的最主要原因。</p>
-<h2 id="2-索引的优点"><a href="#2-索引的优点" class="headerlink" title="2). 索引的优点"></a>2). 索引的优点</h2><p>大大加快数据的检索速度，这也是创建索引的最主要的原因；</p>
-<p>加速表和表之间的连接；</p>
-<p>在使用分组和排序子句进行数据检索时，同样可以显著减少查询中分组和排序的时间；</p>
-<p>通过创建唯一性索引，可以保证数据库表中每一行数据的唯一性；</p>
-<h2 id="3-什么情况下设置了索引但无法使用？"><a href="#3-什么情况下设置了索引但无法使用？" class="headerlink" title="3). 什么情况下设置了索引但无法使用？"></a>3). 什么情况下设置了索引但无法使用？</h2><p>以“%(表示任意0个或多个字符)”开头的LIKE语句，模糊匹配；</p>
-<p>OR语句前后没有同时使用索引；</p>
-<p>数据类型出现隐式转化（如varchar不加单引号的话可能会自动转换为int型）；</p>
-<p>对于多列索引，必须满足 最左匹配原则 (eg：多列索引col1、col2和col3，则 索引生效的情形包括 col1或col1，col2或col1，col2，col3)。</p>
-<h2 id="4-什么样的字段适合创建索引？"><a href="#4-什么样的字段适合创建索引？" class="headerlink" title="4). 什么样的字段适合创建索引？"></a>4). 什么样的字段适合创建索引？</h2><p>经常作查询选择的字段</p>
-<p>经常作表连接的字段</p>
-<p>经常出现在order by, group by, distinct 后面的字段</p>
-<h2 id="5-创建索引时需要注意什么？"><a href="#5-创建索引时需要注意什么？" class="headerlink" title="5). 创建索引时需要注意什么？"></a>5). 创建索引时需要注意什么？</h2><p>非空字段：应该指定列为NOT NULL，除非你想存储NULL。在mysql中，含有空值的列很难进行查询优化，因为它们使得索引、索引的统计信息以及比较运算更加复杂。你应该用0、一个特殊的值或者一个空串代替空值；</p>
-<p>取值离散大的字段：（变量各个取值之间的差异程度）的列放到联合索引的前面，可以通过count()函数查看字段的差异值，返回值越大说明字段的唯一值越多字段的离散程度高；</p>
-<p>索引字段越小越好：数据库的数据存储以页为单位一页存储的数据越多一次IO操作获取的数据越大效率越高。</p>
-<h2 id="6-索引的缺点"><a href="#6-索引的缺点" class="headerlink" title="6). 索引的缺点"></a>6). 索引的缺点</h2><p>时间方面：创建索引和维护索引要耗费时间，具体地，当对表中的数据进行增加、删除和修改的时候，索引也要动态的维护，这样就降低了数据的维护速度；</p>
-<p>空间方面：索引需要占物理空间。</p>
-<h2 id="7-索引的分类"><a href="#7-索引的分类" class="headerlink" title="7). 索引的分类"></a>7). 索引的分类</h2><p>普通索引和唯一性索引：索引列的值的唯一性</p>
-<p>单个索引和复合索引：索引列所包含的列数</p>
-<p>聚簇索引与非聚簇索引：聚簇索引按照数据的物理存储进行划分的。对于一堆记录来说，使用聚集索引就是对这堆记录进行堆划分，即主要描述的是物理上的存储。正是因为这种划分方法，导致聚簇索引必须是唯一的。聚集索引可以帮助把很大的范围，迅速减小范围。但是查找该记录，就要从这个小范围中Scan了；而非聚集索引是把一个很大的范围，转换成一个小的地图，然后你需要在这个小地图中找你要寻找的信息的位置，最后通过这个位置，再去找你所需要的记录。</p>
-<h2 id="8-主键、自增主键、主键索引与唯一索引概念区别"><a href="#8-主键、自增主键、主键索引与唯一索引概念区别" class="headerlink" title="8). 主键、自增主键、主键索引与唯一索引概念区别"></a>8). 主键、自增主键、主键索引与唯一索引概念区别</h2><p>主键：指字段 唯一、不为空值 的列；</p>
-<p>主键索引：指的就是主键，主键是索引的一种，是唯一索引的特殊类型。创建主键的时候，数据库默认会为主键创建一个唯一索引；</p>
-<p>自增主键：字段类型为数字、自增、并且是主键；</p>
-<p>唯一索引：索引列的值必须唯一，但允许有空值。主键是唯一索引，这样说没错；但反过来说，唯一索引也是主键就错误了，因为唯一索引允许空值，主键不允许有空值，所以不能说唯一索引也是主键。</p>
-<h2 id="9-主键就是聚集索引吗？主键和索引有什么区别？"><a href="#9-主键就是聚集索引吗？主键和索引有什么区别？" class="headerlink" title="9). 主键就是聚集索引吗？主键和索引有什么区别？"></a>9). 主键就是聚集索引吗？主键和索引有什么区别？</h2><p>　　主键是一种特殊的唯一性索引，其可以是聚集索引，也可以是非聚集索引。在SQLServer中，主键的创建必须依赖于索引，默认创建的是聚集索引，但也可以显式指定为非聚集索引。InnoDB作为MySQL存储引擎时，默认按照主键进行聚集，如果没有定义主键，InnoDB会试着使用唯一的非空索引来代替。如果没有这种索引，InnoDB就会定义隐藏的主键然后在上面进行聚集。所以，对于聚集索引来说，你创建主键的时候，自动就创建了主键的聚集索引。</p>
-<h1 id="3-数据库事务"><a href="#3-数据库事务" class="headerlink" title="3.数据库事务"></a>3.数据库事务</h1><p>事务是一个不可分割的数据库操作序列，也是数据库并发控制的基本单位，其执行的结果必须使数据库从一种一致性状态变到另一种一致性状态。</p>
-<h2 id="事务的特征"><a href="#事务的特征" class="headerlink" title="事务的特征"></a>事务的特征</h2><ul>
-<li><p>原子性(Atomicity)：事务所包含的一系列数据库操作要么全部成功执行，要么全部回滚；</p>
-</li>
-<li><p>一致性(Consistency)：事务的执行结果必须使数据库从一个一致性状态到另一个一致性状态；</p>
-</li>
-<li><p>隔离性(Isolation)：并发执行的事务之间不能相互影响；</p>
-</li>
-<li><p>持久性(Durability)：事务一旦提交，对数据库中数据的改变是永久性的。</p>
-</li>
-</ul>
-<h2 id="事务并发带来的问题"><a href="#事务并发带来的问题" class="headerlink" title="事务并发带来的问题"></a>事务并发带来的问题</h2><ul>
-<li>丢失修改：丢失修改指一个事务的更新操作被另外一个事务的更新操作替换。</li>
-</ul>
-<p><img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/image-20191207221744244.png" alt="img"></p>
-<ul>
-<li>脏读：一个事务读取了另一个事务未提交的数据；</li>
-</ul>
-<p><img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/image-20191207221920368.png" alt="img"></p>
-<ul>
-<li>不可重复读：不可重复读的重点是<strong>修改</strong>，同样条件下两次读取结果不同，也就是说，被读取的数据可以被其它事务修改；</li>
-</ul>
-<p><img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/image-20191207222102010.png" alt="img"></p>
-<ul>
-<li>幻读：幻读的重点在于<strong>新增或者删除</strong>，同样条件下两次读出来的记录数不一样。</li>
-</ul>
-<p><img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/image-20191207222134306.png" alt="img"></p>
-<h2 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h2><h3 id="未提交读（READ-UNCOMMITTED）"><a href="#未提交读（READ-UNCOMMITTED）" class="headerlink" title="未提交读（READ UNCOMMITTED）"></a>未提交读（READ UNCOMMITTED）</h3><p>事务中的修改，即使没有提交，对其它事务也是可见的。</p>
-<h3 id="提交读（READ-COMMITTED）"><a href="#提交读（READ-COMMITTED）" class="headerlink" title="提交读（READ COMMITTED）"></a>提交读（READ COMMITTED）</h3><p>一个事务只能读取已经提交的事务所做的修改。换句话说，一个事务所做的修改在提交之前对其它事务是不可见的。</p>
-<h3 id="可重复读（REPEATABLE-READ）"><a href="#可重复读（REPEATABLE-READ）" class="headerlink" title="可重复读（REPEATABLE READ）"></a>可重复读（REPEATABLE READ）</h3><p>保证在同一个事务中多次读取同一数据的结果是一样的。（在一个事务开始后，其他事务对数据库的修改在本事务中不可见，直到本事务commit或rollback。但是，其他事务的insert/delete操作对该事务是可见的，也就是说，该隔离级别并不能避免幻读问题。在一个事务中重复select的结果一样，除非本事务中update数据库。）</p>
-<h3 id="可串行化-serializable-可串行化（SERIALIZABLE）"><a href="#可串行化-serializable-可串行化（SERIALIZABLE）" class="headerlink" title="可串行化-serializable)可串行化（SERIALIZABLE）"></a>可串行化-serializable)可串行化（SERIALIZABLE）</h3><p>强制事务串行执行，这样多个事务互不干扰，不会出现并发一致性问题。</p>
-<p>该隔离级别需要加锁实现，因为要使用加锁机制保证同一时间只有一个事务执行，也就是保证事务串行执行。</p>
-<hr>
-<p><img src="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/image-20191207223400787.png" alt="img"></p>
-<p>ps：MySQL默认的隔离级别是可重复读REPEATABLE READ。</p>
-<h2 id="4-MySQL的事务支持"><a href="#4-MySQL的事务支持" class="headerlink" title="4.MySQL的事务支持"></a>4.MySQL的事务支持</h2><p>MySQL的事务支持不是绑定在MySQL服务器本身，而是与存储引擎相关：</p>
-<ul>
-<li>MyISAM：不支持事务，用于只读程序提高性能；</li>
-<li>InnoDB：支持ACID事务、行级锁、并发；</li>
-<li>Berkeley DB：支持事务。</li>
-</ul>
-<h1 id="5-MySQL中的悲观锁与乐观锁的实现"><a href="#5-MySQL中的悲观锁与乐观锁的实现" class="headerlink" title="5.MySQL中的悲观锁与乐观锁的实现"></a>5.MySQL中的悲观锁与乐观锁的实现</h1><ol>
-<li>悲观锁</li>
-</ol>
-<p>悲观锁的特点是先获取锁，再进行业务操作，即“悲观”的认为所有的操作均会导致并发安全问题，因此要先确保获取锁成功再进行业务操作。   </p>
-<ol start="2">
-<li>乐观锁</li>
-</ol>
-<p>乐观锁的特点先进行业务操作，只在最后实际更新数据时进行检查数据是否被更新过，若未被更新过，则更新成功；否则，失败重试。乐观锁在数据库上的实现完全是逻辑的，不需要数据库提供特殊的支持。一般的做法是在需要锁的数据上增加一个版本号或者时间戳，然后按照如下方式实现：</p>
-<ol start="3">
-<li>悲观锁与乐观锁的应用场景</li>
-</ol>
-<p>一般情况下，<strong>读多写少更适合用乐观锁，读少写多更适合用悲观锁</strong>。乐观锁在不发生取锁失败的情况下开销比悲观锁小，但是一旦发生失败回滚开销则比较大，因此适合用在取锁失败概率比较小的场景，可以提升系统并发性能。</p>
-<h1 id="6-JDBC-对事务的支持"><a href="#6-JDBC-对事务的支持" class="headerlink" title="6.JDBC 对事务的支持"></a>6.JDBC 对事务的支持</h1><p>对于JDBC而言，每条单独的语句都是一个事务，即每个语句后都隐含一个commit。实际上，Connection 提供了一个auto-commit的属性来指定事务何时结束。当auto-commit为true时，当每个独立SQL操作的执行完毕，事务立即自动提交，也就是说，每个SQL操作都是一个事务；当auto-commit为false时，每个事务都必须显式调用commit方法进行提交，或者显式调用rollback方法进行回滚。auto-commit默认为true。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;  </span><br><span class="line">    conn.setAutoCommit(<span class="keyword">false</span>);  <span class="comment">//将自动提交设置为false        </span></span><br><span class="line">    ps.executeUpdate(<span class="string">&quot;修改SQL&quot;</span>); <span class="comment">//执行修改操作  </span></span><br><span class="line">    ps.executeQuery(<span class="string">&quot;查询SQL&quot;</span>);  <span class="comment">//执行查询操作                 </span></span><br><span class="line">    conn.commit();      <span class="comment">//当两个操作成功后手动提交     </span></span><br><span class="line">&#125; <span class="keyword">catch</span> (Exception e) &#123;  </span><br><span class="line">    conn.rollback();    <span class="comment">//一旦其中一个操作出错都将回滚，使两个操作都不成功  </span></span><br><span class="line">    e.printStackTrace();  </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-
-<p>　　为了能够将多条SQL当成一个事务执行，必须首先通过</p>
-<p>​          </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1788,7 +1920,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1801,7 +1933,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
