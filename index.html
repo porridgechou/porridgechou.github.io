@@ -188,6 +188,148 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/10/datastrcture210410/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/clx.jpg">
+      <meta itemprop="name" content="porridgechou">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mynote">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/04/10/datastrcture210410/" class="post-title-link" itemprop="url">数据结构面经</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-04-10 15:09:00 / 修改时间：15:09:57" itemprop="dateCreated datePublished" datetime="2021-04-10T15:09:00+08:00">2021-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h1><p>性质 1：节点非红即黑。</p>
+<p>性质 2：根节点永远是黑色的。</p>
+<p>性质 3：所有的叶节点都是空节点（即 null），并且是黑色的。</p>
+<p>性质 4：每个红色节点的两个子节点都是黑色。（从每个叶子到根的路径上不会有两个连续的红色节点）</p>
+<p>性质 5：从任一节点到其子树中每个叶子节点的路径都包含相同数量的黑色节点。</p>
+<p>红黑树最重要的性质：从根到叶子的最长的可能路径小于等于最短的可能路径的两倍长。 红黑树并不是真正意义上的平衡二叉树，但在实际应用中，红黑树的统计性能要高于平衡二叉树，但极端性能略差。(对于AVL树，任何一个节点的两个子树高度差不会超过 1；对于红黑树，则是不会相差两倍以上)对于给定的黑色高度为 N 的红黑树，从根到叶子节点的最短路径长度为 N-1，最长路径长度为 2 * (N-1)。对于红黑树，插入，删除，查找的复杂度都是 O(log N)。任何不平衡都会在3次旋转之内解决。</p>
+<h2 id="红黑树插入问题"><a href="#红黑树插入问题" class="headerlink" title="红黑树插入问题"></a>红黑树插入问题</h2><p>假设我们插入的新节点为 X</p>
+<ol>
+<li>将新插入的节点标记为红色</li>
+<li>如果 X 是根结点(root)，则标记为黑色</li>
+<li>如果 X 的 parent 不是黑色，同时 X 也不是 root:</li>
+</ol>
+<ul>
+<li><p>3.1 如果 X 的 uncle (叔叔) 是红色</p>
+</li>
+<li><ul>
+<li>3.1.1 将 parent 和 uncle 标记为黑色</li>
+<li>3.1.2 将 grand parent (祖父) 标记为红色</li>
+<li>3.1.3 让 X 节点的颜色与 X 祖父的颜色相同，然后重复步骤 2、3</li>
+</ul>
+</li>
+</ul>
+<p>话不多说，看下图</p>
+<p><img src="https://pic4.zhimg.com/80/v2-1d35b926316397d82c267593042f8c3f_720w.jpg" alt="img"></p>
+<p>跟着上面的公式走:</p>
+<ol>
+<li>将新插入的 X 节点标记为红色</li>
+<li>发现 X 的 parent (P) 同样为红色，这违反了红黑树的第三条规则「不能有两个连续相邻的红色节点」</li>
+<li>发现 X 的 uncle (U) 同样为红色</li>
+<li>将 P 和 U 标记为黑色</li>
+<li>将 X 和 X 的 grand parent (G) 标记为相同的颜色，即红色，继续重复公式 2、3</li>
+<li>发现 G 是根结点，标记为黑色</li>
+<li>结束</li>
+</ol>
+<p>刚刚说了 X 的 uncle 是红色的情况，接下来要说是<strong>黑色</strong>的情况</p>
+<ol>
+<li>如果 X 的 parent 不是黑色，同时 X 也不是 root:</li>
+</ol>
+<ul>
+<li><p>3.2 如果 X 的 uncle (叔叔) 是黑色，我们要分四种情况处理</p>
+</li>
+<li><ul>
+<li>3.2.1 左左 (P 是 G 的左孩子，并且 X 是 P 的左孩子)</li>
+<li>3.2.2 左右 (P 是 G 的左孩子，并且 X 是 P 的右孩子)</li>
+<li>3.2.3 右右 (和 3.2.1 镜像过来，恰好相反)</li>
+<li>3.2.4 右左 (和 3.2.2 镜像过来，恰好相 【】【反)</li>
+</ul>
+</li>
+</ul>
+<p>当出现 uncle 是黑色的时候我们第一步要考虑的是 <strong>旋转</strong> ，这里先请小伙伴<strong>不要关注红黑树的第 4 条规则</strong>，主要是为了演示如何旋转的，来一点点看，不要看图就慌，有解释的 :</p>
+<p><img src="https://pic4.zhimg.com/80/v2-210d1400ea1b098dfe1582589a6064c3_720w.jpg" alt="img"></p>
+<h3 id="左左"><a href="#左左" class="headerlink" title="左左"></a>左左</h3><p>这种情况很简单，想象这是一根绳子，手提起 P 节点，然后变色即可</p>
+<p><img src="https://pic1.zhimg.com/80/v2-9e139a0f8b4a5e00ca8e643e2130403c_720w.jpg" alt="img"></p>
+<h3 id="左右"><a href="#左右" class="headerlink" title="左右"></a>左右</h3><p>左旋: 使 X 的父节点 P 被 X 取代，同时父节点 P 成为 X 的左孩子，然后再应用 <strong>左左情况</strong></p>
+<p><img src="https://pic4.zhimg.com/80/v2-3fb33fbb3a42e34ed8a058a047a44cc3_720w.jpg" alt="img"></p>
+<h3 id="右右"><a href="#右右" class="headerlink" title="右右"></a>右右</h3><p>与左左情况一样，想象成一根绳子</p>
+<p><img src="https://pic4.zhimg.com/80/v2-62a42ada09cb4547191aa4b9051c7c23_720w.jpg" alt="img"></p>
+<h3 id="右左"><a href="#右左" class="headerlink" title="右左"></a>右左</h3><p>右旋: 使 X 的父节点 P 被 X 取代，同时父节点 P 成为 X 的右孩子，然后再应用 <strong>右右情况</strong></p>
+<p><img src="https://pic4.zhimg.com/80/v2-210d1400ea1b098dfe1582589a6064c3_720w.jpg" alt="img"></p>
+<h1 id="ArrayList的扩容机制"><a href="#ArrayList的扩容机制" class="headerlink" title="ArrayList的扩容机制"></a>ArrayList的扩容机制</h1><p>ArrayList扩容发生在add()方法调用的时候，下面是add()方法的源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123; </span><br><span class="line">  <span class="comment">//扩容</span></span><br><span class="line"> ensureCapacityInternal(size + <span class="number">1</span>); <span class="comment">//Increments modCount!!</span></span><br><span class="line"> elementData[size++] = e; </span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">true</span>;   </span><br><span class="line"> &#125;         </span><br></pre></td></tr></table></figure>
+
+<p>ArrayList扩容的关键方法grow():</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">grow</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 获取到ArrayList中elementData数组的内存空间长度</span></span><br><span class="line">    <span class="keyword">int</span> oldCapacity = elementData.length;</span><br><span class="line">    <span class="comment">// 扩容至原来的1.5倍</span></span><br><span class="line">    <span class="keyword">int</span> newCapacity = oldCapacity + (oldCapacity &gt;&gt; <span class="number">1</span>);</span><br><span class="line">    <span class="comment">// 再判断一下新数组的容量够不够，够了就直接使用这个长度创建新数组， 不够就将数组长度设置为需要的长度</span></span><br><span class="line">    <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = minCapacity;</span><br><span class="line">    <span class="comment">//若预设值大于默认的最大值检查是否溢出</span></span><br><span class="line">    <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">    <span class="comment">// 调用Arrays.copyOf方法将elementData数组指向新的内存空间时newCapacity的连续空间</span></span><br><span class="line">    <span class="comment">// 并将elementData的数据复制到新的内存空间</span></span><br><span class="line">    elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">&#125;          </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="HashMap-的底层实现、JDK-1-8-的时候为啥将链表转换成红黑树？HashMap-的负载因子"><a href="#HashMap-的底层实现、JDK-1-8-的时候为啥将链表转换成红黑树？HashMap-的负载因子" class="headerlink" title="HashMap 的底层实现、JDK 1.8 的时候为啥将链表转换成红黑树？HashMap 的负载因子"></a>HashMap 的底层实现、JDK 1.8 的时候为啥将链表转换成红黑树？HashMap 的负载因子</h1><p>HashMap是用<strong>数组+链表+红黑树</strong>进行实现的，当添加一个元素（key-value）时，就首先计 算元素key的hash值，并根据hash值来确定插入数组中的位置，但是可能存在其他元素已经 被放在数组同一位置了，这个时候便使用链表来解决哈希冲突，当链表长度太长的时候，便 将链表转换为红黑树来提高搜索的效率。</p>
+<p>HashMap是基于拉链法实现的一个散列表，内部由数组和链表和红黑树实现。</p>
+<ol>
+<li>数组的初始容量为16，而容量是以2的次方扩充的，一是为了提高性能使用足够大的数组，二是为了能使用位运算代替取模预算。</li>
+<li>数组是否需要扩充是通过负载因子判断的，如果当前元素个数为数组容量的0.75时，就会扩充数组。这个0.75就是默认的负载因子，可由构造传入。</li>
+<li>为了解决碰撞，数组中的元素是单向链表类型。当链表长度到达一个阈值时（&gt;=8）， 会将链表转换成红黑树提高性能。而当链表长度缩小到另一个阈值时（&lt;=6），又会将红黑树转换回单向链表提高性能，这里是一个平衡点。</li>
+</ol>
+<h1 id="有哪些集合是线程不安全的，又有哪些集合是线程不安全的？怎么解决呢？-线程安全的集合类"><a href="#有哪些集合是线程不安全的，又有哪些集合是线程不安全的？怎么解决呢？-线程安全的集合类" class="headerlink" title="有哪些集合是线程不安全的，又有哪些集合是线程不安全的？怎么解决呢？ 线程安全的集合类."></a>有哪些集合是线程不安全的，又有哪些集合是线程不安全的？怎么解决呢？ 线程安全的集合类.</h1><p>Vector Stack Hashtable</p>
+<p>java.util.concurrent包下所有的集合类（ConcurrentHashMap，CopyOnWriteArrayList和CopyOnWriteArraySet等）</p>
+<h1 id="HashMap-多线程操作导致死循环问题异常"><a href="#HashMap-多线程操作导致死循环问题异常" class="headerlink" title="HashMap 多线程操作导致死循环问题异常"></a>HashMap 多线程操作导致死循环问题异常</h1><p>主要原因在于并发下的 rehash 会造成元素之间会形成一个循环链表。不过，jdk 1.8 后解决了这个问题，但是还是不建议在多线程下使用 HashMap，因为多线程下使用 HashMap 还是会存在其他问题比如数据丢失。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/08/HuaweiMainjing210408/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1461,154 +1603,6 @@
 <p>volatile关键字主要用于解决变量在多个线程之间的可见性，而 synchronized关键字解决的是多个线程之间访问资源的同步性。</p>
 <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>[1]<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39192827/article/details/85611873">https://blog.csdn.net/qq_39192827/article/details/85611873</a></p>
 <p>[2] <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9d573539022c">深入理解synchronized底层原理，一篇文章就够了！</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/24/210324datasstructure%20/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/clx.jpg">
-      <meta itemprop="name" content="porridgechou">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mynote">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/24/210324datasstructure%20/" class="post-title-link" itemprop="url">数据结构面试题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-24 20:17:00" itemprop="dateCreated datePublished" datetime="2021-03-24T20:17:00+08:00">2021-03-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-10 15:04:39" itemprop="dateModified" datetime="2021-04-10T15:04:39+08:00">2021-04-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h1><p>性质 1：节点非红即黑。</p>
-<p>性质 2：根节点永远是黑色的。</p>
-<p>性质 3：所有的叶节点都是空节点（即 null），并且是黑色的。</p>
-<p>性质 4：每个红色节点的两个子节点都是黑色。（从每个叶子到根的路径上不会有两个连续的红色节点）</p>
-<p>性质 5：从任一节点到其子树中每个叶子节点的路径都包含相同数量的黑色节点。</p>
-<p>红黑树最重要的性质：从根到叶子的最长的可能路径小于等于最短的可能路径的两倍长。 红黑树并不是真正意义上的平衡二叉树，但在实际应用中，红黑树的统计性能要高于平衡二叉树，但极端性能略差。(对于AVL树，任何一个节点的两个子树高度差不会超过 1；对于红黑树，则是不会相差两倍以上)对于给定的黑色高度为 N 的红黑树，从根到叶子节点的最短路径长度为 N-1，最长路径长度为 2 * (N-1)。对于红黑树，插入，删除，查找的复杂度都是 O(log N)。任何不平衡都会在3次旋转之内解决。</p>
-<h2 id="红黑树插入问题"><a href="#红黑树插入问题" class="headerlink" title="红黑树插入问题"></a>红黑树插入问题</h2><p>假设我们插入的新节点为 X</p>
-<ol>
-<li>将新插入的节点标记为红色</li>
-<li>如果 X 是根结点(root)，则标记为黑色</li>
-<li>如果 X 的 parent 不是黑色，同时 X 也不是 root:</li>
-</ol>
-<ul>
-<li><p>3.1 如果 X 的 uncle (叔叔) 是红色</p>
-</li>
-<li><ul>
-<li>3.1.1 将 parent 和 uncle 标记为黑色</li>
-<li>3.1.2 将 grand parent (祖父) 标记为红色</li>
-<li>3.1.3 让 X 节点的颜色与 X 祖父的颜色相同，然后重复步骤 2、3</li>
-</ul>
-</li>
-</ul>
-<p>话不多说，看下图</p>
-<p><img src="https://pic4.zhimg.com/80/v2-1d35b926316397d82c267593042f8c3f_720w.jpg" alt="img"></p>
-<p>跟着上面的公式走:</p>
-<ol>
-<li>将新插入的 X 节点标记为红色</li>
-<li>发现 X 的 parent (P) 同样为红色，这违反了红黑树的第三条规则「不能有两个连续相邻的红色节点」</li>
-<li>发现 X 的 uncle (U) 同样为红色</li>
-<li>将 P 和 U 标记为黑色</li>
-<li>将 X 和 X 的 grand parent (G) 标记为相同的颜色，即红色，继续重复公式 2、3</li>
-<li>发现 G 是根结点，标记为黑色</li>
-<li>结束</li>
-</ol>
-<p>刚刚说了 X 的 uncle 是红色的情况，接下来要说是<strong>黑色</strong>的情况</p>
-<ol>
-<li>如果 X 的 parent 不是黑色，同时 X 也不是 root:</li>
-</ol>
-<ul>
-<li><p>3.2 如果 X 的 uncle (叔叔) 是黑色，我们要分四种情况处理</p>
-</li>
-<li><ul>
-<li>3.2.1 左左 (P 是 G 的左孩子，并且 X 是 P 的左孩子)</li>
-<li>3.2.2 左右 (P 是 G 的左孩子，并且 X 是 P 的右孩子)</li>
-<li>3.2.3 右右 (和 3.2.1 镜像过来，恰好相反)</li>
-<li>3.2.4 右左 (和 3.2.2 镜像过来，恰好相 【】【反)</li>
-</ul>
-</li>
-</ul>
-<p>当出现 uncle 是黑色的时候我们第一步要考虑的是 <strong>旋转</strong> ，这里先请小伙伴<strong>不要关注红黑树的第 4 条规则</strong>，主要是为了演示如何旋转的，来一点点看，不要看图就慌，有解释的 :</p>
-<p><img src="https://pic4.zhimg.com/80/v2-210d1400ea1b098dfe1582589a6064c3_720w.jpg" alt="img"></p>
-<h3 id="左左"><a href="#左左" class="headerlink" title="左左"></a>左左</h3><p>这种情况很简单，想象这是一根绳子，手提起 P 节点，然后变色即可</p>
-<p><img src="https://pic1.zhimg.com/80/v2-9e139a0f8b4a5e00ca8e643e2130403c_720w.jpg" alt="img"></p>
-<h3 id="左右"><a href="#左右" class="headerlink" title="左右"></a>左右</h3><p>左旋: 使 X 的父节点 P 被 X 取代，同时父节点 P 成为 X 的左孩子，然后再应用 <strong>左左情况</strong></p>
-<p><img src="https://pic4.zhimg.com/80/v2-3fb33fbb3a42e34ed8a058a047a44cc3_720w.jpg" alt="img"></p>
-<h3 id="右右"><a href="#右右" class="headerlink" title="右右"></a>右右</h3><p>与左左情况一样，想象成一根绳子</p>
-<p><img src="https://pic4.zhimg.com/80/v2-62a42ada09cb4547191aa4b9051c7c23_720w.jpg" alt="img"></p>
-<h3 id="右左"><a href="#右左" class="headerlink" title="右左"></a>右左</h3><p>右旋: 使 X 的父节点 P 被 X 取代，同时父节点 P 成为 X 的右孩子，然后再应用 <strong>右右情况</strong></p>
-<p><img src="https://pic4.zhimg.com/80/v2-210d1400ea1b098dfe1582589a6064c3_720w.jpg" alt="img"></p>
-<h1 id="ArrayList的扩容机制"><a href="#ArrayList的扩容机制" class="headerlink" title="ArrayList的扩容机制"></a>ArrayList的扩容机制</h1><p>ArrayList扩容发生在add()方法调用的时候，下面是add()方法的源码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123; </span><br><span class="line">  <span class="comment">//扩容</span></span><br><span class="line"> ensureCapacityInternal(size + <span class="number">1</span>); <span class="comment">//Increments modCount!!</span></span><br><span class="line"> elementData[size++] = e; </span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">true</span>;   </span><br><span class="line"> &#125;         </span><br></pre></td></tr></table></figure>
-
-<p>ArrayList扩容的关键方法grow():</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">grow</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 获取到ArrayList中elementData数组的内存空间长度</span></span><br><span class="line">    <span class="keyword">int</span> oldCapacity = elementData.length;</span><br><span class="line">    <span class="comment">// 扩容至原来的1.5倍</span></span><br><span class="line">    <span class="keyword">int</span> newCapacity = oldCapacity + (oldCapacity &gt;&gt; <span class="number">1</span>);</span><br><span class="line">    <span class="comment">// 再判断一下新数组的容量够不够，够了就直接使用这个长度创建新数组， 不够就将数组长度设置为需要的长度</span></span><br><span class="line">    <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = minCapacity;</span><br><span class="line">    <span class="comment">//若预设值大于默认的最大值检查是否溢出</span></span><br><span class="line">    <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">    <span class="comment">// 调用Arrays.copyOf方法将elementData数组指向新的内存空间时newCapacity的连续空间</span></span><br><span class="line">    <span class="comment">// 并将elementData的数据复制到新的内存空间</span></span><br><span class="line">    elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">&#125;          </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="HashMap-的底层实现、JDK-1-8-的时候为啥将链表转换成红黑树？HashMap-的负载因子"><a href="#HashMap-的底层实现、JDK-1-8-的时候为啥将链表转换成红黑树？HashMap-的负载因子" class="headerlink" title="HashMap 的底层实现、JDK 1.8 的时候为啥将链表转换成红黑树？HashMap 的负载因子"></a>HashMap 的底层实现、JDK 1.8 的时候为啥将链表转换成红黑树？HashMap 的负载因子</h1><p>HashMap是用<strong>数组+链表+红黑树</strong>进行实现的，当添加一个元素（key-value）时，就首先计 算元素key的hash值，并根据hash值来确定插入数组中的位置，但是可能存在其他元素已经 被放在数组同一位置了，这个时候便使用链表来解决哈希冲突，当链表长度太长的时候，便 将链表转换为红黑树来提高搜索的效率。</p>
-<p>HashMap是基于拉链法实现的一个散列表，内部由数组和链表和红黑树实现。</p>
-<ol>
-<li>数组的初始容量为16，而容量是以2的次方扩充的，一是为了提高性能使用足够大的数组，二是为了能使用位运算代替取模预算。</li>
-<li>数组是否需要扩充是通过负载因子判断的，如果当前元素个数为数组容量的0.75时，就会扩充数组。这个0.75就是默认的负载因子，可由构造传入。</li>
-<li>为了解决碰撞，数组中的元素是单向链表类型。当链表长度到达一个阈值时（&gt;=8）， 会将链表转换成红黑树提高性能。而当链表长度缩小到另一个阈值时（&lt;=6），又会将红黑树转换回单向链表提高性能，这里是一个平衡点。</li>
-</ol>
-<h1 id="有哪些集合是线程不安全的，又有哪些集合是线程不安全的？怎么解决呢？-线程安全的集合类"><a href="#有哪些集合是线程不安全的，又有哪些集合是线程不安全的？怎么解决呢？-线程安全的集合类" class="headerlink" title="有哪些集合是线程不安全的，又有哪些集合是线程不安全的？怎么解决呢？ 线程安全的集合类."></a>有哪些集合是线程不安全的，又有哪些集合是线程不安全的？怎么解决呢？ 线程安全的集合类.</h1><p>Vector Stack Hashtable</p>
-<p>java.util.concurrent包下所有的集合类（ConcurrentHashMap，CopyOnWriteArrayList和CopyOnWriteArraySet等）</p>
-<h1 id="HashMap-多线程操作导致死循环问题异常"><a href="#HashMap-多线程操作导致死循环问题异常" class="headerlink" title="HashMap 多线程操作导致死循环问题异常"></a>HashMap 多线程操作导致死循环问题异常</h1><p>主要原因在于并发下的 rehash 会造成元素之间会形成一个循环链表。不过，jdk 1.8 后解决了这个问题，但是还是不建议在多线程下使用 HashMap，因为多线程下使用 HashMap 还是会存在其他问题比如数据丢失。</p>
 
       
     </div>
