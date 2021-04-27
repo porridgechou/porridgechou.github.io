@@ -27,6 +27,12 @@
 <meta property="og:site_name" content="Mynote">
 <meta property="og:description" content="http 协议如何保证可靠性重要的数据，要加密，比如用户名密码，我们需要加密，这样即使被抓包监听，他们也不知道原始数据是什么（如果简单的md5，是可以暴力破解），所以加密方法越复杂越安全，根据需要，常见的是 md5(不可逆)，aes（可逆），自由组合吧,你还可以加一些特殊字符啊，没有做不到只有想不到， 举例：username &#x3D; aes(username), pwd &#x3D; MD5(pwd + use">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdn.net/20160916110056051?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:image" content="https://img-blog.csdn.net/20160916110125505?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:image" content="https://img-blog.csdn.net/20160916110144427?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-06ae616adae545c36a01f7eaa192ac52_720w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-e6737695804284045f66f0e1163425b0_720w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-c1a18b0fea3fcd2efe52ca35f658d1d1_720w.jpg">
 <meta property="og:image" content="http://example.com/images/pasted-210408Btree.jpg">
 <meta property="og:image" content="http://example.com/images/pasted-210408B+tree.jpg">
 <meta property="og:image" content="https://images2017.cnblogs.com/blog/1218256/201710/1218256-20171011182513121-1029542999.png">
@@ -34,12 +40,14 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200715153153103.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L29rRm9ycmVzdDI3,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200823014026904.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDI4MjA2Mw==,size_16,color_FFFFFF,t_70#pic_center">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200823014123331.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDI4MjA2Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdn.net/20180418174102632?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQ3JpbmdLb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190529111953162.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyOTk2NzYx,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2021-04-08T12:13:00.000Z">
-<meta property="article:modified_time" content="2021-04-09T16:21:12.752Z">
+<meta property="article:modified_time" content="2021-04-27T11:09:48.778Z">
 <meta property="article:author" content="porridgechou">
 <meta property="article:tag" content="面经">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/pasted-210408Btree.jpg">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20160916110056051?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
 
 <link rel="canonical" href="http://example.com/2021/04/08/HuaweiMainjing210408/">
 
@@ -232,7 +240,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-10 00:21:12" itemprop="dateModified" datetime="2021-04-10T00:21:12+08:00">2021-04-10</time>
+                <time title="修改时间：2021-04-27 19:09:48" itemprop="dateModified" datetime="2021-04-27T19:09:48+08:00">2021-04-27</time>
               </span>
 
           
@@ -259,8 +267,35 @@
 <p>具体可参考：</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/l18848956739/article/details/81011194">如何保证http传输安全性</a> </p>
 <p><a href="%5Bhttps://hellogoogle.blog.csdn.net/article/details/94440881?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-5.control&dist_request_id=1329187.12416.16178842483851657&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-5.control%5D(https://hellogoogle.blog.csdn.net/article/details/94440881?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-5.control&dist_request_id=1329187.12416.16178842483851657&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-5.control)">【Java】【通信安全】怎么保证http请求的安全性</a></p>
+<h1 id="IP-TCP-UDP首部详解"><a href="#IP-TCP-UDP首部详解" class="headerlink" title="IP,TCP,UDP首部详解"></a>IP,TCP,UDP首部详解</h1><h2 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h2><p><img src="https://img-blog.csdn.net/20160916110056051?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><p><img src="https://img-blog.csdn.net/20160916110125505?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p><img src="https://img-blog.csdn.net/20160916110144427?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<p>具体参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39584315/article/details/79387811?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-0&spm=1001.2101.3001.4242">IP、TCP、UDP首部详解</a></p>
 <h1 id="多线程相关面试题"><a href="#多线程相关面试题" class="headerlink" title="多线程相关面试题"></a>多线程相关面试题</h1><p>具体可参考：</p>
 <p> <a target="_blank" rel="noopener" href="https://www.cnblogs.com/weibanggang/p/9470462.html">多线程面试题</a></p>
+<h1 id="IPv4和-IPv6的地址长度分别是多少位？"><a href="#IPv4和-IPv6的地址长度分别是多少位？" class="headerlink" title="IPv4和 IPv6的地址长度分别是多少位？"></a>IPv4和 IPv6的地址长度分别是多少位？</h1><p>ipv4的地址是32位，用点分十进制表示，每八位划分，也就是四个0~255的十进制数，这是很常见的。</p>
+<p>ipv6的地址是128位，一般用点分十六进制表示，每八位划分，也就是十六个0x00~0xff的十六进制数。</p>
+<p>IPv6的地址空间更大。IPv4中规定IP地址长度为32,即有2^32-1个地址；而IPv6中IP地址的长度为128,即有2^128-1个地址。夸张点说就是，如果IPV6被广泛应用以后，全世界的每一粒沙子都会有相对应的一个IP地址。</p>
+<h1 id="ArrayList和LinkedList的区别，以及应用场景"><a href="#ArrayList和LinkedList的区别，以及应用场景" class="headerlink" title="ArrayList和LinkedList的区别，以及应用场景"></a>ArrayList和LinkedList的区别，以及应用场景</h1><ol>
+<li>ArrayList是基于数组实现的，其构造函数为：</li>
+</ol>
+<p>private transient Object[] elementData;</p>
+<p>private int size;</p>
+<p>ArryList初始化时，elementData数组大小默认为10；</p>
+<p>每次add（）时，先调用ensureCapacity（）保证数组不会溢出，如果此时已满，会扩展为数组length的1.5倍+1，然后用array.copy的方法，将原数组拷贝到新的数组中；</p>
+<p>ArrayList线程不安全，Vector方法是同步的，线程安全；</p>
+<ol start="2">
+<li>LinkedList是基于双链表实现的：</li>
+</ol>
+<p>Object element;</p>
+<p>Entry next,previous;</p>
+<p>初始化时，有个header Entry，值为null；</p>
+<p>使用header的优点是：在任何一个条目（包括第一个和最后一个）都有一个前置条目和一个后置条目，因此在LinkedList对象的开始或者末尾进行插入操作没有特殊的地方；</p>
+<p><strong>使用场景：</strong></p>
+<p>如果应用程序对各个索引位置的元素进行大量的存取或删除操作，ArrayList对象要远优于LinkedList对象；<br>如果应用程序主要是对列表进行循环，并且循环时候进行插入或者删除操作，LinkedList对象要远优于ArrayList对象；</p>
+<p>具体参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/github_37130188/article/details/96508345">ArrayList和LinkedList的区别，以及应用场景</a></p>
 <h1 id="如何实现线程同步"><a href="#如何实现线程同步" class="headerlink" title="如何实现线程同步"></a>如何实现线程同步</h1><h2 id="Synchronized-用在普通方法和-static-上的区别"><a href="#Synchronized-用在普通方法和-static-上的区别" class="headerlink" title="Synchronized 用在普通方法和 static 上的区别"></a>Synchronized 用在普通方法和 static 上的区别</h2><p>当使用synchronized修饰静态方法时，线程此时获得的锁对象是类的Class对象（<strong>堆内存中只有唯一一个Class对象，因为Class对象是在类加载时产生的，而类加载只执行一次</strong>），因此会锁住整个类，其他线程无法访问该类的同步静态方法，但是可以访问非同步的方法</p>
 <p>回答2：</p>
 <p>synchronized修饰不加static的方法，锁是加在单个对象上，不同的对象没有竞争关系；</p>
@@ -268,6 +303,51 @@
 <p>具体可参考：</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33819764/article/details/81736729">【多线程】实现线程同步的几种方法</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43658899/article/details/107230699">Synchronized关键字加在普通方法上和加在静态方法上有什么区别?</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/suger43894/p/12171341.html">synchronized底层原理</a></p>
+<h1 id="如何实现线程安全"><a href="#如何实现线程安全" class="headerlink" title="如何实现线程安全"></a>如何实现线程安全</h1><p>线程安全在三个方面体现</p>
+<p>1.原子性：提供互斥访问，同一时刻只能有一个线程对数据进行操作，（atomic,synchronized）；</p>
+<p>2.可见性：一个线程对主内存的修改可以及时地被其他线程看到，（synchronized,volatile）；</p>
+<p>3.有序性：一个线程观察其他线程中的指令执行顺序，由于指令重排序，该观察结果一般杂乱无序，（happens-before原则）。</p>
+<ul>
+<li><strong>原子性</strong>：JDK里面提供了很多atomic类，AtomicInteger,AtomicLong,AtomicBoolean等等。</li>
+</ul>
+<p>它们是通过CAS完成原子性。</p>
+<ul>
+<li><strong>原子性：</strong>synchronized是一种同步锁，通过锁实现原子操作。</li>
+</ul>
+<p>JDK提供锁分两种：一种是synchronized，依赖JVM实现锁，因此在这个关键字作用对象的作用范围内是同一时刻只能有一个线程进行操作；另一种是LOCK，是JDK提供的代码层面的锁，依赖CPU指令，代表性的是ReentrantLock。</p>
+<p>synchronized修饰的对象有四种：</p>
+<p>（1）修饰代码块，作用于调用的对象；</p>
+<p>（2）修饰方法，作用于调用的对象；</p>
+<p>（3）修饰静态方法，作用于所有对象；</p>
+<p>（4）修饰类，作用于所有对象。</p>
+<ul>
+<li><p>可见性—volatile</p>
+<p>对于可见性，JVM提供了synchronized和volatile。这里我们看volatile。</p>
+<p>（1）volatile的可见性是通过内存屏障和禁止重排序实现的</p>
+<p>volatile会在写操作时，会在写操作后加一条store屏障指令，将本地内存中的共享变量值刷新到主内存：<br>volatile在进行读操作时，会在读操作前加一条load指令，从内存中读取共享变量：</p>
+<p>2）但是volatile不是原子性的，进行++操作不是安全的。执行后发现线程不安全，原因是 执行conut++ 时分成了三步，第一步是取出当前内存 count 值，这时 count 值时最新的，接下来执行了两步操作，分别是 +1 和重新写回主存。假设有两个线程同时在执行 count++ ，两个内存都执行了第一步，比如当前 count 值为 5 ，它们都读到了，然后两个线程分别执行了 +1 ，并写回主存，这样就丢掉了一次加一的操作。</p>
+<p>（3）volatile适用的场景</p>
+<p>既然volatile不适用于计数，那么volatile适用于哪些场景呢：</p>
+<p>\1. 对变量的写操作不依赖于当前值</p>
+<p>\2. 该变量没有包含在具有其他变量不变的式子中</p>
+</li>
+<li><p>有序性</p>
+</li>
+</ul>
+<p>有序性是指，在JMM中，允许编译器和处理器对指令进行重排序，但是重排序过程不会影响到单线程程序的执行，却会影响到多线程并发执行的正确性。</p>
+<p>可以通过volatile、synchronized、lock保证有序性。</p>
+<p>具体参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40459875/article/details/80290875">Java中如何保证线程安全性</a></p>
+<h1 id="Java中如何保证线程安全性"><a href="#Java中如何保证线程安全性" class="headerlink" title="Java中如何保证线程安全性"></a>Java中如何保证线程安全性</h1><p> <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40459875/article/details/80290875">ReentrantLock(重入锁)实现原理与公平锁非公平锁区别</a></p>
+<p>ReentrantLock的介绍<br>ReentrantLock重入锁，是实现Lock接口的一个类，也是在实际编程中使用频率很高的一个锁，支持重入性，表示能够对共享资源能够重复加锁，即当前线程获取该锁再次获取不会被阻塞。在java关键字synchronized隐式支持重入性（关于synchronized可以看这篇文章），synchronized通过获取自增，释放自减的方式实现重入。与此同时，ReentrantLock还支持公平锁和非公平锁两种方式。那么，要想完完全全的弄懂ReentrantLock的话，主要也就是ReentrantLock同步语义的学习：1. 重入性的实现原理；2. 公平锁和非公平锁。<br>具体参考：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/ThinkWon/article/details/102469388">ReentrantLock(重入锁)实现原理与公平锁非公平锁区别</a></p>
+<h1 id="MySQL中的聚簇索引和非聚簇索引、回表和索引覆盖"><a href="#MySQL中的聚簇索引和非聚簇索引、回表和索引覆盖" class="headerlink" title="MySQL中的聚簇索引和非聚簇索引、回表和索引覆盖"></a>MySQL中的聚簇索引和非聚簇索引、回表和索引覆盖</h1><h2 id="主键索引"><a href="#主键索引" class="headerlink" title="主键索引"></a>主键索引</h2><p>前面提到mysql中是通过B+树来组织一张表数据的，而B+树每个节点上都有一个关键字，在进行搜索的时候要从根节点开始查找，直到在叶子节点上查询到对应的关键字和这行数据。那么MySQL中是使用什么作为B+树节点上的关键字呢？答案是主键索引，MySQL是通过主键索引作为B+树节点上的关键字来组织数据的。那么MySQL又是怎样确定使用哪个字段作为主键索引呢？规则如下：</p>
+<p>如果建表时指定了主键，则使用主键作为B+树节点的关键字。<br>如果表中没有主键，但是有唯一索引，则会选取一个唯一索引作为关键字。<br>如果既没有主键也没有唯一索引，MySQL会自动生成一个6字节的整型唯一标识作为关键字。<br>也就是说，MySQL每张表中都必须有一个主键索引，使用这个主键索引作为关键字将整张表组织成一棵B+树。</p>
+<h2 id="聚簇索引和非聚簇索引"><a href="#聚簇索引和非聚簇索引" class="headerlink" title="聚簇索引和非聚簇索引"></a>聚簇索引和非聚簇索引</h2><p>在MySQL中不管是InnoDB还是MyISAM都是使用B+树来组织表中的数据的。但是在具体实现方法上略有不同。InnoDB的主键索引是聚簇索引，在InnoDB的实现中，把主键作为关键字组织到B+树的各个节点上，而叶子节点上存储的是主键列的值和对应的整行数据。注意这里说的是将表中实际的一整行数据直接存到叶子节点上MyISAM是非聚簇索引，在MyISAM的实现中，叶子节点中存储的是一行数据在磁盘上的地址（可以理解为行号）。所以聚簇索引和非聚簇索引本质的区别就是B+树的叶子节点上存储的是行数据还是行数据的地址（行号）。</p>
+<h1 id="索引优化"><a href="#索引优化" class="headerlink" title="索引优化"></a>索引优化</h1><h2 id="索引的类型："><a href="#索引的类型：" class="headerlink" title="索引的类型："></a>索引的类型：</h2><p><strong>普通索引：</strong><br>最基本的索引，没有任何限制，是我们大多数情况下使用到的索引<br>如何创建：<br>1.直接创建：<br>CREATE INDEX index_name ON table(column(length))<br>2.修改原有表结构：<br>ALTER TABLE table_name ADD INDEX index_name ON(column(length))<br>若是char、varchar类型length可不填，默认字段的实际长度，若是blob、text类型则必须指定长度<br><strong>唯一索引：</strong><br>与普通索引类似，不同之处在于索引列的值必须唯一，但允许有空值(和主键不同之处)，若是联合索引，则列值得组合必须唯一<br>如何创建：<br>1.直接创建：<br>CREATE UNIQUE INDEX index_name ON table(column(length))<br>2.修改原有表结构：<br>ALTER TABLE table ADD UNIQUE index_name ON(column(length))<br><strong>主键索引：</strong><br>不允许有空值，主键索引建立的规则是int优于varchar，一般在剪标的时候创建，最好是与表的其他字段不想关的列或者是业务不相关的列，一般为int且是AUTO_INCREMENT自增长类型的<br><strong>联合索引：</strong><br>通俗地讲就是，索引包含多个字段但只有一个名称，这个才是本篇文章要讲的重点<br>如何创建：<br>CREATE INDEX index_name ON table_name(column1(length1),column2(length2……))<br>一个联合索引根据”最左前缀”会包含多个索引：<br>比如：建立了联合索引(A,B,C)，实际上它包含了3个索引，分别是(A)、(A,B)、(A,B,C)，即包含了联合索引的左子集，这也是为什么我们建了联合索引(A,B,C)，就没必要再单独建一个普通索引(A)的原因<br>建立联合索引的时候，通常需要将其他相关的查询都拿来参考，以便做综合评估，进一步提高索引的使用效率与查询效率<br><strong>联合索引的特点：</strong><br>实例的背景——在T_news表中建立以ischecked、channel_id、audit_time3个字段为联合索引<br>a.最左前缀：索引where时的条件要按照建立索引的时候字段的排列顺序<br>实例如下：<br>where条件单独使用ischecked字段，符合最左前缀，联合索引起作用</p>
+<h1 id="创建索引的几个原则"><a href="#创建索引的几个原则" class="headerlink" title="创建索引的几个原则"></a>创建索引的几个原则</h1><p><strong>a.最左前缀匹配原则</strong>，mysql会一直向右匹配直到遇到范围查询(&gt;、&lt;、between、like ‘%…’)就停止匹配，比如a = 1 and b = 2 and c &gt; 3 and d = 4 如果建立(a,b,c,d)顺序的索引，d是用不到索引的，若建立(a,b,d,c)的索引则都可以用到，a,b,d的顺序可以任意调整<br><strong>b.=和in可以乱序，</strong>比如a = 1 and b = 2 and c = 3 建立(a,b,c)索引可以任意顺序，mysql的查询优化器会优化成索引可识别的形式<br><strong>c.尽量选择区分度高(cardinality越大越好)的列作为索引</strong>,区分度的公式是count(distinct col)/count(*)，表示字段不重复的比例，比例越大我们扫描的记录数越少，唯一键的区分度是1，一般需要join的字段都要求是0.1以上，当然，使用场景不同，该值也难以确定<br><strong>d.索引列不能是表达式的一部分或mysql函数的参数</strong>，保持列“干净”，比如from_unixtime(create_time) = ’2014-05-29’就不能使用到索引，因为b+树中存的都是数据表中的字段值，但进行检索时，需要把所有元素都应用函数才能比较，成本太大，故不能走索引，所以语句应写成create_time = unix_timestamp(’2014-05-29’)<br><strong>e.尽量的扩展索引，</strong>不要新建索引，比如表中已经有a的索引，现在要加(a,b)的索引，那么只需要修改原来的索引即可</p>
+<p>具体参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/linbiaorui/article/details/72793527">mysql索引优化</a> </p>
 <h1 id="Java语言的特点和特性"><a href="#Java语言的特点和特性" class="headerlink" title="Java语言的特点和特性"></a>Java语言的特点和特性</h1><h2 id="1-Java语言的主要特点："><a href="#1-Java语言的主要特点：" class="headerlink" title="1.　　Java语言的主要特点："></a>1.　　<strong>Java</strong>语言的主要特点：</h2><p>　　　1. 跨平台性</p>
 <p>　　　所谓的跨平台性，是指软件可以不受计算机硬件和操作系统的约束而在任意计算机环境下正常运行。这是软件发展的趋势和编程人员追求的目标。之所以这样说，是因为计算机硬件的种类繁多，操作系统也各不相同，不同的用户和公司有自己不同的计算机环境偏好，而软件为了能在这些不同的环境里正常运行，就需要独立于这些平台。而在<strong>Java</strong>语言中， <strong>Java</strong>自带的虚拟机很好地实现了跨平台性。 <strong>Java</strong>源程序代码经过编译后生成二进制的字节码是与平台无关的，但是可被<strong>Java</strong>虚拟机识别的一种机器码指令。 <strong>Java</strong>虚拟机提供了一个字节码到底层硬件平台及操作系统的屏障，使得<strong>Java</strong>语言具备跨平台性。</p>
 <p>　　　2. 面向对象</p>
@@ -300,6 +380,51 @@
 </ol>
 <p>具体可参考：</p>
 <p> <a target="_blank" rel="noopener" href="https://www.cnblogs.com/swisszhang/p/9892992.html">static关键字作用总结</a></p>
+<h1 id="final的用法"><a href="#final的用法" class="headerlink" title="final的用法"></a>final的用法</h1><h3 id="1-修饰数据"><a href="#1-修饰数据" class="headerlink" title="1.修饰数据"></a>1.修饰数据</h3><h3 id="2-修饰方法参数"><a href="#2-修饰方法参数" class="headerlink" title="2.修饰方法参数"></a>2.修饰方法参数</h3><h3 id="3-修饰方法"><a href="#3-修饰方法" class="headerlink" title="3.修饰方法"></a>3.修饰方法</h3><h3 id="4-修饰类"><a href="#4-修饰类" class="headerlink" title="4.修饰类"></a>4.修饰类</h3><p>总结<br>final关键字是我们经常使用的关键字之一，它的用法有很多，但是并不是每一种用法都值得我们去广泛使用。它的主要用法有以下四种：</p>
+<ol>
+<li><p>用来修饰数据，包括成员变量和局部变量，该变量只能被赋值一次且它的值无法被改变。对于成员变量来讲，我们必须在声明时或者构造方法中对它赋值；</p>
+</li>
+<li><p>用来修饰方法参数，表示在变量的生存期中它的值不能被改变；</p>
+</li>
+<li><p>修饰方法，表示该方法无法被重写；</p>
+</li>
+<li><p>修饰类，表示该类无法被继承。</p>
+</li>
+</ol>
+<p>上面的四种方法中，第三种和第四种方法需要谨慎使用，因为在大多数情况下，如果是仅仅为了一点设计上的考虑，我们并不需要使用final来修饰方法和类。</p>
+<h1 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h1><h2 id="volatile的第一个特性–保证可见性"><a href="#volatile的第一个特性–保证可见性" class="headerlink" title="volatile的第一个特性–保证可见性"></a>volatile的第一个特性–保证可见性</h2><p>解决内存可见性问题方式的一种是加锁，但是使用锁太笨重，因为它会带来线程上下文的切换开销。Java提供了一种弱形式的同步，也就是volatile关键字。该关键字确保对一个变量的更新对其他线程马上可见。</p>
+<p><strong>当一个变量被声明为volatile时，线程在写入变量时不会把值缓存在寄存器或者其他地方，而是会把值刷新回主内存。</strong></p>
+<p><strong>当其他线程读取该共享变量时，会从主内存重新获取最新值，而不是使用当前线程的工作内存中的值。</strong></p>
+<p>理解volatile保证可见性的一个好方法是把对volatile变量的单个读/写，看成是使用同一个锁对这些单个读/写操作做了同步。</p>
+<h2 id="volatile的第二个特性–保证有序性"><a href="#volatile的第二个特性–保证有序性" class="headerlink" title="volatile的第二个特性–保证有序性"></a>volatile的第二个特性–保证有序性</h2><p>Java内存模型允许编译器和处理器对指令重排序以提高运行性能，并且只会对不存在数据依赖性的指令重排序。</p>
+<blockquote>
+<p>什么是数据依赖性？<br>如果两个操作访问同一个变量，且这两个操作中有一个为写操作，此时这两个操作之间就存在数据依赖性。</p>
+</blockquote>
+<p>在单线程下重排序可以保证最终执行结果与程序顺序执行的结果一致，但是在多线程下就会出现问题。</p>
+<h2 id="volatile保证有序性和可见性的原理–内存屏障"><a href="#volatile保证有序性和可见性的原理–内存屏障" class="headerlink" title="volatile保证有序性和可见性的原理–内存屏障"></a>volatile保证有序性和可见性的原理–内存屏障</h2><p>前面介绍了volatile关键字的两大特性，为了实现volatile的内存语义，编译器在生成字节码时，会在指令序列中插入<strong>内存屏障</strong>来禁止特定类型的处理器重排序。</p>
+<h3 id="什么是内存屏障"><a href="#什么是内存屏障" class="headerlink" title="什么是内存屏障"></a>什么是内存屏障</h3><p>维基百科中对内存屏障的描述如下：</p>
+<blockquote>
+<p>内存屏障（英语：Memory barrier），也称内存栅栏，内存栅障，屏障指令等，是一类同步屏障指令，它使得 CPU 或编译器在对内存进行操作的时候, 严格按照一定的顺序来执行, 也就是说在memory barrier 之前的指令和memory barrier之后的指令不会由于系统优化等原因而导致乱序。<br>大多数现代计算机为了提高性能而采取乱序执行，这使得内存屏障成为必须。<br>语义上，内存屏障之前的所有写操作都要写入内存；内存屏障之后的读操作都可以获得同步屏障之前的写操作的结果。因此，对于敏感的程序块，写操作之后、读操作之前可以插入内存屏障。</p>
+</blockquote>
+<p>在JVM中提供了四类内存屏障指令：</p>
+<p><img src="https://pic3.zhimg.com/80/v2-06ae616adae545c36a01f7eaa192ac52_720w.jpg" alt="img"></p>
+<h3 id="内存屏障的插入"><a href="#内存屏障的插入" class="headerlink" title="内存屏障的插入"></a>内存屏障的插入</h3><p>了解什么是内存屏障之后，我们再来看看JMM是如何插入内存屏障的。</p>
+<p>对于编译器来说，发现一个最优布置来最小化插入屏障的总数几乎不可能。为此，JMM采取保守策略。下面是基于保守策略的JMM内存屏障插入策略。</p>
+<ul>
+<li>在每个volatile写操作的前面插入一个StoreStore屏障。</li>
+<li>在每个volatile写操作的后面插入一个StoreLoad屏障。</li>
+<li>在每个volatile读操作的前面插入一个LoadLoad屏障。</li>
+<li>在每个volatile读操作的后面插入一个LoadStore屏障</li>
+</ul>
+<p>在此策略下，volatile写操作插入内存屏障后生成的指令序列如下图所示。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-e6737695804284045f66f0e1163425b0_720w.jpg" alt="img"></p>
+<p>由于StoreStore屏障保障上面所有的普通写在volatile写之前刷新到主内存，StoreStore屏障可以保证在volaitle写之前，其前面的所有普通写操作已经对任意处理器可见了。</p>
+<p>volatile读操作插入内存屏障后生成的指令序列如下图所示。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-c1a18b0fea3fcd2efe52ca35f658d1d1_720w.jpg" alt="img"></p>
+<p>需要注意的是，在实际执行时，为了保证效率，编译器可以根据具体的情况省略不必要的屏障。</p>
+<p>关于volatile的特性和实现原理就介绍到这里。</p>
+<p>具体参考：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/151289085">volatile关键字的作用以及原理</a></p>
 <h1 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h1><p><strong>存储引擎</strong>说白了就是如何存储数据、如何为存储的数据建立<strong>索引</strong>和如何更新、查询数据等技术的实现方法。因为在关系数据库中数据的存储是以表的形式存储的，所以<strong>存储引擎</strong>也可以称为表类型（即存储和操作此表的类型）。</p>
 <p>在Oracle 和SQL Server等数据库中只有一种<strong>存储引擎</strong>，所有数据存储管理机制都是一样的。而MySql数据库提供了多种<strong>存储引擎</strong>。用户可以根据不同的需求为数据表选择不同的<strong>存储引擎</strong>，用户也可以根据自己的需要编写自己的<strong>存储引擎</strong>。</p>
 <p>\2.   <strong>存储引擎</strong>的类型及特点</p>
@@ -499,20 +624,209 @@
 <li>记住在线程开始方法被调用之前，线程的优先级应该被设定。</li>
 <li>你可以使用常量，如MIN_PRIORITY,MAX_PRIORITY，NORM_PRIORITY来设定优先级。</li>
 </ol>
-<h1 id="Java线程和操作系统线程的关系"><a href="#Java线程和操作系统线程的关系" class="headerlink" title="Java线程和操作系统线程的关系"></a>Java线程和操作系统线程的关系</h1><p>具体参考：</p>
+<h1 id="Java线程和操作系统线程的关系"><a href="#Java线程和操作系统线程的关系" class="headerlink" title="Java线程和操作系统线程的关系"></a>Java线程和操作系统线程的关系</h1><p>Java中的线程：</p>
+<p><strong>特别注意：这些线程的状态时JVM中的线程状态！不是操作系统中的线程状态。</strong></p>
+<p><img src="https://img-blog.csdn.net/20180418174102632?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQ3JpbmdLb25n/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>具体参考：</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/CringKong/article/details/79994511">Java线程和操作系统线程的关系</a></p>
-<h1 id="final的用法"><a href="#final的用法" class="headerlink" title="final的用法"></a>final的用法</h1><h3 id="1-修饰数据"><a href="#1-修饰数据" class="headerlink" title="1.修饰数据"></a>1.修饰数据</h3><h3 id="2-修饰方法参数"><a href="#2-修饰方法参数" class="headerlink" title="2.修饰方法参数"></a>2.修饰方法参数</h3><h3 id="3-修饰方法"><a href="#3-修饰方法" class="headerlink" title="3.修饰方法"></a>3.修饰方法</h3><h3 id="4-修饰类"><a href="#4-修饰类" class="headerlink" title="4.修饰类"></a>4.修饰类</h3><p>总结<br>final关键字是我们经常使用的关键字之一，它的用法有很多，但是并不是每一种用法都值得我们去广泛使用。它的主要用法有以下四种：</p>
-<ol>
-<li><p>用来修饰数据，包括成员变量和局部变量，该变量只能被赋值一次且它的值无法被改变。对于成员变量来讲，我们必须在声明时或者构造方法中对它赋值；</p>
+<h1 id="从输入URL到页面展示的详细过程"><a href="#从输入URL到页面展示的详细过程" class="headerlink" title="从输入URL到页面展示的详细过程"></a>从输入URL到页面展示的详细过程</h1><p>大致过程：</p>
+<ul>
+<li>1、输入网址</li>
+<li>2、DNS解析</li>
+<li>3、建立tcp连接</li>
+<li>4、客户端发送HTPP请求</li>
+<li>5、服务器处理请求</li>
+<li>6、服务器响应请求</li>
+<li>7、浏览器展示HTML</li>
+<li>8、浏览器发送请求获取其他在HTML中的资源。</li>
+</ul>
+<h2 id="1、输入地址"><a href="#1、输入地址" class="headerlink" title="1、输入地址"></a>1、输入地址</h2><p>  当我们开始在浏览器中输入网址的时候，浏览器其实就已经在智能的匹配可能得 url 了，他会从历史记录，书签等地方，找到已经输入的字符串可能对应的 url，然后给出智能提示，让你可以补全url地址。对于 google的chrome 的浏览器，他甚至会直接从缓存中把网页展示出来，就是说，你还没有按下 enter，页面就出来了。</p>
+<h2 id="2、浏览器查找域名的-IP-地址"><a href="#2、浏览器查找域名的-IP-地址" class="headerlink" title="2、浏览器查找域名的 IP 地址"></a>2、浏览器查找域名的 IP 地址</h2><p>　　1、请求一旦发起，浏览器首先要做的事情就是解析这个域名，一般来说，浏览器会首先查看本地硬盘的 hosts 文件，看看其中有没有和这个域名对应的规则，如果有的话就直接使用 hosts 文件里面的 ip 地址。</p>
+<p>   2、如果在本地的 hosts 文件没有能够找到对应的 ip 地址，浏览器会发出一个 DNS请求到本地DNS服务器 。本地DNS服务器一般都是你的网络接入服务器商提供，比如中国电信，中国移动。</p>
+<p>　  3、查询你输入的网址的DNS请求到达本地DNS服务器之后，本地DNS服务器会首先查询它的缓存记录，如果缓存中有此条记录，就可以直接返回结果，此过程是递归的方式进行查询。如果没有，本地DNS服务器还要向DNS根服务器进行查询。</p>
+<p>　　4、根DNS服务器没有记录具体的域名和IP地址的对应关系，而是告诉本地DNS服务器，你可以到域服务器上去继续查询，并给出域服务器的地址。这种过程是迭代的过程。</p>
+<p>　　5、本地DNS服务器继续向域服务器发出请求，在这个例子中，请求的对象是.com域服务器。.com域服务器收到请求之后，也不会直接返回域名和IP地址的对应关系，而是告诉本地DNS服务器，你的域名的解析服务器的地址。</p>
+<p>　　6、最后，本地DNS服务器向域名的解析服务器发出请求，这时就能收到一个域名和IP地址对应关系，本地DNS服务器不仅要把IP地址返回给用户电脑，还要把这个对应关系保存在缓存中，以备下次别的用户查询时，可以直接返回结果，加快网络访问。</p>
+<h2 id="3、浏览器向-web-服务器发送一个-HTTP-请求"><a href="#3、浏览器向-web-服务器发送一个-HTTP-请求" class="headerlink" title="3、浏览器向 web 服务器发送一个 HTTP 请求"></a>3、浏览器向 web 服务器发送一个 HTTP 请求</h2><p>拿到域名对应的IP地址之后，浏览器会以一个随机端口（1024&lt;端口&lt;65535）向服务器的WEB程序（常用的有httpd,nginx等）80端口发起TCP的连接请求。这个连接请求到达服务器端后（这中间通过各种路由设备，局域网内除外），进入到网卡，然后是进入到内核的TCP/IP协议栈（用于识别该连接请求，解封包，一层一层的剥开），还有可能要经过Netfilter防火墙（属于内核的模块）的过滤，最终到达WEB程序，最终建立了TCP/IP的连接。</p>
+<p>建立了TCP连接之后，发起一个http请求。一个典型的 http request header 一般需要包括请求的方法，例如 GET 或者 POST 等，不常用的还有 PUT 和 DELETE 、HEAD、OPTION以及 TRACE 方法，一般的浏览器只能发起 GET 或者 POST 请求。</p>
+<p>　　客户端向服务器发起http请求的时候，会有一些请求信息，请求信息包含三个部分：</p>
+<p>　　| 请求方法URI协议/版本</p>
+<p>​        | 请求头(Request Header)</p>
+<p>　　| 请求正文：</p>
+<h2 id="4、服务器的永久重定向响应"><a href="#4、服务器的永久重定向响应" class="headerlink" title="4、服务器的永久重定向响应"></a>4、服务器的永久重定向响应</h2><p>​        服务器给浏览器响应一个301永久重定向响应，这样浏览器就会访问“<a target="_blank" rel="noopener" href="http://www.google.com/%E2%80%9D">http://www.google.com/”</a> 而非“<a target="_blank" rel="noopener" href="http://google.com/%E2%80%9D%E3%80%82">http://google.com/”。</a></p>
+<p>　　为什么服务器一定要重定向而不是直接发送用户想看的网页内容呢？其中一个原因跟搜索引擎排名有关。如果一个页面有两个地址，就像<a target="_blank" rel="noopener" href="http://www.yy.com/%E5%92%8Chttp://yy.com/%EF%BC%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E4%BC%9A%E8%AE%A4%E4%B8%BA%E5%AE%83%E4%BB%AC%E6%98%AF%E4%B8%A4%E4%B8%AA%E7%BD%91%E7%AB%99%EF%BC%8C%E7%BB%93%E6%9E%9C%E9%80%A0%E6%88%90%E6%AF%8F%E4%B8%AA%E6%90%9C%E7%B4%A2%E9%93%BE%E6%8E%A5%E9%83%BD%E5%87%8F%E5%B0%91%E4%BB%8E%E8%80%8C%E9%99%8D%E4%BD%8E%E6%8E%92%E5%90%8D%E3%80%82%E8%80%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%9F%A5%E9%81%93301%E6%B0%B8%E4%B9%85%E9%87%8D%E5%AE%9A%E5%90%91%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D%EF%BC%8C%E8%BF%99%E6%A0%B7%E5%B0%B1%E4%BC%9A%E6%8A%8A%E8%AE%BF%E9%97%AE%E5%B8%A6www%E7%9A%84%E5%92%8C%E4%B8%8D%E5%B8%A6www%E7%9A%84%E5%9C%B0%E5%9D%80%E5%BD%92%E5%88%B0%E5%90%8C%E4%B8%80%E4%B8%AA%E7%BD%91%E7%AB%99%E6%8E%92%E5%90%8D%E4%B8%8B%E3%80%82%E8%BF%98%E6%9C%89%E5%B0%B1%E6%98%AF%E7%94%A8%E4%B8%8D%E5%90%8C%E7%9A%84%E5%9C%B0%E5%9D%80%E4%BC%9A%E9%80%A0%E6%88%90%E7%BC%93%E5%AD%98%E5%8F%8B%E5%A5%BD%E6%80%A7%E5%8F%98%E5%B7%AE%EF%BC%8C%E5%BD%93%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E6%9C%89%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%90%8D%E5%AD%97%E6%97%B6%EF%BC%8C%E5%AE%83%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%9C%A8%E7%BC%93%E5%AD%98%E9%87%8C%E5%87%BA%E7%8E%B0%E5%A5%BD%E5%87%A0%E6%AC%A1%E3%80%82">http://www.yy.com/和http://yy.com/，搜索引擎会认为它们是两个网站，结果造成每个搜索链接都减少从而降低排名。而搜索引擎知道301永久重定向是什么意思，这样就会把访问带www的和不带www的地址归到同一个网站排名下。还有就是用不同的地址会造成缓存友好性变差，当一个页面有好几个名字时，它可能会在缓存里出现好几次。</a></p>
+<h2 id="5、浏览器跟踪重定向地址"><a href="#5、浏览器跟踪重定向地址" class="headerlink" title="5、浏览器跟踪重定向地址"></a>5、浏览器跟踪重定向地址</h2><p>  现在浏览器知道了 “<a target="_blank" rel="noopener" href="http://www.google.com/&quot;%E6%89%8D%E6%98%AF%E8%A6%81%E8%AE%BF%E9%97%AE%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%9C%B0%E5%9D%80%EF%BC%8C%E6%89%80%E4%BB%A5%E5%AE%83%E4%BC%9A%E5%8F%91%E9%80%81%E5%8F%A6%E4%B8%80%E4%B8%AAhttp%E8%AF%B7%E6%B1%82%E3%80%82%E8%BF%99%E9%87%8C%E6%B2%A1%E6%9C%89%E5%95%A5%E5%A5%BD%E8%AF%B4%E7%9A%84">http://www.google.com/&quot;才是要访问的正确地址，所以它会发送另一个http请求。这里没有啥好说的</a></p>
+<h2 id="6、服务器处理请求"><a href="#6、服务器处理请求" class="headerlink" title="6、服务器处理请求"></a>6、服务器处理请求</h2><p>　　经过前面的重重步骤，我们终于将我们的http请求发送到了服务器这里，其实前面的重定向已经是到达服务器了，那么，服务器是如何处理我们的请求的呢？</p>
+<p>　　后端从在固定的端口接收到TCP报文开始，它会对TCP连接进行处理，对HTTP协议进行解析，并按照报文格式进一步封装成HTTP Request对象，供上层使用。</p>
+<p>　　一些大一点的网站会将你的请求到反向代理服务器中，因为当网站访问量非常大，网站越来越慢，一台服务器已经不够用了。于是将同一个应用部署在多台服务器上，将大量用户的请求分配给多台机器处理。此时，客户端不是直接通过HTTP协议访问某网站应用服务器，而是先请求到Nginx，Nginx再请求应用服务器，然后将结果返回给客户端，这里Nginx的作用是反向代理服务器。同时也带来了一个好处，其中一台服务器万一挂了，只要还有其他服务器正常运行，就不会影响用户使用。</p>
+<h2 id="7、服务器返回一个-HTTP-响应"><a href="#7、服务器返回一个-HTTP-响应" class="headerlink" title="7、服务器返回一个 HTTP 响应"></a>7、服务器返回一个 HTTP 响应</h2><p>　　经过前面的6个步骤，服务器收到了我们的请求，也处理我们的请求，到这一步，它会把它的处理结果返回，也就是返回一个HTPP响应。</p>
+<p>HTTP响应与HTTP请求相似，HTTP响应也由3个部分构成，分别是：</p>
+<p>l 状态行</p>
+<p>l 响应头(Response Header)</p>
+<p>l 响应正文</p>
+<h2 id="8、浏览器显示-HTML"><a href="#8、浏览器显示-HTML" class="headerlink" title="8、浏览器显示 HTML"></a>8、浏览器显示 HTML</h2><p>　　在浏览器没有完整接受全部HTML文档时，它就已经开始显示这个页面了，浏览器是如何把页面呈现在屏幕上的呢？不同浏览器可能解析的过程不太一样，这里我们只介绍webkit的渲染过程，下图对应的就是WebKit渲染的过程，这个过程包括：(暂略)</p>
+<h2 id="9、浏览器发送请求获取嵌入在-HTML-中的资源（如图片、音频、视频、CSS、JS等等）"><a href="#9、浏览器发送请求获取嵌入在-HTML-中的资源（如图片、音频、视频、CSS、JS等等）" class="headerlink" title="9、浏览器发送请求获取嵌入在 HTML 中的资源（如图片、音频、视频、CSS、JS等等）"></a>9、浏览器发送请求获取嵌入在 HTML 中的资源（如图片、音频、视频、CSS、JS等等）</h2><p>​        其实这个步骤可以并列在步骤8中，在浏览器显示HTML时，它会注意到需要获取其他地址内容的标签。这时，浏览器会发送一个获取请求来重新获得这些文件。比如我要获取外图片，CSS，JS文件等，类似于下面的链接：</p>
+<p>图片：<a target="_blank" rel="noopener" href="http://static.ak.fbcdn.net/rsrc.php/z12E0/hash/8q2anwu7.gif">http://static.ak.fbcdn.net/rsrc.php/z12E0/hash/8q2anwu7.gif</a></p>
+<p>CSS式样表：<a target="_blank" rel="noopener" href="http://static.ak.fbcdn.net/rsrc.php/z448Z/hash/2plh8s4n.css">http://static.ak.fbcdn.net/rsrc.php/z448Z/hash/2plh8s4n.css</a></p>
+<p>JavaScript 文件：<a target="_blank" rel="noopener" href="http://static.ak.fbcdn.net/rsrc.php/zEMOA/hash/c8yzb6ub.js">http://static.ak.fbcdn.net/rsrc.php/zEMOA/hash/c8yzb6ub.js</a></p>
+<p>　　这些地址都要经历一个和HTML读取类似的过程。所以浏览器会在DNS中查找这些域名，发送请求，重定向等等…</p>
+<p>不像动态页面，静态文件会允许浏览器对其进行缓存。有的文件可能会不需要与服务器通讯，而从缓存中直接读取，或者可以放到CDN中</p>
+<h1 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h1><h2 id="1-什么是DNS？"><a href="#1-什么是DNS？" class="headerlink" title="1)什么是DNS？"></a>1)什么是DNS？</h2><p>　　DNS（Domain Name System，域名系统），因特网上作为域名和<a target="_blank" rel="noopener" href="http://baike.baidu.com/item/IP%E5%9C%B0%E5%9D%80">IP地址</a>相互映射的一个<a target="_blank" rel="noopener" href="http://baike.baidu.com/item/%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93">分布式数据库</a>，能够使用户更方便的访问<a target="_blank" rel="noopener" href="http://baike.baidu.com/item/%E4%BA%92%E8%81%94%E7%BD%91">互联网</a>，而不用去记住能够被机器直接读取的IP数串。通过<a target="_blank" rel="noopener" href="http://baike.baidu.com/item/%E4%B8%BB%E6%9C%BA">主机</a>名，最终得到该主机名对应的IP地址的过程叫做域名解析（或主机名解析）。</p>
+<p>　　通俗的讲，我们更习惯于记住一个网站的名字，比如<a href="http://www.baidu.com,而不是记住它的ip地址，比如：167.23.10.2。而计算机更擅长记住网站的ip地址，而不是像www.baidu.com等链接。因为，DNS就相当于一个电话本，比如你要找www.baidu.com这个域名，那我翻一翻我的电话本，我就知道，哦，它的电话（ip）是167.23.10.2。">www.baidu.com,而不是记住它的ip地址，比如：167.23.10.2。而计算机更擅长记住网站的ip地址，而不是像www.baidu.com等链接。因为，DNS就相当于一个电话本，比如你要找www.baidu.com这个域名，那我翻一翻我的电话本，我就知道，哦，它的电话（ip）是167.23.10.2。</a></p>
+<h2 id="2-DNS查询的两种方式：递归查询和迭代查询"><a href="#2-DNS查询的两种方式：递归查询和迭代查询" class="headerlink" title="2)DNS查询的两种方式：递归查询和迭代查询"></a>2)DNS查询的两种方式：递归查询和迭代查询</h2><p>1、递归解析</p>
+<p>  当局部DNS服务器自己不能回答客户机的DNS查询时，它就需要向其他DNS服务器进行查询。此时有两种方式，如图\所示的是递归方式。局部DNS服务器自己负责向其他DNS服务器进行查询，一般是先向该域名的根域服务器查询，再由根域名服务器一级级向下查询。最后得到的查询结果返回给局部DNS服务器，再由局部DNS服务器返回给客户端。</p>
+<p>2、迭代解析</p>
+<p>　　当局部DNS服务器自己不能回答客户机的DNS查询时，也可以通过迭代查询的方式进行解析，如图所示。局部DNS服务器不是自己向其他DNS服务器进行查询，而是把能解析该域名的其他DNS服务器的IP地址返回给客户端DNS程序，客户端DNS程序再继续向这些DNS服务器进行查询，直到得到查询结果为止。也就是说，迭代解析只是帮你找到相关的服务器而已，而不会帮你去查。比如说：baidu.com的服务器ip地址在192.168.4.5这里，你自己去查吧，本人比较忙，只能帮你到这里了。</p>
+<h2 id="4-DNS负载均衡"><a href="#4-DNS负载均衡" class="headerlink" title="4)DNS负载均衡"></a>4)DNS负载均衡</h2><p>　　当一个网站有足够多的用户的时候，假如每次请求的资源都位于同一台机器上面，那么这台机器随时可能会蹦掉。处理办法就是用DNS负载均衡技术，它的原理是在DNS服务器中为同一个主机名配置多个IP地址,在应答DNS查询时,DNS服务器对每个查询将以DNS文件中主机记录的IP地址按顺序返回不同的解析结果,将客户端的访问引导到不同的机器上去,使得不同的客户端访问不同的服务器,从而达到负载均衡的目的｡例如可以根据每台机器的负载量，该机器离用户地理位置的距离等等。</p>
+<h1 id="重定向原因"><a href="#重定向原因" class="headerlink" title="重定向原因"></a>重定向原因</h1><p>（1）网站调整（如改变网页目录结构）；</p>
+<p>（2）网页被移到一个新地址；</p>
+<p>（3）网页扩展名改变(如应用需要把.php改成.Html或.shtml)。</p>
+<p>​    这种情况下，如果不做重定向，则用户收藏夹或搜索引擎数据库中旧地址只能让访问客户得到一个404页面错误信息，访问流量白白丧失；再者某些注册了多个域名的网站，也需要通过重定向让访问这些域名的用户自动跳转到主站点等。</p>
+<h1 id="状态码301和302"><a href="#状态码301和302" class="headerlink" title="状态码301和302"></a>状态码301和302</h1><h2 id="1）301和302的区别。"><a href="#1）301和302的区别。" class="headerlink" title="1）301和302的区别。"></a>1）301和302的区别。</h2><p>　　301和302状态码都表示重定向，就是说浏览器在拿到服务器返回的这个状态码后会自动跳转到一个新的URL地址，这个地址可以从响应的Location首部中获取（用户看到的效果就是他输入的地址A瞬间变成了另一个地址B）——这是它们的共同点。</p>
+<p>　　他们的不同在于。301表示旧地址A的资源已经被永久地移除了（这个资源不可访问了），搜索引擎在抓取新内容的同时也将旧的网址交换为重定向之后的网址；</p>
+<p>　　302表示旧地址A的资源还在（仍然可以访问），这个重定向只是临时地从旧地址A跳转到地址B，搜索引擎会抓取新的内容而保存旧的网址。 所以302好于301。</p>
+<h2 id="2）什么时候进行301或者302跳转呢？"><a href="#2）什么时候进行301或者302跳转呢？" class="headerlink" title="2）什么时候进行301或者302跳转呢？"></a>2）什么时候进行301或者302跳转呢？</h2><p>​    当一个网站或者网页24—48小时内临时移动到一个新的位置，这时候就要进行302跳转，而使用301跳转的场景就是之前的网站因为某种原因需要移除掉，然后要到新的地址访问，是永久性的。</p>
+<p>清晰明确而言：使用301跳转的大概场景如下：</p>
+<p>1、域名到期不想续费（或者发现了更适合网站的域名），想换个域名。</p>
+<p>2、在搜索引擎的搜索结果中出现了不带www的域名，而带www的域名却没有收录，这个时候可以用301重定向来告诉搜索引擎我们目标的域名是哪一个。</p>
+<p>3、空间服务器不稳定，换空间的时候。</p>
+<h1 id="如何判断一个对象是否应该被回收"><a href="#如何判断一个对象是否应该被回收" class="headerlink" title="如何判断一个对象是否应该被回收"></a>如何判断一个对象是否应该被回收</h1><p>这就是所谓的对象存活性判断，常用的方法有两种：1.引用计数法;　2.对象可达性分析。由于引用计数法存在互相引用导致无法进行GC的问题，所以目前JVM虚拟机多使用对象可达性分析算法。</p>
+<h3 id="1、引用计数法"><a href="#1、引用计数法" class="headerlink" title="1、引用计数法"></a>1、引用计数法</h3><p>引用计数法的逻辑非常简单，但是存在问题，java并不采用这种方式进行对象存活判断。</p>
+<p>引用计数法的逻辑是：在堆中存储对象时，在对象头处维护一个counter计数器，如果一个对象增加了一个引用与之相连，则将counter++。如果一个引用关系失效则counter–。如果一个对象的counter变为0，则说明该对象已经被废弃，不处于存活状态。</p>
+<p>这种方法来标记对象的状态会存在很多问题：</p>
+<p>jdk从1.2开始增加了多种引用方式：软引用、弱引用、虚引用，且在不同引用情况下程序应进行不同的操作。如果我们只采用一个引用计数法来计数无法准确的区分这么多种引用的情况。 </p>
+<h3 id="2、可达性分析算法"><a href="#2、可达性分析算法" class="headerlink" title="2、可达性分析算法"></a>2、可达性分析算法</h3><p>在主流的商用程序语言中(Java和C#)，都是使用可达性分析算法判断对象是否存活的。这个算法的基本思路就是通过一系列名为GC Roots的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为引用链(Reference Chain)，当一个对象到GC Roots没有任何引用链相连时，则证明此对象是不可用的，下图对象object5, object6, object7虽然有互相判断，但它们到GC Roots是不可达的，所以它们将会判定为是可回收对象。<br><img src="https://img-blog.csdnimg.cn/20190529111953162.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyOTk2NzYx,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>具体参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42996761/article/details/90667725">如何判断一个对象是否应该被回收</a></p>
+<h1 id="Java内存泄露和内存溢出的区别和联系"><a href="#Java内存泄露和内存溢出的区别和联系" class="headerlink" title="Java内存泄露和内存溢出的区别和联系"></a>Java内存泄露和内存溢出的区别和联系</h1><h2 id="1、内存泄漏memory-leak"><a href="#1、内存泄漏memory-leak" class="headerlink" title="1、内存泄漏memory leak :"></a>1、内存泄漏memory leak :</h2><p>是指程序在申请内存后，无法释放已申请的内存空间，一次内存泄漏似乎不会有大的影响，但内存泄漏堆积后的后果就是内存溢出。</p>
+<h2 id="2、内存溢出-out-of-memory"><a href="#2、内存溢出-out-of-memory" class="headerlink" title="2、内存溢出 out of memory :"></a>2、内存溢出 out of memory :</h2><p>指程序申请内存时，没有足够的内存供申请者使用，或者说，给了你一块存储int类型数据的存储空间，但是你却存储long类型的数据，那么结果就是内存不够用，此时就会报错OOM,即所谓的内存溢出。</p>
+<h2 id="3、二者的关系："><a href="#3、二者的关系：" class="headerlink" title="3、二者的关系："></a>3、二者的关系：</h2><ol>
+<li>内存泄漏的堆积最终会导致内存溢出</li>
+<li>内存溢出就是你要的内存空间超过了系统实际分配给你的空间，此时系统相当于没法满足你的需求，就会报内存溢出的错误。</li>
+<li>内存泄漏是指你向系统申请分配内存进行使用(new)，可是使用完了以后却不归还(delete)，结果你申请到的那块内存你自己也不能再访问（也许你把它的地址给弄丢了），而系统也不能再次将它分配给需要的程序。就相当于你租了个带钥匙的柜子，你存完东西之后把柜子锁上之后，把钥匙丢了或者没有将钥匙还回去，那么结果就是这个柜子将无法供给任何人使用，也无法被垃圾回收器回收，因为找不到他的任何信息。</li>
+<li>内存溢出：一个盘子用尽各种方法只能装4个果子，你装了5个，结果掉倒地上不能吃了。这就是溢出。比方说栈，栈满时再做进栈必定产生空间溢出，叫上溢，栈空时再做退栈也产生空间溢出，称为下溢。就是分配的内存不足以放下数据项序列,称为内存溢出。说白了就是我承受不了那么多，那我就报错。</li>
+</ol>
+<h2 id="内存泄露的场景"><a href="#内存泄露的场景" class="headerlink" title="内存泄露的场景"></a>内存泄露的场景</h2><ol>
+<li>静态集合类引起内存泄漏：静态成员的生命周期是整个程序运行期间。</li>
+<li>调用 remove()方法时不起作用</li>
+<li>各种连接对象( IO 流对象、数据库连接对象、网络连接对象)使用后未关闭：因为每个流 在操作系统层面都对应了打开的文件句柄，流没有关闭，会导致操作系统的文件句柄一 直处于打开状态，而jvm会消耗内存来跟踪操作系统打开的文件句柄。</li>
+<li>监听器的使用：在释放对象的同时没有相应删除监听器的时候也可能导致内存泄露。</li>
+<li>不正确使用单例模式是引起内存泄漏：单例对象在初始化后将在 JVM 的整个生命周期中存在（以静态变量的方式），如果单例对象持有外部的引用，那么这个对象将不能被JVM正常回收，导致内存泄漏。</li>
+</ol>
+<h2 id="内存泄漏解决措施"><a href="#内存泄漏解决措施" class="headerlink" title="内存泄漏解决措施"></a>内存泄漏解决措施</h2><ol>
+<li><p>尽量减少使用静态变量，类的静态变量的生命周期和类同步的。</p>
 </li>
-<li><p>用来修饰方法参数，表示在变量的生存期中它的值不能被改变；</p>
+<li><p>声明对象引用之前，明确内存对象的有效作用域，尽量减小对象的作用域，将类的成员 变量改写为方法内的局部变量；</p>
 </li>
-<li><p>修饰方法，表示该方法无法被重写；</p>
+<li><p>减少长生命周期的对象持有短生命周期的引用；</p>
 </li>
-<li><p>修饰类，表示该类无法被继承。</p>
+<li><p>使用 StringBuilder 和 StringBuffer 进行字符串连接，Sting 和 StringBuilder 以及 StringBuffer 等都可以代表字符串，其中 String 字符串代表的是不可变的字符串，后两者表示 可变的字符串。如果使用多个 String 对象进行字符串连接运算，在运行时可能产生大量临时字符串，这些字符串会保存在内存中从而导致程序性能下降。</p>
+</li>
+<li><p>对于不需要使用的对象手动设置 null 值，不管 GC 何时会开始清理，我们都应及时的将无用的对象标记为可被清理的对象；</p>
+</li>
+<li><p>各种连接（数据库连接，网络连接，IO 连接）操作，务必显示调用 close 关闭。</p>
 </li>
 </ol>
-<p>上面的四种方法中，第三种和第四种方法需要谨慎使用，因为在大多数情况下，如果是仅仅为了一点设计上的考虑，我们并不需要使用final来修饰方法和类。</p>
+<h2 id="内存溢出的场景"><a href="#内存溢出的场景" class="headerlink" title="内存溢出的场景"></a>内存溢出的场景</h2><h3 id="JVM-Heap（堆）溢出："><a href="#JVM-Heap（堆）溢出：" class="headerlink" title="JVM Heap（堆）溢出："></a><strong>JVM Heap（堆）溢出</strong>：</h3><p> 发生这种问题的原因是 java 虚拟机创建的对象太多，在进行垃圾回收之间，虚拟机分配的到堆内存空间已 经用满了。</p>
+<p>解决方法：</p>
+<ol>
+<li>手动设置 JVM Heap（堆）的大小。</li>
+<li>检查程序，看是否有死循环或不必要地重复创建大量对象。</li>
+</ol>
+<h2 id="Metaspace溢出"><a href="#Metaspace溢出" class="headerlink" title="Metaspace溢出"></a><strong>Metaspace溢出</strong></h2><p>Metaspace 程序中使用了大量的 jar 或 class，使 java 虚拟机装载类的空间不够，与 metaspace 大小有关。方法区用于存放 Java 类型的相关信息。在类装载器加载 class 文件到内存的过程中，虚拟机会提取其中的类型信息，并将这些信息存储到方法区。当需要存储类信息而方法区的 内存占用又已经达到 -XX:MaxMetaspaceSize 设置的最大值，将会抛出 OutOfMemoryError 异常。对于这种情况的测试，基本的思路是运行时产生大量的类去填满方法区，直到溢出。</p>
+<p>解决方法:</p>
+<ol>
+<li>通过 -XX:MetaspaceSize 和 -XX:MaxMetaspaceSize 设置永久代大小即可。</li>
+</ol>
+<h2 id="栈溢出"><a href="#栈溢出" class="headerlink" title="栈溢出"></a><strong>栈溢出</strong></h2><p>java.lang.StackOverflowError : Thread Stack space：线程的方法嵌套调用层次太多(如递归调用)，以致于把栈区溢出了。</p>
+<p>解决方法：</p>
+<ol>
+<li>修改程序。</li>
+<li>通过 -Xss: 来设置每个线程的 Stack 大小即可。</li>
+</ol>
+<p>具体参考：</p>
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/sunmin/blog/3034336">JAVA内存泄漏和内存溢出的区别和联系</a></p>
+<h1 id="散列函数和Hash冲突"><a href="#散列函数和Hash冲突" class="headerlink" title="散列函数和Hash冲突"></a>散列函数和Hash冲突</h1><h2 id="散列函数"><a href="#散列函数" class="headerlink" title="散列函数"></a>散列函数</h2><ol>
+<li>直接定值法：例如线性函数</li>
+<li>数字分析法：根据数字特性来决定</li>
+<li>除留余数法：例如除以某个质数</li>
+<li>平方取中法</li>
+<li>基数转换法</li>
+<li>折叠法</li>
+</ol>
+<h2 id="Hash冲突"><a href="#Hash冲突" class="headerlink" title="Hash冲突"></a>Hash冲突</h2><ol>
+<li><p>开放定址法：</p>
+<ul>
+<li><p>线性探测再散列 di = 1 , 2 , 3 , … , m-1</p>
+</li>
+<li><p>平方探测再散列 di = 1 , -1 , 2, -2 , 3 , -3 , … , k , -k(取相应数的平方)</p>
+</li>
+<li><p>随机探测再散列 di 是一组伪随机数列</p>
+</li>
+</ul>
+</li>
+<li><p>链接法：</p>
+<p>将所有哈希地址相同的记录都链接在同一链表中。</p>
+</li>
+<li><p>再哈希法：</p>
+<p>再次进行另一个哈希函数计算，直到冲突不发生。</p>
+</li>
+<li><p>建立公共溢出区</p>
+<p>将哈希表分为基本表和溢出表两部分，凡是和基本表发生冲突的元素，一律填入溢出表</p>
+</li>
+</ol>
+<h1 id="Integer比较大小要注意的地方"><a href="#Integer比较大小要注意的地方" class="headerlink" title="Integer比较大小要注意的地方"></a>Integer比较大小要注意的地方</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Integer a = <span class="number">1</span>;</span><br><span class="line">Integer b = <span class="number">1</span>;</span><br><span class="line">System.out.println(a == b);     <span class="comment">// true</span></span><br><span class="line"> </span><br><span class="line">Integer c = <span class="number">128</span>;</span><br><span class="line">Integer d = <span class="number">128</span>;</span><br><span class="line">System.out.println(c == d);    <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>这是因为 Integer 类在内存中有一个值的范围为[-128, 127]的对象池。只要 Integer 对象的值在[-128, 127]范围内，都是从这个对象池中取。所以只要是这个范围的 Integer 对象，只要值相同，就是同一个对象。那么 == 的结果，就是 true。超过了这个范围，则会 new 新的 Integer 对象，尽管值相同，但是已经是不同的对象了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer a = <span class="keyword">new</span> Integer(<span class="number">1</span>);</span><br><span class="line">Integer b = <span class="keyword">new</span> Integer(<span class="number">1</span>);</span><br><span class="line">System.out.println(a == b);    <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>那么结果就是 false 了，因为他重新生成对象了；</p>
+<p>如果超过了 [-128, 127] 之间的值，被装箱后的 Integer 对象并不会被重用，即相当于每次装箱时都新建一个 Integer 对象，所以 Integer c = 128，Integer d = 128 参考的不同的对象。内存地址不同，结果是 false，对象如果要比较值，应该用 .equals()方法。<br><em>注意</em>：只有 Integer 类有对象池，其他的 Short…Double 都没有对象池</p>
+<p>具体参考：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/fly_sky23/article/details/85162859">Java中两个Integer比较大小需要注意的误区</a></p>
+<h1 id="Mysql实现乐观锁"><a href="#Mysql实现乐观锁" class="headerlink" title="Mysql实现乐观锁"></a>Mysql实现乐观锁</h1><p>具体参考：</p>
+<p> <a target="_blank" rel="noopener" href="https://blog.csdn.net/gaopeijiayou/article/details/100152780">mysql实现乐观锁</a></p>
+<h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><h2 id="线程池简介"><a href="#线程池简介" class="headerlink" title="线程池简介"></a>线程池简介</h2><ol>
+<li>线程池的概念：</li>
+</ol>
+<p>​     线程池就是首先创建一些线程，它们的集合称为线程池。使用线程池可以很好地提高性能，线程池在系统启动时即创建大量空闲的线程，程序将一个任务传给线程池，线程池就会启动一条线程来执行这个任务，执行结束以后，该线程并不会死亡，而是再次返回线程池中成为空闲状态，等待执行下一个任务。</p>
+<ol start="2">
+<li>线程池的工作机制</li>
+</ol>
+<p>​     2.1 在线程池的编程模式下，任务是提交给整个线程池，而不是直接提交给某个线程，线程池在拿到任务后，就在内部寻找是否有空闲的线程，如果有，则将任务交给某个空闲的线程。</p>
+<p>​     2.1 一个线程同时只能执行一个任务，但可以同时向一个线程池提交多个任务。</p>
+<ol start="3">
+<li>使用线程池的原因：</li>
+</ol>
+<p>​    多线程运行时间，系统不断的启动和关闭新线程，成本非常高，会过渡消耗系统资源，以及过渡切换线程的危险，从而可能导致系统资源的崩溃。这时，线程池就是最好的选择了。</p>
+<h2 id="四种常见线程池"><a href="#四种常见线程池" class="headerlink" title="四种常见线程池"></a>四种常见线程池</h2><ol>
+<li>线程池的返回值ExecutorService简介：</li>
+</ol>
+<p>​     ExecutorService是Java提供的用于管理线程池的类。该类的两个作用：控制线程数量和重用线程</p>
+<ol start="2">
+<li><p>具体的4种常用的线程池实现如下：（返回值都是ExecutorService）</p>
+<p>2.1  Executors.newCacheThreadPool()：可缓存线程池，先查看池中有没有以前建立的线程，如果有，就直接使用。如果没有，就建一个新的线程加入池中，缓存型池子通常用于执行一些生存期很短的异步型任务</p>
+<p>2.2 Executors.newFixedThreadPool(int n)：创建一个可重用固定个数的线程池，以共享的无界队列方式来运行这些线程。</p>
+<p>2.3 Executors.newScheduledThreadPool(int n)：创建一个定长线程池，支持定时及周期性任务执行</p>
+<p>2.4 Executors.newSingleThreadExecutor()：创建一个单线程化的线程池，它只会用唯一的工作线程来执行任务，保证所有任务按照指定顺序(FIFO, LIFO, 优先级)执行。</p>
+</li>
+</ol>
+<h2 id="三-缓冲队列BlockingQueue和自定义线程池ThreadPoolExecutor"><a href="#三-缓冲队列BlockingQueue和自定义线程池ThreadPoolExecutor" class="headerlink" title="三. 缓冲队列BlockingQueue和自定义线程池ThreadPoolExecutor"></a>三. 缓冲队列BlockingQueue和自定义线程池ThreadPoolExecutor</h2><p>\1. 缓冲队列BlockingQueue简介：</p>
+<p>​     BlockingQueue是双缓冲队列。BlockingQueue内部使用两条队列，允许两个线程同时向队列一个存储，一个取出操作。在保证并发安全的同时，提高了队列的存取效率。</p>
+<p>\2. 常用的几种BlockingQueue：</p>
+<ul>
+<li>ArrayBlockingQueue（int i）:规定大小的BlockingQueue，其构造必须指定大小。其所含的对象是FIFO顺序排序的。</li>
+<li>LinkedBlockingQueue（）或者（int i）:大小不固定的BlockingQueue，若其构造时指定大小，生成的BlockingQueue有大小限制，不指定大小，其大小有Integer.MAX_VALUE来决定。其所含的对象是FIFO顺序排序的。</li>
+<li>PriorityBlockingQueue（）或者（int i）:类似于LinkedBlockingQueue，但是其所含对象的排序不是FIFO，而是依据对象的自然顺序或者构造函数的Comparator决定。</li>
+<li>SynchronizedQueue（）:特殊的BlockingQueue，对其的操作必须是放和取交替完成。</li>
+</ul>
+<p>\3. 自定义线程池（ThreadPoolExecutor和BlockingQueue连用）：</p>
+<p>   <em>自定义线程池，可以用ThreadPoolExecutor类创建，它有多个构造方法来创建线程池。</em></p>
+<p>  <em>常见的构造函数：ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue)</em></p>
+<p>具体参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jiawen010/p/11855768.html">4种常用线程池介绍</a></p>
 
     </div>
 
@@ -596,7 +910,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#http-%E5%8D%8F%E8%AE%AE%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E5%8F%AF%E9%9D%A0%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">http 协议如何保证可靠性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">多线程相关面试题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="nav-number">3.</span> <span class="nav-text">如何实现线程同步</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Synchronized-%E7%94%A8%E5%9C%A8%E6%99%AE%E9%80%9A%E6%96%B9%E6%B3%95%E5%92%8C-static-%E4%B8%8A%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">3.1.</span> <span class="nav-text">Synchronized 用在普通方法和 static 上的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E8%AF%AD%E8%A8%80%E7%9A%84%E7%89%B9%E7%82%B9%E5%92%8C%E7%89%B9%E6%80%A7"><span class="nav-number">4.</span> <span class="nav-text">Java语言的特点和特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Java%E8%AF%AD%E8%A8%80%E7%9A%84%E4%B8%BB%E8%A6%81%E7%89%B9%E7%82%B9%EF%BC%9A"><span class="nav-number">4.1.</span> <span class="nav-text">1.　　Java语言的主要特点：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Java%E8%AF%AD%E8%A8%80%E7%9A%84%E5%87%A0%E5%A4%A7%E7%89%B9%E6%80%A7%EF%BC%9A"><span class="nav-number">4.2.</span> <span class="nav-text">2.　　Java语言的几大特性：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#static%E5%85%B3%E9%94%AE%E5%AD%97%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">static关键字总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">5.1.</span> <span class="nav-text">静态变量和静态方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%9D%97"><span class="nav-number">5.2.</span> <span class="nav-text">静态块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">6.</span> <span class="nav-text">存储引擎</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">7.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%B4%A2%E5%BC%95"><span class="nav-number">7.1.</span> <span class="nav-text">什么是索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%EF%BC%9A"><span class="nav-number">7.2.</span> <span class="nav-text">分类：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E3%80%81%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%92%8C%E9%9B%86%E7%BE%A4%E7%9A%84%E5%88%9D%E6%AD%A5%E4%BA%86%E8%A7%A3"><span class="nav-number">8.</span> <span class="nav-text">分布式、微服务和集群的初步了解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E4%B8%8E%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%AF%A6%E8%A7%A3"><span class="nav-number">9.</span> <span class="nav-text">Java类加载器与双亲委派模式的详解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95"><span class="nav-number">10.</span> <span class="nav-text">银行家算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B%E6%A0%91%EF%BC%8CB-%E6%A0%91%E7%9A%84%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8C%BA%E5%88%AB"><span class="nav-number">11.</span> <span class="nav-text">B树，B+树的原理及区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#B-%E6%A0%91"><span class="nav-number">11.1.</span> <span class="nav-text">B-树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-%E6%A0%91-1"><span class="nav-number">11.2.</span> <span class="nav-text">B+树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88B-%E6%A0%91%E6%AF%94B%E6%A0%91%E6%9B%B4%E9%80%82%E5%90%88%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9F"><span class="nav-number">11.3.</span> <span class="nav-text">为什么B+树比B树更适合数据库索引？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91"><span class="nav-number">12.</span> <span class="nav-text">红黑树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%E8%A7%84%E5%88%99"><span class="nav-number">12.1.</span> <span class="nav-text">红黑树规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="nav-number">12.2.</span> <span class="nav-text">红黑树性能分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91"><span class="nav-number">13.</span> <span class="nav-text">二叉查找树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">14.</span> <span class="nav-text">平衡二叉树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%85%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="nav-number">15.</span> <span class="nav-text">浅拷贝和深拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%85%E6%8B%B7%E8%B4%9D%EF%BC%88Shallow-Copy%EF%BC%89%EF%BC%9A"><span class="nav-number">15.1.</span> <span class="nav-text">浅拷贝（Shallow Copy）：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E6%8B%B7%E8%B4%9D%EF%BC%9A"><span class="nav-number">15.2.</span> <span class="nav-text">深拷贝：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GC"><span class="nav-number">16.</span> <span class="nav-text">GC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">17.</span> <span class="nav-text">线程池的作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E6%80%A7"><span class="nav-number">18.</span> <span class="nav-text">局部性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86"><span class="nav-number">19.</span> <span class="nav-text">Linux 文件与目录管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E7%9B%AE%E5%BD%95%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">19.1.</span> <span class="nav-text">处理目录的常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E6%9F%A5%E7%9C%8B"><span class="nav-number">19.2.</span> <span class="nav-text">Linux 文件内容查看</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux%E4%B8%8B%E7%9A%84%E7%BC%96%E8%AF%91%E5%92%8C%E6%89%A7%E8%A1%8C"><span class="nav-number">20.</span> <span class="nav-text">Linux下的编译和执行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-number">21.</span> <span class="nav-text">Spring相关面试题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6"><span class="nav-number">22.</span> <span class="nav-text">JVM垃圾回收机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL%E6%B3%A8%E5%85%A5"><span class="nav-number">23.</span> <span class="nav-text">SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB%E7%9A%84%E6%80%BB%E4%BD%93%E6%80%9D%E8%B7%AF"><span class="nav-number">23.1.</span> <span class="nav-text">SQL注入攻击的总体思路</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%84%E7%BD%91%E7%BB%9C%E5%B1%82%E7%9A%84%E5%8D%8F%E8%AE%AE"><span class="nav-number">24.</span> <span class="nav-text">各网络层的协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82"><span class="nav-number">24.1.</span> <span class="nav-text">应用层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%BE%93%E5%B1%82"><span class="nav-number">24.2.</span> <span class="nav-text">运输层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="nav-number">24.3.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">24.4.</span> <span class="nav-text">数据链路层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82"><span class="nav-number">24.5.</span> <span class="nav-text">物理层</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B9%B6%E6%9F%A5%E9%9B%86"><span class="nav-number">25.</span> <span class="nav-text">并查集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#transient%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">26.</span> <span class="nav-text">transient关键字</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">27.</span> <span class="nav-text">序列化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">28.</span> <span class="nav-text">线程的优先级</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E7%BA%BF%E7%A8%8B%E5%92%8C%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">29.</span> <span class="nav-text">Java线程和操作系统线程的关系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#final%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">30.</span> <span class="nav-text">final的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BF%AE%E9%A5%B0%E6%95%B0%E6%8D%AE"><span class="nav-number">30.0.1.</span> <span class="nav-text">1.修饰数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BF%AE%E9%A5%B0%E6%96%B9%E6%B3%95%E5%8F%82%E6%95%B0"><span class="nav-number">30.0.2.</span> <span class="nav-text">2.修饰方法参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BF%AE%E9%A5%B0%E6%96%B9%E6%B3%95"><span class="nav-number">30.0.3.</span> <span class="nav-text">3.修饰方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E4%BF%AE%E9%A5%B0%E7%B1%BB"><span class="nav-number">30.0.4.</span> <span class="nav-text">4.修饰类</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#http-%E5%8D%8F%E8%AE%AE%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E5%8F%AF%E9%9D%A0%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">http 协议如何保证可靠性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IP-TCP-UDP%E9%A6%96%E9%83%A8%E8%AF%A6%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">IP,TCP,UDP首部详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IP"><span class="nav-number">2.1.</span> <span class="nav-text">IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP"><span class="nav-number">2.2.</span> <span class="nav-text">TCP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP"><span class="nav-number">2.3.</span> <span class="nav-text">UDP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">多线程相关面试题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IPv4%E5%92%8C-IPv6%E7%9A%84%E5%9C%B0%E5%9D%80%E9%95%BF%E5%BA%A6%E5%88%86%E5%88%AB%E6%98%AF%E5%A4%9A%E5%B0%91%E4%BD%8D%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">IPv4和 IPv6的地址长度分别是多少位？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ArrayList%E5%92%8CLinkedList%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%8C%E4%BB%A5%E5%8F%8A%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">5.</span> <span class="nav-text">ArrayList和LinkedList的区别，以及应用场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="nav-number">6.</span> <span class="nav-text">如何实现线程同步</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Synchronized-%E7%94%A8%E5%9C%A8%E6%99%AE%E9%80%9A%E6%96%B9%E6%B3%95%E5%92%8C-static-%E4%B8%8A%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">6.1.</span> <span class="nav-text">Synchronized 用在普通方法和 static 上的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8"><span class="nav-number">7.</span> <span class="nav-text">如何实现线程安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E4%B8%AD%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7"><span class="nav-number">8.</span> <span class="nav-text">Java中如何保证线程安全性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL%E4%B8%AD%E7%9A%84%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E3%80%81%E5%9B%9E%E8%A1%A8%E5%92%8C%E7%B4%A2%E5%BC%95%E8%A6%86%E7%9B%96"><span class="nav-number">9.</span> <span class="nav-text">MySQL中的聚簇索引和非聚簇索引、回表和索引覆盖</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E9%94%AE%E7%B4%A2%E5%BC%95"><span class="nav-number">9.1.</span> <span class="nav-text">主键索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95"><span class="nav-number">9.2.</span> <span class="nav-text">聚簇索引和非聚簇索引</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96"><span class="nav-number">10.</span> <span class="nav-text">索引优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E7%B1%BB%E5%9E%8B%EF%BC%9A"><span class="nav-number">10.1.</span> <span class="nav-text">索引的类型：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E7%9A%84%E5%87%A0%E4%B8%AA%E5%8E%9F%E5%88%99"><span class="nav-number">11.</span> <span class="nav-text">创建索引的几个原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E8%AF%AD%E8%A8%80%E7%9A%84%E7%89%B9%E7%82%B9%E5%92%8C%E7%89%B9%E6%80%A7"><span class="nav-number">12.</span> <span class="nav-text">Java语言的特点和特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Java%E8%AF%AD%E8%A8%80%E7%9A%84%E4%B8%BB%E8%A6%81%E7%89%B9%E7%82%B9%EF%BC%9A"><span class="nav-number">12.1.</span> <span class="nav-text">1.　　Java语言的主要特点：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Java%E8%AF%AD%E8%A8%80%E7%9A%84%E5%87%A0%E5%A4%A7%E7%89%B9%E6%80%A7%EF%BC%9A"><span class="nav-number">12.2.</span> <span class="nav-text">2.　　Java语言的几大特性：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#static%E5%85%B3%E9%94%AE%E5%AD%97%E6%80%BB%E7%BB%93"><span class="nav-number">13.</span> <span class="nav-text">static关键字总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">13.1.</span> <span class="nav-text">静态变量和静态方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%9D%97"><span class="nav-number">13.2.</span> <span class="nav-text">静态块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#final%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">14.</span> <span class="nav-text">final的用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%BF%AE%E9%A5%B0%E6%95%B0%E6%8D%AE"><span class="nav-number">14.0.1.</span> <span class="nav-text">1.修饰数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BF%AE%E9%A5%B0%E6%96%B9%E6%B3%95%E5%8F%82%E6%95%B0"><span class="nav-number">14.0.2.</span> <span class="nav-text">2.修饰方法参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BF%AE%E9%A5%B0%E6%96%B9%E6%B3%95"><span class="nav-number">14.0.3.</span> <span class="nav-text">3.修饰方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E4%BF%AE%E9%A5%B0%E7%B1%BB"><span class="nav-number">14.0.4.</span> <span class="nav-text">4.修饰类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#volatile"><span class="nav-number">15.</span> <span class="nav-text">volatile</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%89%B9%E6%80%A7%E2%80%93%E4%BF%9D%E8%AF%81%E5%8F%AF%E8%A7%81%E6%80%A7"><span class="nav-number">15.1.</span> <span class="nav-text">volatile的第一个特性–保证可见性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile%E7%9A%84%E7%AC%AC%E4%BA%8C%E4%B8%AA%E7%89%B9%E6%80%A7%E2%80%93%E4%BF%9D%E8%AF%81%E6%9C%89%E5%BA%8F%E6%80%A7"><span class="nav-number">15.2.</span> <span class="nav-text">volatile的第二个特性–保证有序性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile%E4%BF%9D%E8%AF%81%E6%9C%89%E5%BA%8F%E6%80%A7%E5%92%8C%E5%8F%AF%E8%A7%81%E6%80%A7%E7%9A%84%E5%8E%9F%E7%90%86%E2%80%93%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C"><span class="nav-number">15.3.</span> <span class="nav-text">volatile保证有序性和可见性的原理–内存屏障</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C"><span class="nav-number">15.3.1.</span> <span class="nav-text">什么是内存屏障</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C%E7%9A%84%E6%8F%92%E5%85%A5"><span class="nav-number">15.3.2.</span> <span class="nav-text">内存屏障的插入</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">16.</span> <span class="nav-text">存储引擎</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">17.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%B4%A2%E5%BC%95"><span class="nav-number">17.1.</span> <span class="nav-text">什么是索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%EF%BC%9A"><span class="nav-number">17.2.</span> <span class="nav-text">分类：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E3%80%81%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%92%8C%E9%9B%86%E7%BE%A4%E7%9A%84%E5%88%9D%E6%AD%A5%E4%BA%86%E8%A7%A3"><span class="nav-number">18.</span> <span class="nav-text">分布式、微服务和集群的初步了解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E4%B8%8E%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%AF%A6%E8%A7%A3"><span class="nav-number">19.</span> <span class="nav-text">Java类加载器与双亲委派模式的详解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95"><span class="nav-number">20.</span> <span class="nav-text">银行家算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B%E6%A0%91%EF%BC%8CB-%E6%A0%91%E7%9A%84%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8C%BA%E5%88%AB"><span class="nav-number">21.</span> <span class="nav-text">B树，B+树的原理及区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#B-%E6%A0%91"><span class="nav-number">21.1.</span> <span class="nav-text">B-树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-%E6%A0%91-1"><span class="nav-number">21.2.</span> <span class="nav-text">B+树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88B-%E6%A0%91%E6%AF%94B%E6%A0%91%E6%9B%B4%E9%80%82%E5%90%88%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9F"><span class="nav-number">21.3.</span> <span class="nav-text">为什么B+树比B树更适合数据库索引？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91"><span class="nav-number">22.</span> <span class="nav-text">红黑树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%E8%A7%84%E5%88%99"><span class="nav-number">22.1.</span> <span class="nav-text">红黑树规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%A2%E9%BB%91%E6%A0%91%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="nav-number">22.2.</span> <span class="nav-text">红黑树性能分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91"><span class="nav-number">23.</span> <span class="nav-text">二叉查找树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">24.</span> <span class="nav-text">平衡二叉树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%85%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="nav-number">25.</span> <span class="nav-text">浅拷贝和深拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%85%E6%8B%B7%E8%B4%9D%EF%BC%88Shallow-Copy%EF%BC%89%EF%BC%9A"><span class="nav-number">25.1.</span> <span class="nav-text">浅拷贝（Shallow Copy）：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E6%8B%B7%E8%B4%9D%EF%BC%9A"><span class="nav-number">25.2.</span> <span class="nav-text">深拷贝：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GC"><span class="nav-number">26.</span> <span class="nav-text">GC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">27.</span> <span class="nav-text">线程池的作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E6%80%A7"><span class="nav-number">28.</span> <span class="nav-text">局部性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux-%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86"><span class="nav-number">29.</span> <span class="nav-text">Linux 文件与目录管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E7%9B%AE%E5%BD%95%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">29.1.</span> <span class="nav-text">处理目录的常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9%E6%9F%A5%E7%9C%8B"><span class="nav-number">29.2.</span> <span class="nav-text">Linux 文件内容查看</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux%E4%B8%8B%E7%9A%84%E7%BC%96%E8%AF%91%E5%92%8C%E6%89%A7%E8%A1%8C"><span class="nav-number">30.</span> <span class="nav-text">Linux下的编译和执行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E7%9B%B8%E5%85%B3%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="nav-number">31.</span> <span class="nav-text">Spring相关面试题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6"><span class="nav-number">32.</span> <span class="nav-text">JVM垃圾回收机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL%E6%B3%A8%E5%85%A5"><span class="nav-number">33.</span> <span class="nav-text">SQL注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB%E7%9A%84%E6%80%BB%E4%BD%93%E6%80%9D%E8%B7%AF"><span class="nav-number">33.1.</span> <span class="nav-text">SQL注入攻击的总体思路</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%84%E7%BD%91%E7%BB%9C%E5%B1%82%E7%9A%84%E5%8D%8F%E8%AE%AE"><span class="nav-number">34.</span> <span class="nav-text">各网络层的协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82"><span class="nav-number">34.1.</span> <span class="nav-text">应用层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%BE%93%E5%B1%82"><span class="nav-number">34.2.</span> <span class="nav-text">运输层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="nav-number">34.3.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">34.4.</span> <span class="nav-text">数据链路层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82"><span class="nav-number">34.5.</span> <span class="nav-text">物理层</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B9%B6%E6%9F%A5%E9%9B%86"><span class="nav-number">35.</span> <span class="nav-text">并查集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#transient%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">36.</span> <span class="nav-text">transient关键字</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-number">37.</span> <span class="nav-text">序列化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">38.</span> <span class="nav-text">线程的优先级</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E7%BA%BF%E7%A8%8B%E5%92%8C%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">39.</span> <span class="nav-text">Java线程和操作系统线程的关系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8E%E8%BE%93%E5%85%A5URL%E5%88%B0%E9%A1%B5%E9%9D%A2%E5%B1%95%E7%A4%BA%E7%9A%84%E8%AF%A6%E7%BB%86%E8%BF%87%E7%A8%8B"><span class="nav-number">40.</span> <span class="nav-text">从输入URL到页面展示的详细过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E8%BE%93%E5%85%A5%E5%9C%B0%E5%9D%80"><span class="nav-number">40.1.</span> <span class="nav-text">1、输入地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E6%B5%8F%E8%A7%88%E5%99%A8%E6%9F%A5%E6%89%BE%E5%9F%9F%E5%90%8D%E7%9A%84-IP-%E5%9C%B0%E5%9D%80"><span class="nav-number">40.2.</span> <span class="nav-text">2、浏览器查找域名的 IP 地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E6%B5%8F%E8%A7%88%E5%99%A8%E5%90%91-web-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%91%E9%80%81%E4%B8%80%E4%B8%AA-HTTP-%E8%AF%B7%E6%B1%82"><span class="nav-number">40.3.</span> <span class="nav-text">3、浏览器向 web 服务器发送一个 HTTP 请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%B0%B8%E4%B9%85%E9%87%8D%E5%AE%9A%E5%90%91%E5%93%8D%E5%BA%94"><span class="nav-number">40.4.</span> <span class="nav-text">4、服务器的永久重定向响应</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%9F%E8%B8%AA%E9%87%8D%E5%AE%9A%E5%90%91%E5%9C%B0%E5%9D%80"><span class="nav-number">40.5.</span> <span class="nav-text">5、浏览器跟踪重定向地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82"><span class="nav-number">40.6.</span> <span class="nav-text">6、服务器处理请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7%E3%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA-HTTP-%E5%93%8D%E5%BA%94"><span class="nav-number">40.7.</span> <span class="nav-text">7、服务器返回一个 HTTP 响应</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8%E3%80%81%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%BE%E7%A4%BA-HTML"><span class="nav-number">40.8.</span> <span class="nav-text">8、浏览器显示 HTML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9%E3%80%81%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82%E8%8E%B7%E5%8F%96%E5%B5%8C%E5%85%A5%E5%9C%A8-HTML-%E4%B8%AD%E7%9A%84%E8%B5%84%E6%BA%90%EF%BC%88%E5%A6%82%E5%9B%BE%E7%89%87%E3%80%81%E9%9F%B3%E9%A2%91%E3%80%81%E8%A7%86%E9%A2%91%E3%80%81CSS%E3%80%81JS%E7%AD%89%E7%AD%89%EF%BC%89"><span class="nav-number">40.9.</span> <span class="nav-text">9、浏览器发送请求获取嵌入在 HTML 中的资源（如图片、音频、视频、CSS、JS等等）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS"><span class="nav-number">41.</span> <span class="nav-text">DNS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AFDNS%EF%BC%9F"><span class="nav-number">41.1.</span> <span class="nav-text">1)什么是DNS？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-DNS%E6%9F%A5%E8%AF%A2%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%9A%E9%80%92%E5%BD%92%E6%9F%A5%E8%AF%A2%E5%92%8C%E8%BF%AD%E4%BB%A3%E6%9F%A5%E8%AF%A2"><span class="nav-number">41.2.</span> <span class="nav-text">2)DNS查询的两种方式：递归查询和迭代查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-DNS%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">41.3.</span> <span class="nav-text">4)DNS负载均衡</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91%E5%8E%9F%E5%9B%A0"><span class="nav-number">42.</span> <span class="nav-text">重定向原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E7%A0%81301%E5%92%8C302"><span class="nav-number">43.</span> <span class="nav-text">状态码301和302</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%EF%BC%89301%E5%92%8C302%E7%9A%84%E5%8C%BA%E5%88%AB%E3%80%82"><span class="nav-number">43.1.</span> <span class="nav-text">1）301和302的区别。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%EF%BC%89%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E8%BF%9B%E8%A1%8C301%E6%88%96%E8%80%85302%E8%B7%B3%E8%BD%AC%E5%91%A2%EF%BC%9F"><span class="nav-number">43.2.</span> <span class="nav-text">2）什么时候进行301或者302跳转呢？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%BA%94%E8%AF%A5%E8%A2%AB%E5%9B%9E%E6%94%B6"><span class="nav-number">44.</span> <span class="nav-text">如何判断一个对象是否应该被回收</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E6%B3%95"><span class="nav-number">44.0.1.</span> <span class="nav-text">1、引用计数法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%8F%AF%E8%BE%BE%E6%80%A7%E5%88%86%E6%9E%90%E7%AE%97%E6%B3%95"><span class="nav-number">44.0.2.</span> <span class="nav-text">2、可达性分析算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E5%92%8C%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E8%81%94%E7%B3%BB"><span class="nav-number">45.</span> <span class="nav-text">Java内存泄露和内存溢出的区别和联系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8Fmemory-leak"><span class="nav-number">45.1.</span> <span class="nav-text">1、内存泄漏memory leak :</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA-out-of-memory"><span class="nav-number">45.2.</span> <span class="nav-text">2、内存溢出 out of memory :</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E4%BA%8C%E8%80%85%E7%9A%84%E5%85%B3%E7%B3%BB%EF%BC%9A"><span class="nav-number">45.3.</span> <span class="nav-text">3、二者的关系：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E7%9A%84%E5%9C%BA%E6%99%AF"><span class="nav-number">45.4.</span> <span class="nav-text">内存泄露的场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E8%A7%A3%E5%86%B3%E6%8E%AA%E6%96%BD"><span class="nav-number">45.5.</span> <span class="nav-text">内存泄漏解决措施</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E7%9A%84%E5%9C%BA%E6%99%AF"><span class="nav-number">45.6.</span> <span class="nav-text">内存溢出的场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM-Heap%EF%BC%88%E5%A0%86%EF%BC%89%E6%BA%A2%E5%87%BA%EF%BC%9A"><span class="nav-number">45.6.1.</span> <span class="nav-text">JVM Heap（堆）溢出：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Metaspace%E6%BA%A2%E5%87%BA"><span class="nav-number">45.7.</span> <span class="nav-text">Metaspace溢出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88%E6%BA%A2%E5%87%BA"><span class="nav-number">45.8.</span> <span class="nav-text">栈溢出</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B0%E5%92%8CHash%E5%86%B2%E7%AA%81"><span class="nav-number">46.</span> <span class="nav-text">散列函数和Hash冲突</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B0"><span class="nav-number">46.1.</span> <span class="nav-text">散列函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hash%E5%86%B2%E7%AA%81"><span class="nav-number">46.2.</span> <span class="nav-text">Hash冲突</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Integer%E6%AF%94%E8%BE%83%E5%A4%A7%E5%B0%8F%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E5%9C%B0%E6%96%B9"><span class="nav-number">47.</span> <span class="nav-text">Integer比较大小要注意的地方</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mysql%E5%AE%9E%E7%8E%B0%E4%B9%90%E8%A7%82%E9%94%81"><span class="nav-number">48.</span> <span class="nav-text">Mysql实现乐观锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">49.</span> <span class="nav-text">线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%AE%80%E4%BB%8B"><span class="nav-number">49.1.</span> <span class="nav-text">线程池简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">49.2.</span> <span class="nav-text">四种常见线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89-%E7%BC%93%E5%86%B2%E9%98%9F%E5%88%97BlockingQueue%E5%92%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0ThreadPoolExecutor"><span class="nav-number">49.3.</span> <span class="nav-text">三. 缓冲队列BlockingQueue和自定义线程池ThreadPoolExecutor</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
