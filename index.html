@@ -361,7 +361,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-27 19:21:52" itemprop="dateModified" datetime="2021-04-27T19:21:52+08:00">2021-04-27</time>
+                <time title="修改时间：2021-05-05 22:21:28" itemprop="dateModified" datetime="2021-05-05T22:21:28+08:00">2021-05-05</time>
               </span>
 
           
@@ -516,13 +516,13 @@
 </blockquote>
 <p>在单线程下重排序可以保证最终执行结果与程序顺序执行的结果一致，但是在多线程下就会出现问题。</p>
 <h2 id="volatile保证有序性和可见性的原理–内存屏障"><a href="#volatile保证有序性和可见性的原理–内存屏障" class="headerlink" title="volatile保证有序性和可见性的原理–内存屏障"></a>volatile保证有序性和可见性的原理–内存屏障</h2><p>前面介绍了volatile关键字的两大特性，为了实现volatile的内存语义，编译器在生成字节码时，会在指令序列中插入<strong>内存屏障</strong>来禁止特定类型的处理器重排序。</p>
-<h3 id="什么是内存屏障"><a href="#什么是内存屏障" class="headerlink" title="什么是内存屏障"></a>什么是内存屏障</h3><p>维基百科中对内存屏障的描述如下：</p>
+<h2 id="什么是内存屏障"><a href="#什么是内存屏障" class="headerlink" title="什么是内存屏障"></a>什么是内存屏障</h2><p>维基百科中对内存屏障的描述如下：</p>
 <blockquote>
 <p>内存屏障（英语：Memory barrier），也称内存栅栏，内存栅障，屏障指令等，是一类同步屏障指令，它使得 CPU 或编译器在对内存进行操作的时候, 严格按照一定的顺序来执行, 也就是说在memory barrier 之前的指令和memory barrier之后的指令不会由于系统优化等原因而导致乱序。<br>大多数现代计算机为了提高性能而采取乱序执行，这使得内存屏障成为必须。<br>语义上，内存屏障之前的所有写操作都要写入内存；内存屏障之后的读操作都可以获得同步屏障之前的写操作的结果。因此，对于敏感的程序块，写操作之后、读操作之前可以插入内存屏障。</p>
 </blockquote>
 <p>在JVM中提供了四类内存屏障指令：</p>
 <p><img src="https://pic3.zhimg.com/80/v2-06ae616adae545c36a01f7eaa192ac52_720w.jpg" alt="img"></p>
-<h3 id="内存屏障的插入"><a href="#内存屏障的插入" class="headerlink" title="内存屏障的插入"></a>内存屏障的插入</h3><p>了解什么是内存屏障之后，我们再来看看JMM是如何插入内存屏障的。</p>
+<h2 id="内存屏障的插入"><a href="#内存屏障的插入" class="headerlink" title="内存屏障的插入"></a>内存屏障的插入</h2><p>了解什么是内存屏障之后，我们再来看看JMM是如何插入内存屏障的。</p>
 <p>对于编译器来说，发现一个最优布置来最小化插入屏障的总数几乎不可能。为此，JMM采取保守策略。下面是基于保守策略的JMM内存屏障插入策略。</p>
 <ul>
 <li>在每个volatile写操作的前面插入一个StoreStore屏障。</li>
