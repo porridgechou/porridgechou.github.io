@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="字节一面凉经垃圾回收机制垃圾回收（Garbage Collection，GC），顾名思义就是释放垃圾占用的空间，防止内存泄露。有效的使用可以使用的内存，对内存堆中已经死亡的或者长时间没有使用的对象进行清除和回收。 JVM垃圾回收机制 你所使用的垃圾回收器Java垃圾收集器的历史第一阶段，Serial（串行）收集器 在jdk1.3.1之前，java虚拟机仅仅能使用Serial收集器。 Serial收">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字节面经">
+<meta property="og:url" content="http://example.com/2021/05/10/zijiemianjing210510/index.html">
+<meta property="og:site_name" content="Mynote">
+<meta property="og:description" content="字节一面凉经垃圾回收机制垃圾回收（Garbage Collection，GC），顾名思义就是释放垃圾占用的空间，防止内存泄露。有效的使用可以使用的内存，对内存堆中已经死亡的或者长时间没有使用的对象进行清除和回收。 JVM垃圾回收机制 你所使用的垃圾回收器Java垃圾收集器的历史第一阶段，Serial（串行）收集器 在jdk1.3.1之前，java虚拟机仅仅能使用Serial收集器。 Serial收">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://file.elecfans.com/web1/M00/A3/63/o4YBAF1VEn2ATJNmAAArq7iRv5U807.jpg">
+<meta property="og:image" content="http://file.elecfans.com/web1/M00/A3/B6/pIYBAF1VEsOAap9mAAAlCFfvgWs929.jpg">
+<meta property="og:image" content="https://img-blog.csdn.net/20170512155609530?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvanVzdGxvdmV5b3Vf/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/42c96d3ef1ed5fd8a01e18adfab0d27b.png">
+<meta property="og:image" content="https://iknow-pic.cdn.bcebos.com/472309f790529822a5d75652daca7bcb0b46d4bf?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1/quality,q_85/format,f_jpg">
+<meta property="article:published_time" content="2021-05-10T13:43:00.000Z">
+<meta property="article:modified_time" content="2021-05-10T13:45:03.199Z">
+<meta property="article:author" content="porridgechou">
+<meta property="article:tag" content="面经">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://file.elecfans.com/web1/M00/A3/63/o4YBAF1VEn2ATJNmAAArq7iRv5U807.jpg">
+
+<link rel="canonical" href="http://example.com/2021/05/10/zijiemianjing210510/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>字节面经 | Mynote</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Mynote</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/10/zijiemianjing210510/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/clx.jpg">
+      <meta itemprop="name" content="porridgechou">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mynote">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          字节面经
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-10 21:43:00 / 修改时间：21:45:03" itemprop="dateCreated datePublished" datetime="2021-05-10T21:43:00+08:00">2021-05-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E7%BB%8F/" itemprop="url" rel="index"><span itemprop="name">面经</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="字节一面凉经"><a href="#字节一面凉经" class="headerlink" title="字节一面凉经"></a>字节一面凉经</h2><h2 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h2><p>垃圾回收（Garbage Collection，GC），顾名思义就是释放垃圾占用的空间，防止内存泄露。有效的使用可以使用的内存，对内存堆中已经死亡的或者长时间没有使用的对象进行清除和回收。</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/23f8249886c6">JVM垃圾回收机制</a></p>
+<h2 id="你所使用的垃圾回收器"><a href="#你所使用的垃圾回收器" class="headerlink" title="你所使用的垃圾回收器"></a>你所使用的垃圾回收器</h2><h3 id="Java垃圾收集器的历史"><a href="#Java垃圾收集器的历史" class="headerlink" title="Java垃圾收集器的历史"></a>Java垃圾收集器的历史</h3><p>第一阶段，Serial（串行）收集器</p>
+<p>在jdk1.3.1之前，java虚拟机仅仅能使用Serial收集器。 Serial收集器是一个单线程的收集器，但它的“单线程”的意义并不仅仅是说明它只会使用一个CPU或一条收集线程去完成垃圾收集工作，更重要的是在它进行垃圾收集时，必须暂停其他所有的工作线程，直到它收集结束。</p>
+<p>PS：开启Serial收集器的方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseSerialGC</span><br></pre></td></tr></table></figure>
+
+<p>第二阶段，Parallel（并行）收集器</p>
+<p>Parallel收集器也称吞吐量收集器，相比Serial收集器，Parallel最主要的优势在于使用多线程去完成垃圾清理工作，这样可以充分利用多核的特性，大幅降低gc时间。</p>
+<p>PS:开启Parallel收集器的方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseParallelGC -XX:+UseParallelOldGC</span><br></pre></td></tr></table></figure>
+
+<p>第三阶段，CMS（并发）收集器</p>
+<p>CMS收集器在Minor GC时会暂停所有的应用线程，并以多线程的方式进行垃圾回收。在Full GC时不再暂停应用线程，而是使用若干个后台线程定期的对老年代空间进行扫描，及时回收其中不再使用的对象。</p>
+<p>PS:开启CMS收集器的方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseParNewGC -XX:+UseConcMarkSweepGC</span><br></pre></td></tr></table></figure>
+
+<p>第四阶段，G1（并发）收集器</p>
+<p>G1收集器（或者垃圾优先收集器）的设计初衷是为了尽量缩短处理超大堆（大于4GB）时产生的停顿。相对于CMS的优势而言是内存碎片的产生率大大降低。</p>
+<p>PS:开启G1收集器的方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseG1GC</span><br></pre></td></tr></table></figure>
+
+<h2 id="你常用Java的数据结构"><a href="#你常用Java的数据结构" class="headerlink" title="你常用Java的数据结构"></a>你常用Java的数据结构</h2><p>一、线性表（重点）</p>
+<p>线性表是由N个元素组成的有序序列，也是最常见的一种数据结构。重点有两个数组和链表。</p>
+<p>1、数组</p>
+<p>数组是一种存储单元连续，用来存储固定大小元素的线性表。java中对应的集合实现，比如ArrayList。</p>
+<p>2、链表</p>
+<p>链表又分单链表和双链表，是在物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。java中对应的集合实现，比如LinkedList。</p>
+<p>二、栈与队列</p>
+<p>1、栈</p>
+<p><a target="_blank" rel="noopener" href="http://file.elecfans.com/web1/M00/A3/63/o4YBAF1VEn2ATJNmAAArq7iRv5U807.jpg"><img src="http://file.elecfans.com/web1/M00/A3/63/o4YBAF1VEn2ATJNmAAArq7iRv5U807.jpg" alt="img"></a></p>
+<p>栈，是一种运算受限的线性表，重点掌握其后进先出的特点。表的末端叫栈顶，基本操作有push（进栈）和pop（出栈）。java中stack就是简单的栈实现。</p>
+<p>2、队列</p>
+<p>队列也是一种操作受限制的线性表，重点掌握其先进先出的特点。表的前端只允许进行删除操作，表的后端进行插入操作。进行插入操作的端称为队尾，进行删除操作的端称为队头。java中很多Queue的实现，消息中间件的队列本质也是基于此的。</p>
+<p>三、树（重点）</p>
+<p>在非线性结构里面，树是非常非常重要的一种数据结构。基于其本身的结构优势，尤其在查找领域，应用广泛，其中又以二叉树最为重要。树的话我们这里只重点说一下二叉树。</p>
+<p>1、二叉搜索树</p>
+<p>二叉搜索树又叫二叉查找树，又叫二叉排序树。性质如下：（1） 若左子树不空，则左子树上所有结点的值均小于它的根结点的值；（2） 若右子树不空，则右子树上所有结点的值均大于它的根结点的值；（3） 左、右子树也分别为二叉排序树；（4） 没有键值相等的结点。</p>
+<p>2、平衡二叉树</p>
+<p>平衡二叉树又叫AVL树。性质如下：它的左子树和右子树都是平衡二叉树，且左子树和右子树的深度之差的绝对值不超过1。</p>
+<p>3、红黑树</p>
+<p><a target="_blank" rel="noopener" href="http://file.elecfans.com/web1/M00/A3/B6/pIYBAF1VEsOAap9mAAAlCFfvgWs929.jpg"><img src="http://file.elecfans.com/web1/M00/A3/B6/pIYBAF1VEsOAap9mAAAlCFfvgWs929.jpg" alt="img"></a></p>
+<p>红黑树是一种特殊的平衡二叉树，它保证在最坏情况下基本动态集合操作的事件复杂度为O（log n）。</p>
+<p>红黑树放弃了追求完全平衡，追求大致平衡，在与平衡二叉树的时间复杂度相差不大的情况下，保证每次插入最多只需要三次旋转就能达到平衡，实现起来也更为简单。平衡二叉树追求绝对平衡，条件比较苛刻，实现起来比较麻烦，每次插入新节点之后需要旋转的次数不能预知。</p>
+<p>四、图</p>
+<p>图是比线性表和树更复杂的数据结构，面试中基本不太会问到，大家有兴建的可以自己去了解下。</p>
+<h2 id="LinkedHashMap是怎么实现，HashMap是怎么实现的（HashMap、LinkedHashMap、TreeMap）的区别"><a href="#LinkedHashMap是怎么实现，HashMap是怎么实现的（HashMap、LinkedHashMap、TreeMap）的区别" class="headerlink" title="LinkedHashMap是怎么实现，HashMap是怎么实现的（HashMap、LinkedHashMap、TreeMap）的区别"></a>LinkedHashMap是怎么实现，HashMap是怎么实现的（HashMap、LinkedHashMap、TreeMap）的区别</h2><h3 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h3><p>一般情况下，我们用的最多的是HashMap,在Map 中插入、删除和定位元素，HashMap 是最好的选择。但如果您要按自然顺序或自定义顺序遍历键，那么TreeMap会更好。如果需要输出的顺序和输入的相同,那么用LinkedHashMap 可以实现,它还可以按读取顺序来排列.</p>
+<p><img src="https://img-blog.csdn.net/20170512155609530?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvanVzdGxvdmV5b3Vf/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>　与HashMap相比，LinkedHashMap增加了两个属性用于保证迭代顺序，分别是 <strong>双向链表头结点header</strong> 和 <strong>标志位accessOrder</strong> (值为true时，表示按照访问顺序迭代；值为false时，表示按照插入顺序迭代)。</p>
+<p>基本元素 Entry</p>
+<p>　　LinkedHashMap采用的hash算法和HashMap相同，但是它重新定义了Entry。LinkedHashMap中的Entry增加了两个指针 before 和 after，它们分别用于维护双向链接列表。特别需要注意的是，next用于维护HashMap各个桶中Entry的连接顺序，before、after用于维护Entry插入的先后顺序的，源代码如下：</p>
+<p>private static class Entry&lt;K,V&gt; extends HashMap.Entry&lt;K,V&gt; {</p>
+<pre><code>// These fields comprise the doubly linked list used for iteration.
+Entry&lt;K,V&gt; before, after;
+
+Entry(int hash, K key, V value, HashMap.Entry&lt;K,V&gt; next) &#123;
+    super(hash, key, value, next);
+&#125;
+...
+</code></pre>
+<p>}</p>
+<h3 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h3><p>HashMap通过hashcode对其内容进行快速查找，而 TreeMap中所有的元素都保持着某种固定的顺序，如果你需要得到一个有序的结果你就应该使用TreeMap（HashMap中元素的排列顺序是不固定的）。</p>
+<p>SortedMap接口：（TreeMap继承自SortedMap）它用来保持键的有序顺序。SortedMap接口为映像的视图(子集)，包括两个端点提供了访问方法。除了排序是作用于映射的键以外，处理SortedMap和处理SortedSet一样。添加到SortedMap实现类的元素必须实现Comparable接口，否则您必须给它的构造函数提供一个Comparator接口的实现。TreeMap类是它的唯一一份实现。</p>
+<p>TreeMap：基于红黑树实现。TreeMap没有调优选项，因为该树总处于平衡状态。</p>
+<h2 id="ConcurrentHashMap是怎么实现的"><a href="#ConcurrentHashMap是怎么实现的" class="headerlink" title="ConcurrentHashMap是怎么实现的"></a>ConcurrentHashMap是怎么实现的</h2><p> Segment继承了ReentrantLock，表明每个segment都可以当做一个锁。这样对每个segment中的数据需要同步操作的话都是使用每个segment容器对象自身的锁来实现。只有对全局需要改变时锁定的是所有的segment。这种做法，就称之为“分离锁”。</p>
+<h2 id="线程安全的相关Map有哪些，讲一下是怎么实现的"><a href="#线程安全的相关Map有哪些，讲一下是怎么实现的" class="headerlink" title="线程安全的相关Map有哪些，讲一下是怎么实现的"></a>线程安全的相关Map有哪些，讲一下是怎么实现的</h2><p>HashMap在多线程环境下是不安全的，jdk1.7中是因为采用的是头插法，在多线程环境下两个线程同时扩容时会出现环链导致死循环；而jdk1.8中改用尾插法，避免了这个情况，但是其put操作在多线程环境下会发生覆盖，导致线程不安全。那在多线程环境下我们应该怎么做呢？</p>
+<ul>
+<li>使用HashTable类</li>
+<li>使用Collections.synchronizedMap(<strong>Map</strong>)创建线程安全的map</li>
+<li>使用ConcurrentHashMap类</li>
+</ul>
+<h2 id="HashTable"><a href="#HashTable" class="headerlink" title="HashTable"></a>HashTable</h2><p>说HashTable是<strong>线程安全的</strong>是因为HashTable使用了synchronized关键字来保证线程同步。</p>
+<p>我们都知道使用synchronized属于独占式的悲观锁，加上的是重量级锁，当一个线程访问HashTable的同步方法时候，其它的线程只能是阻塞或轮询状态，所以HashTable的并发性是比较差的，效率比较低。翻阅源码还可以得到以下结论：</p>
+<h2 id="synchronizedMap"><a href="#synchronizedMap" class="headerlink" title="synchronizedMap"></a>synchronizedMap</h2><p>因此在jdk1.2中引入了Collections.synchronizedMap(<strong>Map</strong>)，这种相对较灵活的方式来保证<strong>Map</strong>的线程安全。</p>
+<p>内部类SynchronizedMap类维护了一个final类型的<strong>Map</strong>对象，以及一个互斥锁mutex。SynchronizedMap类有两个构造方法，一个只是把<strong>Map</strong>作为参数，那么就将排斥锁mutex赋值为该<strong>Map</strong>。如果再传入一个mutex参数，那么将对象排斥锁赋值为传入的对象，也就是说通过该参数，对<strong>Map</strong>方法的锁定将仅在该Object(mutex)上进行，因此，其灵活性要优于Hashtable，可以特定的为某个对象上锁。</p>
+<h2 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a><strong>ConcurrentHashMap</strong></h2><p>1.7版本</p>
+<p>通过源码我们可以看出每个Segment都继承ReentranLock(可重入锁)并单独加锁，因此每次进行加锁操作时锁住的就是一个Segment，这样我们只要保证每个Segment都是<strong>线程安全的</strong>，就能保证全局的线程安全。</p>
+<p>从上面的源码我们可以看出，jdk1.7中是如何保证segment中的<strong>线程安全的</strong>：首次进入该方法时先尝试获取该segment的锁，若获取失败，则调用 scanAndLockForPut(key, hash, value)方法来尝试自旋获取锁，如果自旋的次数达到了MAX_SCAN_RETRIES(最大自旋次数)，就会变成阻塞获取，确保可以成功获取锁；</p>
+<p>我们可以得出，get()方法不用加锁，而且ConcurrentHashMap定位一个元素的过程需要进行两次Hash操作。第一次Hash定位到Segment，第二次Hash定位到元素所在的具体位置上。</p>
+<h3 id="JDK1-8中的ConcurrentHashMap类"><a href="#JDK1-8中的ConcurrentHashMap类" class="headerlink" title="JDK1.8中的ConcurrentHashMap类"></a><strong>JDK1.8中的ConcurrentHashMap类</strong></h3><p>在JDK1.8中舍弃了Segment的概念，直接用Node数组+链表+红黑树的数据结构来实现，了解过JDK1.8中HashMap结构的同学，应该可以看出在JDK1.8中 ConcurrentHashMap结构基本上和HashMap一样，而且它们确实是有着有很多相同之处：</p>
+<ol>
+<li><p>数组的默认容量是16，最大容量是1&lt;&lt;30</p>
+</li>
+<li><p>当添加元素的时候，将列表转成树的阈值是8</p>
+</li>
+<li><p>在对数组扩容的时候，当树中元素个数小于或等于6时，将树转成链表</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/42c96d3ef1ed5fd8a01e18adfab0d27b.png" alt="42c96d3ef1ed5fd8a01e18adfab0d27b.png">而且我们从源码中也可以看出，其value值和next使用volatile修饰，保证了内存可见性，以及禁止指令重排。</p>
+</li>
+</ol>
+<p>首先ConcurrentHashMap中Node数组被volatile数组修饰，保证了内存可见性，以及禁止指令重排。</p>
+<p>再使用CAS+Synchronized结合来实现赋值的操作，用以确保当前线程操作只锁住该线程操作的节点所在的链表或红黑树，来保证线程安全。</p>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a><strong>总结：</strong></h3><ol>
+<li>数据结构：取消了Segment分段锁的数据结构，取而代之的是数组+链表+红黑树的结构，提高了遍历的效率，从遍历链表的O(n)，到遍历红黑树的O(logN)。</li>
+<li>保证线程安全机制：JDK1.7采用segment的分段锁机制实现线程安全，其中segment继承自ReentrantLock。JDK1.8采用CAS+Synchronized保证线程安全。</li>
+<li>锁的粒度：原来是对需要进行数据操作的Segment加锁，现调整为对每个数组元素加锁(Node)。</li>
+</ol>
+<h2 id="你使用过哪些锁"><a href="#你使用过哪些锁" class="headerlink" title="你使用过哪些锁"></a>你使用过哪些锁</h2><p>过</p>
+<h2 id="volatile能完全替代锁吗-其变量存在哪里"><a href="#volatile能完全替代锁吗-其变量存在哪里" class="headerlink" title="volatile能完全替代锁吗,其变量存在哪里"></a>volatile能完全替代锁吗,其变量存在哪里</h2><p>新值能立即同步到主内存，以及每次使用前立即从主内存刷新。</p>
+<ul>
+<li>volatile 修饰的变量，是直接拿的主内存的值，就是说这个值永远是最新的，对其他线程是可见的。</li>
+<li>而访问非 <code>volatile</code> 变量时，每个线程都会从系统内存（主内存）拷贝变量到工作内存中，然后修改工作内存中的变量值，操控的变量可能不同。</li>
+</ul>
+<h2 id="synchronized跟lock的区别"><a href="#synchronized跟lock的区别" class="headerlink" title="synchronized跟lock的区别"></a>synchronized跟lock的区别</h2><p>过</p>
+<h2 id="基于什么样的规则选择哪些锁"><a href="#基于什么样的规则选择哪些锁" class="headerlink" title="基于什么样的规则选择哪些锁"></a>基于什么样的规则选择哪些锁</h2><h2 id="讲一下synchronized是怎么实现的"><a href="#讲一下synchronized是怎么实现的" class="headerlink" title="讲一下synchronized是怎么实现的"></a>讲一下synchronized是怎么实现的</h2><h3 id="synchronized使用场景"><a href="#synchronized使用场景" class="headerlink" title="synchronized使用场景"></a>synchronized使用场景</h3><p>使用在静态方法上，<code>synchronized</code>锁住的是类对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronizedTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * synchronized 使用在静态方法上</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;I am test1 method&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用在实例方法上，<code>synchronized</code>锁住的是实例对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronizedTest</span> </span>&#123;</span><br><span class="line">   </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * synchronized 使用在实例方法上</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> String <span class="title">syncOnMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;a developer name Jimoer&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>synchronized用在代码块上</p>
+<p><code>synchronized</code>的同步代码块用在类实例的对象上，锁住的是当前的类的实例。<br>即执行buildName的时候，整个对象都会被锁住，直到执行完成buildName后释放锁。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronizedTest</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 带姓氏的名称</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> firstName 姓氏</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildName</span><span class="params">(String firstName)</span></span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span>(<span class="keyword">this</span>)&#123;</span><br><span class="line">            <span class="keyword">this</span>.setName(firstName+<span class="keyword">this</span>.getName());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>synchronized的同步代码块用在类对象上，锁住的是该类的类对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronizedTest</span> </span>&#123;    <span class="keyword">private</span> <span class="keyword">static</span> String myName = <span class="string">&quot;Jimoer&quot;</span>;    <span class="comment">/**     * 带姓氏的名称     * <span class="doctag">@param</span> firstName 姓氏     */</span>    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">buildName</span><span class="params">(String firstName)</span></span>&#123;        <span class="keyword">synchronized</span>(SynchronizedTest.class)&#123;            System.out.println(firstName+myName);        &#125;    &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>synchronized的同步代码块用在任意实例对象上，锁住的就是配置的实例对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronizedTest</span> </span>&#123;    <span class="keyword">private</span> String lastName;    <span class="function"><span class="keyword">public</span> String <span class="title">getLastName</span><span class="params">()</span> </span>&#123;        <span class="keyword">return</span> lastName;    &#125;    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLastName</span><span class="params">(String lastName)</span> </span>&#123;        <span class="keyword">this</span>.lastName = lastName;    &#125;    <span class="comment">/**     * 带姓氏的名称     * <span class="doctag">@param</span> firstName 姓氏     */</span>    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildName</span><span class="params">(String firstName)</span></span>&#123;        <span class="keyword">synchronized</span>(lastName)&#123;            System.out.println(firstName+lastName);        &#125;    &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="synchronized的原理"><a href="#synchronized的原理" class="headerlink" title="synchronized的原理"></a>synchronized的原理</h3><p>先进行反编译:</p>
+<ul>
+<li>在执行<code>monitorenter</code>指令的时候，首先要去尝试获取对象的锁（<strong>获取对象锁的过程，其实是获取monitor对象的所有权的过程</strong>）。</li>
+<li>如果这个对象没被锁定，或者当前线程已经持有了那个对象的锁，就把锁的计数器的值增加一。</li>
+<li>而在执行<code>monitorexit</code>指令时会将锁计数器减一。一旦计数器的值为零，锁随即就被释放了。</li>
+<li>如果获取对象锁失败，那当前线程就应当被阻塞等待，直到请求锁定的对象被持有它的线程释放为止。</li>
+</ul>
+<h3 id="monitor对象"><a href="#monitor对象" class="headerlink" title="monitor对象"></a>monitor对象</h3><p>我在上面说了，获取对象锁的过程，其实是获取monitor对象的所有权的过程。哪个线程持有了monitor对象，那么哪个线程就获得了锁，获得了锁的对象可以重复的来获取monitor对象，但是同一个线程每获取一次monitor对象所有权锁计数就加一，在解锁的时候也是需要将锁计数减成0才算真的释放了锁。<br>monitor对象，我们其实在Java的反编译文件中并没有看到。这个对象是存放在对象头中的。</p>
+<p>这里要说明一下，锁升级的过程是不可逆的。</p>
+<h4 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h4><p>上面在介绍对象头的时候，说到了对象头中包含的内容了，其中有一个就是偏向锁的线程ID，它代表的意思就是说，如果当一个线程获取到了锁之后，锁的标志计数器就会+1，并且把这个线程的id存储在锁住的这个对象的对象头上面。<br><strong>这个过程是通过CAS来实现的，每次线程进入都是无锁的，当执行CAS成功后，直接将锁的标志计数+1（持有偏向锁的线程以后每次进入锁时不做任何操作，标志计数直接+1），这个时候其他线程再进来时，执行CAS就会失败，也就是获取锁失败。</strong></p>
+<h4 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h4><p>轻量级锁还是和对象头的第一部分（Mark Word）相关。</p>
+<ul>
+<li>在代码即将进入同步块的时候，如果此同步对象没有被锁定，虚拟机首先将当前线程的栈帧中建立一个名为锁记录（Lock Record）的空间，用户存储锁对象目前的Mark Word的拷贝。</li>
+<li>然后JVM将使用CAS操作尝试把对象的Mark Word更新为指向Lock Record的指针。如果这个更新动作成功了，说明线程获取锁成功，并执行后面的同步操作。</li>
+<li>如果这个更新动作失败了，说明锁对象已经被其他线程抢占了，那轻量级锁不在有效，必须膨胀为重量级锁。此时被锁住的对象的标志变为重量级锁的标志。</li>
+</ul>
+<h3 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h3><p>当轻量级锁获取失败后，就会升级为重量级锁，但是重量级锁之前也介绍了是很耗资源的，JVM开发团队注意到许多程序上，共享数据的二锁定状态只会持续很短一段时间，为了这段时间去挂起和恢复线程并不值得。<br><strong>所以想到了一个策略，那就是当线程请求一个已经被锁住的对象时，可以让未获取锁的线程“稍等一会”，但不放弃处理器执行时间，只需要让线程执行一个忙循环（自旋），这就是所谓的自旋锁。</strong><br>自旋锁在JDK1.4.2中引入，默认关闭，可以通过-XX:UserSpinning参数来开启，默认自旋次数是10次，用户可以自定义次数，配置参数是-XX:PreBockSpin。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Synchronized减重的过程，通常被称为锁膨胀或是锁升级的过程。<br>主要步骤是：</p>
+<ul>
+<li>先是通过偏向锁来获取锁，解决了虽然有同步但无竞争的场景下锁的消耗。</li>
+<li>再是通过对象头的Mark Word来实现的轻量级锁，通过轻量级锁如果还有竞争，那么继续升级。</li>
+<li>升级为自旋锁，如果达到最大自旋次数了，那么就直接升级为重量级锁，所有未获取锁的线程都阻塞等待。</li>
+</ul>
+<h2 id="MySQL的存储引擎"><a href="#MySQL的存储引擎" class="headerlink" title="MySQL的存储引擎"></a>MySQL的存储引擎</h2><p>过</p>
+<h2 id="对索引有什么了解"><a href="#对索引有什么了解" class="headerlink" title="对索引有什么了解"></a>对索引有什么了解</h2><p>索引在MySQL中也叫做“键”，是存储引擎用于快速找到记录的一种数据结构。</p>
+<p>索引对于良好的性能非常关键，尤其是当表中的数据量越来越大时，索引对于性能的影响愈发重要。</p>
+<p>索引优化应该是对查询性能优化最有效的手段了。索引能够轻易将查询性能提高好几个数量级。</p>
+<h2 id="建立索引的策略"><a href="#建立索引的策略" class="headerlink" title="建立索引的策略"></a>建立索引的策略</h2><h3 id="适合建索引的字段："><a href="#适合建索引的字段：" class="headerlink" title="适合建索引的字段："></a>适合建索引的字段：</h3><ol>
+<li>经常被查询的字段，即在where子句中出现的字段</li>
+<li>在分组的字段，即在group by子句中出现的字段</li>
+<li>存在依赖关系的子表和父表之间的联合查询，即主键或外键字段</li>
+<li>设置唯一完整性约束的字段</li>
+</ol>
+<h3 id="不适合建索引字段："><a href="#不适合建索引字段：" class="headerlink" title="不适合建索引字段："></a>不适合建索引字段：</h3><ol>
+<li>在查询中很少被使用的字段</li>
+<li>拥有许多重复值的字段</li>
+</ol>
+<h2 id="索引有哪些类型"><a href="#索引有哪些类型" class="headerlink" title="索引有哪些类型"></a>索引有哪些类型</h2><p>索引类型<br>Mysql目前主要有以下几种索引类型：FULLTEXT，HASH，BTREE，RTREE。</p>
+<h3 id="FULLTEXT"><a href="#FULLTEXT" class="headerlink" title="FULLTEXT"></a>FULLTEXT</h3><p>即为全文索引，目前只有MyISAM引擎支持。其可以在CREATE TABLE ，ALTER TABLE ，CREATE INDEX 使用，不过目前只有 CHAR、VARCHAR ，TEXT 列上可以创建全文索引。</p>
+<p>全文索引并不是和MyISAM一起诞生的，它的出现是为了解决WHERE name LIKE “%word%”这类针对文本的模糊查询效率较低的问题。</p>
+<h3 id="HASH"><a href="#HASH" class="headerlink" title="HASH"></a>HASH</h3><p>由于HASH的唯一（几乎100%的唯一）及类似键值对的形式，很适合作为索引。</p>
+<p>HASH索引可以一次定位，不需要像树形索引那样逐层查找,因此具有极高的效率。但是，这种高效是有条件的，即只在“=”和“in”条件下高效，对于范围查询、排序及组合索引仍然效率不高。</p>
+<p><strong>哈希索引的限制：</strong></p>
+<p>1.哈希索引只包含哈希值和行指针，而不存储字段值，索引不能使用索引的值来避免读取行</p>
+<p>2.哈希索引数据并不是按照索引值顺序存储的，所以无法用于排序</p>
+<p>3.哈希索引不支持部分索引匹配查找(因为哈希索引始终是使用索引列的全部内容来计算哈希值的)</p>
+<p>4.哈希索引只支持等值查询，包括= ，in</p>
+<p>5.当出现哈希冲突(不同的索引列值却有相同的哈希值)时，存储引擎必须遍历链表中所有的行指针，逐个比较直至找到符合条件的行</p>
+<p>6.如果哈希冲突很多，则索引维护操作的代价会很高</p>
+<h3 id="BTREE"><a href="#BTREE" class="headerlink" title="BTREE"></a>BTREE</h3><p>BTREE索引就是一种将索引值按一定的算法，存入一个树形的数据结构中（二叉树），每次查询都是从树的入口root开始，依次遍历node，获取leaf。这是MySQL里默认和最常用的索引类型。</p>
+<h3 id="RTREE"><a href="#RTREE" class="headerlink" title="RTREE"></a>RTREE</h3><p>RTREE在MySQL很少使用，仅支持geometry数据类型，支持该类型的存储引擎只有MyISAM、BDb、InnoDb、NDb、Archive几种。</p>
+<p>//myisam支持空间索引，可以用作地理数据存储，R-tree无须前缀索引。空间索引会从所有维度来索引数据。查询时，可以有效地使用任意维度来组合查询。</p>
+<p>相对于BTREE，RTREE的优势在于范围查找。</p>
+<h2 id="索引种类"><a href="#索引种类" class="headerlink" title="索引种类"></a>索引种类</h2><ul>
+<li>普通索引：仅加速查询</li>
+<li>唯一索引：加速查询 + 列值唯一（可以有null）</li>
+<li>主键索引：加速查询 + 列值唯一（不可以有null）+ 表中只有一个</li>
+<li>组合索引：多列值组成一个索引，专门用于组合搜索，其效率大于索引合并</li>
+<li>全文索引：对文本的内容进行分词，进行搜索</li>
+</ul>
+<h2 id="什么时候用聚集索引"><a href="#什么时候用聚集索引" class="headerlink" title="什么时候用聚集索引"></a>什么时候用聚集索引</h2><p><strong>最左前缀原则：</strong></p>
+<p>顾名思义是最左优先，以最左边的为起点任何连续的索引都能匹配上，</p>
+<p>注：如果第一个字段是范围查询需要单独建一个索引</p>
+<p>注：在创建联合索引时，要根据业务需求，where子句中使用最频繁的一列放在最左边。这样的话扩展性较好，比如 userid 经常需要作为查询条件，而 mobile 不常常用，则需要把 userid 放在联合索引的第一位置，即最左边</p>
+<p><strong>联合索引本质：</strong></p>
+<p>当创建(a,b,c)联合索引时，相当于创建了(a)单列索引，(a,b)联合索引以及(a,b,c)联合索引</p>
+<p>想要索引生效的话,只能使用 a，和a,b，和a,b,c三种组合；当然，我们上面测试过，a,c组合也可以，但实际上只用到了a的索引，c并没有用到！</p>
+<p><strong>联合索引总结：</strong></p>
+<p>需要加索引的字段，要在where条件中；</p>
+<p>数据量少的字段不需要加索引（因为建索引有开销，速度反而慢）；</p>
+<p>如果where条件中是or关系，加索引不起作用；</p>
+<p>联合索引比每个列分别建索引更有优势，因为建索引有开销，顺序也要注意，一般不超过7，8个，应该将严格的索引放在前面，这样筛选力度会更大，效率更高。</p>
+<h2 id="说一下每个层的主要协议"><a href="#说一下每个层的主要协议" class="headerlink" title="说一下每个层的主要协议"></a>说一下每个层的主要协议</h2><p>协议分别有：</p>
+<p>1、物理层协议有：EIA/TIA-232， EIA/TIA-499，V.35， V.24，RJ45， Ethernet， 802.3 </p>
+<p>2、数据链路层协议有：Frame Relay，HDLC，PPP， IEEE 802.3/802.2</p>
+<p>3、网络层协议有：IP，IPX，AppleTalk DDP </p>
+<p>4、传输层协议有：TCP，UDP，SPX</p>
+<p>5、会话层协议有：RPC，SQL，NFS，NetBIOS，names，AppleTalk</p>
+<p>6、表示层协议有：TIFF，GIF，JPEG，PICT，ASCII，EBCDIC，encryption</p>
+<p>7、应用层协议有：FTP，WWW，Telnet，NFS，SMTP，Gateway，SNMP1</p>
+<p><img src="https://iknow-pic.cdn.bcebos.com/472309f790529822a5d75652daca7bcb0b46d4bf?x-bce-process=image/resize,m_lfit,w_600,h_800,limit_1/quality,q_85/format,f_jpg" alt="img"></p>
+<h2 id="Socket属于哪一层"><a href="#Socket属于哪一层" class="headerlink" title="Socket属于哪一层"></a>Socket属于哪一层</h2><p>在设计模式中，Socket其实就是一个门面模式，它把复杂的TCP/IP协议族隐藏在Socket接口后面，对用户来说，一组简单的接口就是全部，让Socket去组织数据，以符合指定的协议。</p>
+<h2 id="TCP与UDP的区别，使用场景"><a href="#TCP与UDP的区别，使用场景" class="headerlink" title="TCP与UDP的区别，使用场景"></a>TCP与UDP的区别，使用场景</h2><p>过</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%A2%E7%BB%8F/" rel="tag"># 面经</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/10/Alimianjing210510/" rel="prev" title="阿里面经">
+      <i class="fa fa-chevron-left"></i> 阿里面经
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E8%8A%82%E4%B8%80%E9%9D%A2%E5%87%89%E7%BB%8F"><span class="nav-number">1.</span> <span class="nav-text">字节一面凉经</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6"><span class="nav-number">2.</span> <span class="nav-text">垃圾回收机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%A0%E6%89%80%E4%BD%BF%E7%94%A8%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">你所使用的垃圾回收器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E7%9A%84%E5%8E%86%E5%8F%B2"><span class="nav-number">3.1.</span> <span class="nav-text">Java垃圾收集器的历史</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%A0%E5%B8%B8%E7%94%A8Java%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">你常用Java的数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LinkedHashMap%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%EF%BC%8CHashMap%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84%EF%BC%88HashMap%E3%80%81LinkedHashMap%E3%80%81TreeMap%EF%BC%89%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">5.</span> <span class="nav-text">LinkedHashMap是怎么实现，HashMap是怎么实现的（HashMap、LinkedHashMap、TreeMap）的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LinkedHashMap"><span class="nav-number">5.1.</span> <span class="nav-text">LinkedHashMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TreeMap"><span class="nav-number">5.2.</span> <span class="nav-text">TreeMap</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcurrentHashMap%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84"><span class="nav-number">6.</span> <span class="nav-text">ConcurrentHashMap是怎么实现的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E7%9B%B8%E5%85%B3Map%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%8C%E8%AE%B2%E4%B8%80%E4%B8%8B%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84"><span class="nav-number">7.</span> <span class="nav-text">线程安全的相关Map有哪些，讲一下是怎么实现的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashTable"><span class="nav-number">8.</span> <span class="nav-text">HashTable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronizedMap"><span class="nav-number">9.</span> <span class="nav-text">synchronizedMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcurrentHashMap"><span class="nav-number">10.</span> <span class="nav-text">ConcurrentHashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK1-8%E4%B8%AD%E7%9A%84ConcurrentHashMap%E7%B1%BB"><span class="nav-number">10.1.</span> <span class="nav-text">JDK1.8中的ConcurrentHashMap类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%EF%BC%9A"><span class="nav-number">10.2.</span> <span class="nav-text">总结：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%A0%E4%BD%BF%E7%94%A8%E8%BF%87%E5%93%AA%E4%BA%9B%E9%94%81"><span class="nav-number">11.</span> <span class="nav-text">你使用过哪些锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile%E8%83%BD%E5%AE%8C%E5%85%A8%E6%9B%BF%E4%BB%A3%E9%94%81%E5%90%97-%E5%85%B6%E5%8F%98%E9%87%8F%E5%AD%98%E5%9C%A8%E5%93%AA%E9%87%8C"><span class="nav-number">12.</span> <span class="nav-text">volatile能完全替代锁吗,其变量存在哪里</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synchronized%E8%B7%9Flock%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">13.</span> <span class="nav-text">synchronized跟lock的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%E8%A7%84%E5%88%99%E9%80%89%E6%8B%A9%E5%93%AA%E4%BA%9B%E9%94%81"><span class="nav-number">14.</span> <span class="nav-text">基于什么样的规则选择哪些锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%B2%E4%B8%80%E4%B8%8Bsynchronized%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84"><span class="nav-number">15.</span> <span class="nav-text">讲一下synchronized是怎么实现的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#synchronized%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">15.1.</span> <span class="nav-text">synchronized使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#synchronized%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">15.2.</span> <span class="nav-text">synchronized的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#monitor%E5%AF%B9%E8%B1%A1"><span class="nav-number">15.3.</span> <span class="nav-text">monitor对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%81%8F%E5%90%91%E9%94%81"><span class="nav-number">15.3.1.</span> <span class="nav-text">偏向锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81"><span class="nav-number">15.3.2.</span> <span class="nav-text">轻量级锁</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E6%97%8B%E9%94%81"><span class="nav-number">15.4.</span> <span class="nav-text">自旋锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">15.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">16.</span> <span class="nav-text">MySQL的存储引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E7%B4%A2%E5%BC%95%E6%9C%89%E4%BB%80%E4%B9%88%E4%BA%86%E8%A7%A3"><span class="nav-number">17.</span> <span class="nav-text">对索引有什么了解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E7%B4%A2%E5%BC%95%E7%9A%84%E7%AD%96%E7%95%A5"><span class="nav-number">18.</span> <span class="nav-text">建立索引的策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%82%E5%90%88%E5%BB%BA%E7%B4%A2%E5%BC%95%E7%9A%84%E5%AD%97%E6%AE%B5%EF%BC%9A"><span class="nav-number">18.1.</span> <span class="nav-text">适合建索引的字段：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E9%80%82%E5%90%88%E5%BB%BA%E7%B4%A2%E5%BC%95%E5%AD%97%E6%AE%B5%EF%BC%9A"><span class="nav-number">18.2.</span> <span class="nav-text">不适合建索引字段：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E6%9C%89%E5%93%AA%E4%BA%9B%E7%B1%BB%E5%9E%8B"><span class="nav-number">19.</span> <span class="nav-text">索引有哪些类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FULLTEXT"><span class="nav-number">19.1.</span> <span class="nav-text">FULLTEXT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HASH"><span class="nav-number">19.2.</span> <span class="nav-text">HASH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BTREE"><span class="nav-number">19.3.</span> <span class="nav-text">BTREE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RTREE"><span class="nav-number">19.4.</span> <span class="nav-text">RTREE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%A7%8D%E7%B1%BB"><span class="nav-number">20.</span> <span class="nav-text">索引种类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E7%94%A8%E8%81%9A%E9%9B%86%E7%B4%A2%E5%BC%95"><span class="nav-number">21.</span> <span class="nav-text">什么时候用聚集索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E4%B8%80%E4%B8%8B%E6%AF%8F%E4%B8%AA%E5%B1%82%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8D%8F%E8%AE%AE"><span class="nav-number">22.</span> <span class="nav-text">说一下每个层的主要协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket%E5%B1%9E%E4%BA%8E%E5%93%AA%E4%B8%80%E5%B1%82"><span class="nav-number">23.</span> <span class="nav-text">Socket属于哪一层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP%E4%B8%8EUDP%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%8C%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">24.</span> <span class="nav-text">TCP与UDP的区别，使用场景</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="porridgechou"
+      src="/images/clx.jpg">
+  <p class="site-author-name" itemprop="name">porridgechou</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">porridgechou</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

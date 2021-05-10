@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="阿里一面图的数据结构，讲一下遍历方式123456789101112131415161718192021222324252627282930313233343536373839404142&#x2F;** * 无向简单图的节点 * @author hoaven *&#x2F;public class GraphNode&lt;T&gt; &amp;#123;    T data;    List&lt;GraphNode&amp;lt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阿里面经">
+<meta property="og:url" content="http://example.com/2021/05/10/Alimianjing210510/index.html">
+<meta property="og:site_name" content="Mynote">
+<meta property="og:description" content="阿里一面图的数据结构，讲一下遍历方式123456789101112131415161718192021222324252627282930313233343536373839404142&#x2F;** * 无向简单图的节点 * @author hoaven *&#x2F;public class GraphNode&lt;T&gt; &amp;#123;    T data;    List&lt;GraphNode&amp;lt">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.leetcode-cn.com/1607322938-FExsoY-20201207142419.png">
+<meta property="og:image" content="https://img-blog.csdn.net/20180805160649484?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NDQ3NDE0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="article:published_time" content="2021-05-10T13:41:00.000Z">
+<meta property="article:modified_time" content="2021-05-10T13:43:39.325Z">
+<meta property="article:author" content="porridgechou">
+<meta property="article:tag" content="面经">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.leetcode-cn.com/1607322938-FExsoY-20201207142419.png">
+
+<link rel="canonical" href="http://example.com/2021/05/10/Alimianjing210510/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>阿里面经 | Mynote</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Mynote</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/05/10/Alimianjing210510/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/clx.jpg">
+      <meta itemprop="name" content="porridgechou">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mynote">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          阿里面经
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-05-10 21:41:00 / 修改时间：21:43:39" itemprop="dateCreated datePublished" datetime="2021-05-10T21:41:00+08:00">2021-05-10</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="阿里一面"><a href="#阿里一面" class="headerlink" title="阿里一面"></a>阿里一面</h2><h2 id="图的数据结构，讲一下遍历方式"><a href="#图的数据结构，讲一下遍历方式" class="headerlink" title="图的数据结构，讲一下遍历方式"></a>图的数据结构，讲一下遍历方式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 无向简单图的节点</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> hoaven</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GraphNode</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    T data;</span><br><span class="line">    List&lt;GraphNode&lt;T&gt;&gt; neighborList;</span><br><span class="line">    <span class="keyword">boolean</span> visited;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GraphNode</span><span class="params">(T data)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.data = data;</span><br><span class="line">        neighborList = <span class="keyword">new</span> ArrayList&lt;GraphNode&lt;T&gt;&gt;();</span><br><span class="line">        visited = <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(GraphNode&lt;T&gt; node)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.data.equals(node.data);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 还原图中所有节点为未访问</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">restoreVisited</span><span class="params">()</span></span>&#123;</span><br><span class="line">        restoreVisited(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 还原node的图所有节点为未访问</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> node</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">restoreVisited</span><span class="params">(GraphNode&lt;T&gt; node)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(node.visited)&#123;</span><br><span class="line">            node.visited = <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        List&lt;GraphNode&lt;T&gt;&gt; neighbors = node.neighborList;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; neighbors.size(); i++)&#123;</span><br><span class="line">            restoreVisited(neighbors.get(i));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>具体见：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hehuanchun0311/article/details/80168109">数据结构–图(Java版)</a></p>
+<h2 id="常用的排序方式（稳定，时间复杂度，空间复杂度）"><a href="#常用的排序方式（稳定，时间复杂度，空间复杂度）" class="headerlink" title="常用的排序方式（稳定，时间复杂度，空间复杂度）"></a>常用的排序方式（稳定，时间复杂度，空间复杂度）</h2><p><img src="https://pic.leetcode-cn.com/1607322938-FExsoY-20201207142419.png" alt="image-20201207142404505"></p>
+<p>1）当 n 较大，则应采用时间复杂度为 O(nlog2n)的排序方法：快速排序、堆排序或归并排序。</p>
+<p>快速排序：是目前基于比较的内部排序中被认为是最好的方法，当待排序的关键字是随机分 布时，快速排序的平均时间最短；</p>
+<p>堆排序 ：堆排序所需的辅助空间少于快速排序，并且不会出现快速排序可能出现的最坏情况，也就是排序效率稳定。</p>
+<p>归并排序：它有一定数量的数据移动，所以我们可能过与插入排序组合，先获得一定长度的 序列，然后再合并，在效率上将有所提高。</p>
+<p>2）当 n 较大，内存空间允许，且要求稳定性 =&gt; 归并排序</p>
+<p>3） 当 n 较小，可采用直接插入或直接选择排序。</p>
+<h2 id="什么时候用到堆排序，快排"><a href="#什么时候用到堆排序，快排" class="headerlink" title="什么时候用到堆排序，快排"></a>什么时候用到堆排序，快排</h2><pre><code> 快速排序是目前基于比较的内部排序中被认为是最好的方法，当待排序的关键字是随机分布时，快速排序的平均时间最短；
+</code></pre>
+<p>  　堆排序(优先队列)所需的辅助空间少于快速排序，并且不会出现快速排序可能出现的最坏情况。这两种排序都是不稳定的。</p>
+<h2 id="哈希冲突"><a href="#哈希冲突" class="headerlink" title="哈希冲突"></a>哈希冲突</h2><ol>
+<li><p>开放定址法：</p>
+<ul>
+<li>线性探测再散列 di = 1 , 2 , 3 , … , m-1</li>
+<li>平方探测再散列 di = 1 , -1 , 2, -2 , 3 , -3 , … , k , -k(取相应数的平方)</li>
+<li>随机探测再散列 di 是一组伪随机数列</li>
+</ul>
+</li>
+<li><p>链接法：</p>
+<p>将所有哈希地址相同的记录都链接在同一链表中。</p>
+</li>
+<li><p>再哈希法：</p>
+<p>再次进行另一个哈希函数计算，直到冲突不发生。</p>
+</li>
+<li><p>建立公共溢出区</p>
+<p>将哈希表分为基本表和溢出表两部分，凡是和基本表发生冲突的元素，一律填入溢出表</p>
+</li>
+</ol>
+<h2 id="了解动态规划吗"><a href="#了解动态规划吗" class="headerlink" title="了解动态规划吗"></a>了解动态规划吗</h2><p>动态规划与分治方法类似，都是通过组合子问题的解来来求解原问题的。再来了解一下什么是分治方法，以及这两者之间的差别，分治方法将问题划分为互不相交的子问题，递归的求解子问题，再将它们的解组合起来，求出原问题的解。而动态规划与之相反，动态规划应用与子问题重叠的情况，即不同的子问题具有公共的子子问题（子问题的求解是递归进行的，将其划分为更小的子子问题）。在这种情况下，分治方法会做许多不必要的工作，他会反复求解那些公共子子问题。而动态规划对于每一个子子问题只求解一次，将其解保存在一个表格里面，从而无需每次求解一个子子问题时都重新计算，避免了不必要的计算工作。<br>  动态规划的应用场景：<br>动态规划方法一般用来求解最优化问题。这类问题可以有很多可行解，每个解都有一个值，我们希望找到具有最优值的解，我们称这样的解为问题的一个最优解，而不是最优解，因为可能有多个解都达到最优值。<br>   我们解决动态规划问题一般分为四步：<br>1、定义一个状态，这是一个最优解的结构特征<br>2、进行状态递推，得到递推公式<br>3、进行初始化<br>4、返回结果</p>
+<h2 id="讲一下数据库索引，数据库索引用什么实现，为什么不用B树，不用hashmap"><a href="#讲一下数据库索引，数据库索引用什么实现，为什么不用B树，不用hashmap" class="headerlink" title="讲一下数据库索引，数据库索引用什么实现，为什么不用B树，不用hashmap"></a>讲一下数据库索引，数据库索引用什么实现，为什么不用B树，不用hashmap</h2><p>过</p>
+<h2 id="建立abc的联合索引，b-1能命中索引吗"><a href="#建立abc的联合索引，b-1能命中索引吗" class="headerlink" title="建立abc的联合索引，b=1能命中索引吗"></a>建立abc的联合索引，b=1能命中索引吗</h2><p>为什么要用联合索引？</p>
+<p>对于查询语句“SELECT T.* FROM T WHERE T.c1=1 AND T.c3=2”涉及到两列，这个时候我们一般采用一个联合索引(c1, c3)；而不用两个单列索引，这是因为一条查询语句往往应为mysql优化器的关系只用一个索引，就算你有两个索引，他也只用一个；在只用一个的基础之上，联合索引是会比单列索引要快的；</p>
+<p>下面讲讲联合索引的使用规则和哪些情况会命中不了联合索引</p>
+<p>示例如下。首先创建表： CREATE TABLE T (c1 INT, c2 VARCHAR(9), c3 INT, PRIMARY KEY(c1, c3)); 这样就建立了一个联合索引：c1,c3</p>
+<p>触发联合索引是有条件的： 1、使用联合索引的全部索引键，可触发索引的使用。 例如：SELECT T.* FROM T WHERE T.c1=1 AND T.c3=2</p>
+<p>2、使用联合索引的前缀部分索引键，如“key_part_1 常量”，可触发索引的使用。 例如：SELECT T.* FROM T WHERE T.c1=1</p>
+<p>3、使用部分索引键，但不是联合索引的前缀部分，如“key_part_2 常量”，不可触发索引的使用。 例如：SELECT T.* FROM T WHERE T.c3=1</p>
+<p>4、使用联合索引的全部索引键，但索引键不是AND操作，不可触发索引的使用。 例如：SELECT T.* FROM T WHERE T.c3=2 OR T.c1=1</p>
+<h2 id="索引的命中规则知道吗"><a href="#索引的命中规则知道吗" class="headerlink" title="索引的命中规则知道吗"></a>索引的命中规则知道吗</h2><p><strong>索引****命中规则</strong>详解：</p>
+<p>t这张表 a,b,c 三个字段组成组合<strong>索引</strong></p>
+<ol>
+<li> <strong>索引****命中规则</strong>详解：</li>
+<li> t这张表 a,b,c 三个字段组成组合<strong>索引</strong></li>
+<li> select * from t where a=? and b=? and c=? 全命中</li>
+<li> select * from t where c=? and b=? and a=? 全命中 解析MySQL<strong>的</strong>查询优化器会自动调整where子句<strong>的</strong>条件顺序以使用适合<strong>的****索引</strong></li>
+<li> select * from t where a=? 命中a 解析:最左前缀匹配</li>
+<li> select * from t where a=? and b=? 命中a和b 解析:最左前缀匹配</li>
+<li> select * from t where a=? or b=? 一个没命中 解析or无法命中</li>
+<li> select * from t where a=? and c=? 命中a 解析:最左前缀匹配，中间没有则无法使用<strong>索引</strong></li>
+<li> select * from t where a=? and b in ( x, y, z) and c=? 全部命中 in精确匹配可以使用<strong>索引</strong></li>
+<li> select * from t where b=? 一个没命中 解析:最左前缀匹配原则</li>
+<li> select * from t where b=? and c=? 一个没命中 解析:最左前缀匹配原则</li>
+<li> select * from t where a=? and b like ‘xxx%’ 命中a</li>
+<li> select * from t where a=? and b like ‘%xxx’ 命中a和b</li>
+<li> select * from t where a&lt;? and b=? 命中a 解析这个是范围查找</li>
+<li> select * from t where a between ? and ? and b=? 命中a和b 解析BETWEEN相当于in操作是精确匹配</li>
+<li> select * from t where a between ? and ? and b=? and c and between ? and ? 全部命解析中同上</li>
+<li> select * from where a-1=? 函数和表达式无法命中<strong>索引</strong></li>
+</ol>
+<h2 id="数据库的事务"><a href="#数据库的事务" class="headerlink" title="数据库的事务"></a>数据库的事务</h2><p>事务就是一个对数据库操作的序列，是一个不可分割的工作单位，要不这个序列里面的操作全部执行，要不全部不执行。<br><strong>特性：</strong>原子性 （Atomicity） 持久性（Durability） 一致性（Consistency） 隔离性（Isolation）</p>
+<h2 id="什么叫不可重复读"><a href="#什么叫不可重复读" class="headerlink" title="什么叫不可重复读"></a>什么叫不可重复读</h2><p>就是在一个事务范围内，两次相同的查询会返回两个不同的数据,是因为在此间隔内有其他事务对数据进行了修改。如下图：</p>
+<p><img src="https://img-blog.csdn.net/20180805160649484?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NDQ3NDE0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<h2 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h2><p>类加载的过程<br>我们编写的java文件都是保存着业务逻辑代码。java编译器将 .java 文件编译成扩展名为 .class 的文件。.class 文件中保存着java转换后，虚拟机将要执行的指令。当需要某个类的时候，java虚拟机会加载 .class 文件，并创建对应的class对象，将class文件加载到虚拟机的内存，这个过程被称为类的加载。</p>
+<p>加载<br>类加载过程的一个阶段，ClassLoader通过一个类的完全限定名查找此类字节码文件，并利用字节码文件创建一个class对象。</p>
+<p>验证<br>目的在于确保class文件的字节流中包含信息符合当前虚拟机要求，不会危害虚拟机自身的安全，主要包括四种验证：文件格式的验证，元数据的验证，字节码验证，符号引用验证。</p>
+<p>准备<br>为类变量（static修饰的字段变量）分配内存并且设置该类变量的初始值，（如static int i = 5 这里只是将 i 赋值为0，在初始化的阶段再把 i 赋值为5)，这里不包含final修饰的static ，因为final在编译的时候就已经分配了。这里不会为实例变量分配初始化，类变量会分配在方法区中，实例变量会随着对象分配到Java堆中。</p>
+<p>解析<br>这里主要的任务是把常量池中的符号引用替换成直接引用</p>
+<p>初始化<br>这里是类记载的最后阶段，如果该类具有父类就进行对父类进行初始化，执行其静态初始化器（静态代码块）和静态初始化成员变量。（前面已经对static 初始化了默认值，这里我们对它进行赋值，成员变量也将被初始化）<br>具体参考：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40236948/article/details/88072698">Java类加载机制</a></p>
+<h2 id="为什么使用双亲委派机制"><a href="#为什么使用双亲委派机制" class="headerlink" title="为什么使用双亲委派机制"></a>为什么使用双亲委派机制</h2><p>过</p>
+<h2 id="forName和loaderClass区别"><a href="#forName和loaderClass区别" class="headerlink" title="forName和loaderClass区别"></a>forName和loaderClass区别</h2><ul>
+<li>Class.forName()得到的class是已经初始化完成的。</li>
+<li>Classloader.loaderClass得到的class是还没有链接（验证，准备，解析三个过程被称为链接）的。</li>
+</ul>
+<h2 id="如何破坏双亲委派机制"><a href="#如何破坏双亲委派机制" class="headerlink" title="如何破坏双亲委派机制"></a>如何破坏双亲委派机制</h2><ol>
+<li>自定义类加载器，重写ClassLoader类的loadClass()方法</li>
+<li>使用线程上下文类加载器；</li>
+</ol>
+<h2 id="写代码中出现的异常能都说一下吗"><a href="#写代码中出现的异常能都说一下吗" class="headerlink" title="写代码中出现的异常能都说一下吗"></a>写代码中出现的异常能都说一下吗</h2><p>过</p>
+<h2 id="有写过web项目"><a href="#有写过web项目" class="headerlink" title="有写过web项目"></a>有写过web项目</h2><p>过</p>
+<h2 id="对Java并发了解吗"><a href="#对Java并发了解吗" class="headerlink" title="对Java并发了解吗"></a>对Java并发了解吗</h2><p>了解</p>
+<h2 id="线程池有哪几种，分别在哪些场景能使用"><a href="#线程池有哪几种，分别在哪些场景能使用" class="headerlink" title="线程池有哪几种，分别在哪些场景能使用"></a>线程池有哪几种，分别在哪些场景能使用</h2><p>4种。</p>
+<p>newCachedThreadPool：</p>
+<ul>
+<li>底层：返回ThreadPoolExecutor实例，corePoolSize为0；maximumPoolSize为Integer.MAX_VALUE；keepAliveTime为60L；unit为TimeUnit.SECONDS；workQueue为SynchronousQueue(同步队列)</li>
+<li>通俗：当有新任务到来，则插入到SynchronousQueue中，由于SynchronousQueue是同步队列，因此会在池中寻找可用线程来执行，若有可以线程则执行，若没有可用线程则创建一个线程来执行该任务；若池中线程空闲时间超过指定大小，则该线程会被销毁。</li>
+<li>适用：执行很多短期异步的小程序或者负载较轻的服务器</li>
+</ul>
+<p>newFixedThreadPool：</p>
+<ul>
+<li>底层：返回ThreadPoolExecutor实例，接收参数为所设定线程数量nThread，corePoolSize为nThread，maximumPoolSize为nThread；keepAliveTime为0L(不限时)；unit为：TimeUnit.MILLISECONDS；WorkQueue为：new LinkedBlockingQueue<Runnable>() 无解阻塞队列</li>
+<li>通俗：创建可容纳固定数量线程的池子，每隔线程的存活时间是无限的，当池子满了就不在添加线程了；如果池中的所有线程均在繁忙状态，对于新任务会进入阻塞队列中(无界的阻塞队列)</li>
+<li>适用：执行长期的任务，性能好很多</li>
+</ul>
+<p>newSingleThreadExecutor:</p>
+<ul>
+<li>底层：FinalizableDelegatedExecutorService包装的ThreadPoolExecutor实例，corePoolSize为1；maximumPoolSize为1；keepAliveTime为0L；unit为：TimeUnit.MILLISECONDS；workQueue为：new LinkedBlockingQueue<Runnable>() 无解阻塞队列</li>
+<li>通俗：创建只有一个线程的线程池，且线程的存活时间是无限的；当该线程正繁忙时，对于新任务会进入阻塞队列中(无界的阻塞队列)</li>
+<li>适用：一个任务一个任务执行的场景</li>
+</ul>
+<p>NewScheduledThreadPool:</p>
+<ul>
+<li>底层：创建ScheduledThreadPoolExecutor实例，corePoolSize为传递来的参数，maximumPoolSize为Integer.MAX_VALUE；keepAliveTime为0；unit为：TimeUnit.NANOSECONDS；workQueue为：new DelayedWorkQueue() 一个按超时时间升序排序的队列</li>
+<li>通俗：创建一个固定大小的线程池，线程池内线程存活时间无限制，线程池可以支持定时及周期性任务执行，如果所有线程均处于繁忙状态，对于新任务会进入DelayedWorkQueue队列中，这是一种按照超时时间排序的队列结构</li>
+<li>适用：周期性执行任务的场景</li>
+</ul>
+<p>线程池任务执行流程：</p>
+<ol>
+<li>当线程池小于corePoolSize时，新提交任务将创建一个新线程执行任务，即使此时线程池中存在空闲线程。</li>
+<li>当线程池达到corePoolSize时，新提交任务将被放入workQueue中，等待线程池中任务调度执行</li>
+<li>当workQueue已满，且maximumPoolSize&gt;corePoolSize时，新提交任务会创建新线程执行任务</li>
+<li>当提交任务数超过maximumPoolSize时，新提交任务由RejectedExecutionHandler处理</li>
+<li>当线程池中超过corePoolSize线程，空闲时间达到keepAliveTime时，关闭空闲线程</li>
+<li>当设置allowCoreThreadTimeOut(true)时，线程池中corePoolSize线程空闲时间达到keepAliveTime也将关闭</li>
+</ol>
+<h2 id="为什么用线程池"><a href="#为什么用线程池" class="headerlink" title="为什么用线程池"></a>为什么用线程池</h2><p>为了减少创建和销毁线程的次数，让每个线程可以多次使用,可根据系统情况<strong>调整执行</strong>的线程数量，防止消耗过多内存,所以我们可以使用线程池.</p>
+<h2 id="线程建很多是不是就能解决一切问题"><a href="#线程建很多是不是就能解决一切问题" class="headerlink" title="线程建很多是不是就能解决一切问题"></a>线程建很多是不是就能解决一切问题</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/pangzhaowen/article/details/106141365">面试总被问，创建多少个线程合适？真的越多越好吗</a></p>
+<h2 id="volatile关键字"><a href="#volatile关键字" class="headerlink" title="volatile关键字"></a>volatile关键字</h2><p>过</p>
+<h2 id="讲一下BIO-AIO-NIO"><a href="#讲一下BIO-AIO-NIO" class="headerlink" title="讲一下BIO,AIO,NIO"></a>讲一下BIO,AIO,NIO</h2><p>BIO：Block IO 同步阻塞式 IO，就是我们平常使用的传统 IO，它的特点是模式简单使用方便，并发处理能力低。<br>NIO：New IO 同步非阻塞 IO，是传统 IO 的升级，客户端和服务器端通过 Channel（通道）通讯，实现了多路复用。<br>AIO：Asynchronous IO 是 NIO 的升级，也叫 NIO2，实现了异步非堵塞 IO ，异步 IO 的操作基于事件和回调机制。</p>
+<h2 id="什么情况用BIO，AIO-NIO"><a href="#什么情况用BIO，AIO-NIO" class="headerlink" title="什么情况用BIO，AIO,NIO"></a>什么情况用BIO，AIO,NIO</h2><h1 id="阿里二面"><a href="#阿里二面" class="headerlink" title="阿里二面"></a>阿里二面</h1><h2 id="讲一下对于socket的了解，瓶颈是什么"><a href="#讲一下对于socket的了解，瓶颈是什么" class="headerlink" title="讲一下对于socket的了解，瓶颈是什么"></a>讲一下对于socket的了解，瓶颈是什么</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41563161/article/details/104779605">Socket详解</a></p>
+<h2 id="怎么设计数据库的表结构（数据库的反向设计）"><a href="#怎么设计数据库的表结构（数据库的反向设计）" class="headerlink" title="怎么设计数据库的表结构（数据库的反向设计）"></a>怎么设计数据库的表结构（数据库的反向设计）</h2><p>真就不清楚</p>
+<h2 id="客户端特别多连接服务端会发生什么，崩溃的原因是什么"><a href="#客户端特别多连接服务端会发生什么，崩溃的原因是什么" class="headerlink" title="客户端特别多连接服务端会发生什么，崩溃的原因是什么"></a>客户端特别多连接服务端会发生什么，崩溃的原因是什么</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%A2%E7%BB%8F/" rel="tag"># 面经</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/10/datastrcture210410/" rel="prev" title="数据结构面经">
+      <i class="fa fa-chevron-left"></i> 数据结构面经
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/10/zijiemianjing210510/" rel="next" title="字节面经">
+      字节面经 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E4%B8%80%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">阿里一面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%8C%E8%AE%B2%E4%B8%80%E4%B8%8B%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">图的数据结构，讲一下遍历方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E6%8E%92%E5%BA%8F%E6%96%B9%E5%BC%8F%EF%BC%88%E7%A8%B3%E5%AE%9A%EF%BC%8C%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">常用的排序方式（稳定，时间复杂度，空间复杂度）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E7%94%A8%E5%88%B0%E5%A0%86%E6%8E%92%E5%BA%8F%EF%BC%8C%E5%BF%AB%E6%8E%92"><span class="nav-number">4.</span> <span class="nav-text">什么时候用到堆排序，快排</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E5%86%B2%E7%AA%81"><span class="nav-number">5.</span> <span class="nav-text">哈希冲突</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%90%97"><span class="nav-number">6.</span> <span class="nav-text">了解动态规划吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%B2%E4%B8%80%E4%B8%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E7%94%A8%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%8C%E4%B8%8D%E7%94%A8hashmap"><span class="nav-number">7.</span> <span class="nav-text">讲一下数据库索引，数据库索引用什么实现，为什么不用B树，不用hashmap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8Babc%E7%9A%84%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%EF%BC%8Cb-1%E8%83%BD%E5%91%BD%E4%B8%AD%E7%B4%A2%E5%BC%95%E5%90%97"><span class="nav-number">8.</span> <span class="nav-text">建立abc的联合索引，b&#x3D;1能命中索引吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E5%91%BD%E4%B8%AD%E8%A7%84%E5%88%99%E7%9F%A5%E9%81%93%E5%90%97"><span class="nav-number">9.</span> <span class="nav-text">索引的命中规则知道吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%BA%8B%E5%8A%A1"><span class="nav-number">10.</span> <span class="nav-text">数据库的事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E5%8F%AB%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB"><span class="nav-number">11.</span> <span class="nav-text">什么叫不可重复读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6"><span class="nav-number">12.</span> <span class="nav-text">类加载机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6"><span class="nav-number">13.</span> <span class="nav-text">为什么使用双亲委派机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#forName%E5%92%8CloaderClass%E5%8C%BA%E5%88%AB"><span class="nav-number">14.</span> <span class="nav-text">forName和loaderClass区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%A0%B4%E5%9D%8F%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6"><span class="nav-number">15.</span> <span class="nav-text">如何破坏双亲委派机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E4%BB%A3%E7%A0%81%E4%B8%AD%E5%87%BA%E7%8E%B0%E7%9A%84%E5%BC%82%E5%B8%B8%E8%83%BD%E9%83%BD%E8%AF%B4%E4%B8%80%E4%B8%8B%E5%90%97"><span class="nav-number">16.</span> <span class="nav-text">写代码中出现的异常能都说一下吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%89%E5%86%99%E8%BF%87web%E9%A1%B9%E7%9B%AE"><span class="nav-number">17.</span> <span class="nav-text">有写过web项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9Java%E5%B9%B6%E5%8F%91%E4%BA%86%E8%A7%A3%E5%90%97"><span class="nav-number">18.</span> <span class="nav-text">对Java并发了解吗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%EF%BC%8C%E5%88%86%E5%88%AB%E5%9C%A8%E5%93%AA%E4%BA%9B%E5%9C%BA%E6%99%AF%E8%83%BD%E4%BD%BF%E7%94%A8"><span class="nav-number">19.</span> <span class="nav-text">线程池有哪几种，分别在哪些场景能使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">20.</span> <span class="nav-text">为什么用线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%BB%BA%E5%BE%88%E5%A4%9A%E6%98%AF%E4%B8%8D%E6%98%AF%E5%B0%B1%E8%83%BD%E8%A7%A3%E5%86%B3%E4%B8%80%E5%88%87%E9%97%AE%E9%A2%98"><span class="nav-number">21.</span> <span class="nav-text">线程建很多是不是就能解决一切问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">22.</span> <span class="nav-text">volatile关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%B2%E4%B8%80%E4%B8%8BBIO-AIO-NIO"><span class="nav-number">23.</span> <span class="nav-text">讲一下BIO,AIO,NIO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E7%94%A8BIO%EF%BC%8CAIO-NIO"><span class="nav-number">24.</span> <span class="nav-text">什么情况用BIO，AIO,NIO</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E4%BA%8C%E9%9D%A2"><span class="nav-number"></span> <span class="nav-text">阿里二面</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%B2%E4%B8%80%E4%B8%8B%E5%AF%B9%E4%BA%8Esocket%E7%9A%84%E4%BA%86%E8%A7%A3%EF%BC%8C%E7%93%B6%E9%A2%88%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">讲一下对于socket的了解，瓶颈是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E8%AE%BE%E8%AE%A1%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E8%A1%A8%E7%BB%93%E6%9E%84%EF%BC%88%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8F%8D%E5%90%91%E8%AE%BE%E8%AE%A1%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">怎么设计数据库的表结构（数据库的反向设计）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%89%B9%E5%88%AB%E5%A4%9A%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88%EF%BC%8C%E5%B4%A9%E6%BA%83%E7%9A%84%E5%8E%9F%E5%9B%A0%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">3.</span> <span class="nav-text">客户端特别多连接服务端会发生什么，崩溃的原因是什么</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="porridgechou"
+      src="/images/clx.jpg">
+  <p class="site-author-name" itemprop="name">porridgechou</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">porridgechou</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
