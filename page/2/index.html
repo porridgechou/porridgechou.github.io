@@ -188,6 +188,194 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/26/210326cjdatabase/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/clx.jpg">
+      <meta itemprop="name" content="porridgechou">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mynote">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/26/210326cjdatabase/" class="post-title-link" itemprop="url">常见数据结构时间复杂度</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-26 19:18:38" itemprop="dateCreated datePublished" datetime="2021-03-26T19:18:38+08:00">2021-03-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-03-29 21:07:48" itemprop="dateModified" datetime="2021-03-29T21:07:48+08:00">2021-03-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><ul>
+<li>添加：O(1)</li>
+<li>删除：O(n）</li>
+<li>修改：O(1)</li>
+<li>查询：O(n)</li>
+<li>尺寸：O(1)</li>
+</ul>
+<h2 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h2><ul>
+<li>插入：O(1)，如果需要查找再插入则O(n)</li>
+<li>删除：O(1)，如果需要查找再删除则O(n)</li>
+<li>搜索：O(n)</li>
+</ul>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><ul>
+<li>推：O（1）</li>
+<li>Pop：O（1）</li>
+<li>上：O（1）</li>
+<li>搜索（像查找，像一个特殊的操作）：O（n）</li>
+</ul>
+<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><ul>
+<li>插入：O（1）</li>
+<li>删除：O（1）</li>
+<li>尺寸：O（1）</li>
+</ul>
+<h2 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h2><ul>
+<li>查找：O（1）</li>
+<li>插入：O（1）</li>
+<li>删除：可根据链表输入长度决定，在最坏情况下，链表长度为n，时间复杂度就为O（n）</li>
+</ul>
+<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>最佳</th>
+<th>平均</th>
+<th>最差</th>
+<th>最差情况下的空间复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>快速排序</td>
+<td>O(nlogn)</td>
+<td>O(nlogn)</td>
+<td>O(n*n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>归并排序</td>
+<td>O(nlogn)</td>
+<td>O(nlogn)</td>
+<td>O(nlogn)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>堆排序</td>
+<td>O(nlogn)</td>
+<td>O(nlogn)</td>
+<td>O(nlogn)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>冒泡排序</td>
+<td>O(n)</td>
+<td>O(n*n)</td>
+<td>O(n*n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>插入排序</td>
+<td>O(n)</td>
+<td>O(n*n)</td>
+<td>O(n*n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>选择排序</td>
+<td>O(n*n)</td>
+<td>O(n*n)</td>
+<td>O(n*n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>桶排序</td>
+<td>O(n+k)</td>
+<td>O(n+k)</td>
+<td>O(n*n)</td>
+<td>O(nk)</td>
+</tr>
+<tr>
+<td>基数排序</td>
+<td>O(nk)</td>
+<td>O(nk)</td>
+<td>O(nk)</td>
+<td>O(n+k)</td>
+</tr>
+</tbody></table>
+<h2 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h2><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>平均</th>
+<th>最差</th>
+<th>最差空间复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>深度优先搜索(DFS)</td>
+<td>-</td>
+<td>O(E+V)</td>
+<td>O(V)</td>
+</tr>
+<tr>
+<td>广度优先搜索(BFS)</td>
+<td>-</td>
+<td>O(E+V)</td>
+<td>O(V)</td>
+</tr>
+<tr>
+<td>二分查找</td>
+<td>O(logn)</td>
+<td>O(logn)</td>
+<td>O(1)</td>
+</tr>
+</tbody></table>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><p>[1]<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/99ae14b48c0f">https://www.jianshu.com/p/99ae14b48c0f</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/24/210324Javabase/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1853,114 +2041,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/18/network-coding/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/clx.jpg">
-      <meta itemprop="name" content="porridgechou">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mynote">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/18/network-coding/" class="post-title-link" itemprop="url">网络编程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-18 15:49:00" itemprop="dateCreated datePublished" datetime="2021-03-18T15:49:00+08:00">2021-03-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-28 14:08:30" itemprop="dateModified" datetime="2021-03-28T14:08:30+08:00">2021-03-28</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h1><p>ip地址：InetAddress</p>
-<ul>
-<li><p>127.0.0.1 ：本机localhost</p>
-</li>
-<li><p>ip地址的分类</p>
-</li>
-<li><ul>
-<li>ipv4/ipv6</li>
-<li><ul>
-<li>IPV4 4个字节组成</li>
-<li>IPV6 128位，8个无符号整数</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>java.net的包就是用于Internet用的</p>
-<h1 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h1><ul>
-<li><p>不同的进程拥有不同的端口号，用来区分软件。</p>
-</li>
-<li><p>被规定0~65535</p>
-</li>
-<li><p>端口分类</p>
-</li>
-<li><ul>
-<li>公有端口</li>
-<li><ul>
-<li>HTTP：80</li>
-<li>HTTPS：443</li>
-<li>FTP：21</li>
-<li>Telent：23</li>
-</ul>
-</li>
-<li>程序注册端口</li>
-<li><ul>
-<li>Tomcat：8080</li>
-<li>MySQL：3306</li>
-<li>Oracle：1521</li>
-</ul>
-</li>
-<li>动态、私有：49152~65535</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -ano <span class="comment">#查看所有的端口</span></span><br><span class="line">netstat -ano |findstr <span class="string">&quot;5900&quot;</span></span><br><span class="line">tasklist | finder <span class="string">&quot;8696&quot;</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -2032,7 +2112,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2045,7 +2125,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
